@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "MemberList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+        <h5 class="panel-title">আবেদনকারী ভিডিপি/টিডিপি সদস্যদের তালিকা</h5>
+
+    </div>
+    <div class="panel-body">
+       @using (Html.BeginForm("MemberList", "Member", FormMethod.Post, new { @class = "form-inline" }))
+       {
+            <div class="form-group">
+                <label for="exampleInputName2">স্ট্যাটাস</label>
+                
+                @Html.DropDownList("Status", ViewBag.Status as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control" })
+            </div>
+            <button type="submit" id="btnSearch" class="btn btn-primary">খুঁজুন</button>
+            <div class="pull-right">
+                @Html.ActionLink("নতুন সদস্য তৈরী", "PersonalInfo", null, new { @class = "btn  bg-slate-800" })
+            </div>
+       }
+  
+    </div>
+
+    
+
+    @{
+        if (TempData["Paindding"] != null)
+        {
+            
+           Html.RenderAction("MemberDetailsList", "Member", new { id = TempData["s"] });
+            
+              
+        }
+    }
+
+    @{
+        if (TempData["Approved"] != null)
+        {
+            
+           Html.RenderAction("MemberDetailsList", "Member", new { id = TempData["s"] });
+            
+              
+        }
+    }
+
+</div>
+

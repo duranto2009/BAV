@@ -1,0 +1,710 @@
+﻿
+@model BAV.Models.PersonalInfoMemberAddressBodyStructureReligion
+
+@{
+    ViewBag.Title = "MemberDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .thumbnail {
+        position: relative;
+        overflow: hidden;
+        background-color: #f2f3db;
+        border: 0px solid #dddddd;
+        border-radius: 0px;
+    }
+    .caption {
+        position: absolute;
+        top: -100%;
+        right: 0;
+        background: rgba(66, 139, 202, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        text-align: center;
+        color: #fff !important;
+        z-index: 2;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+    .thumbnail:hover .caption {
+        top: 0%;
+    }
+    .thumbnaile {
+        position: relative;
+        overflow: hidden;
+        background-color: #f2f3db;
+        border: 0px solid #dddddd;
+        border-radius: 0px;
+        width: 110px;
+    }
+    .captione {
+        position: absolute;
+        top: -165px;
+        right: 0;
+        background: rgba(66, 139, 202, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        text-align: center;
+        color: #fff !important;
+        z-index: 2;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+    .thumbnaile:hover .captione {
+        top: 0;
+        padding: 0 !important;
+    }
+
+    #clo
+    {
+        color: green;
+    }
+
+
+    ul {
+        list-style: none;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 5px 9px !important;
+    }
+
+    .table-bordered {
+        border: 1px solid #ebebeb !important;
+    }
+
+    .table, .profile-name h3 {
+        color: #666;
+    }
+
+    .panel-body{
+        padding:0 20px 20px!important;
+    }
+
+    .ui-dialog-content .form-group:last-child, .ui-dialog-content p:last-child {
+        margin-bottom: 12px!important;
+    }
+
+</style>
+
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">স্বেচ্ছাসেবী ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য</h3>
+    </div>
+    <div class="panel-body">
+
+        <p style="color:red">@TempData["comandar"]</p>
+
+        <div class="profile-env">
+
+            <header class="row">
+
+                <div class="col-sm-3">
+
+                    <a href="#" class="profile-picture">
+
+                        @{
+                            if (Model.statusid == 2)
+                            {
+                                 <div class="thumbnail">
+                                      <div class="caption">
+                                        <h4 style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">ছবি পরিবর্তন</h4>
+
+                                        <p>
+
+                                            @Html.ActionLink("Edit", "Imageedit", new { id = Model.Id }, new { @class = "btn btn-sm center-block label label-default", data_toggle = "modal", data_target = "#ModalImageedit" })
+
+                                        </p>
+                                    </div>
+                                    <img style="width:150px;height:100px" src="~/VolantiarImage/@Html.DisplayFor(model => model.Imge)" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <h4 style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">ছবি পরিবর্তন</h4>
+
+                                        <p>
+
+                                            @Html.ActionLink("Edit", "Imageedit", new { id = Model.Id }, new { @class = "btn btn-sm center-block label label-default", data_toggle = "modal", data_target = "#ModalImageedit" })
+
+                                        </p>
+                                    </div>
+                                    <img style="width:150px;height:100px" src="~/VolantiarImage/@Html.DisplayFor(model => model.Imge)" />
+                                </div>
+
+                            }
+                        }
+
+                    </a>
+
+                </div>
+
+                <div class="col-sm-9">
+
+                    <ul class="profile-info-sections">
+                        <li style="padding:0px; margin:0px;">
+                            <div class="profile-name">
+                                <h3>
+                                    @Html.DisplayFor(model => model.bname, new { @class = "form-control input-sm" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.ename, new { @class = "form-control input-sm" })
+                                </h3>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+            </header>
+
+            <section class="profile-info-tabs">
+
+                <div class="row">
+
+
+                    <br>
+                    <table class="table table-bordered">
+
+                        <tbody>
+                            <tr class="active">
+
+                                <th colspan="3">ব্যক্তিগত তথ্য
+                                    
+                                @Html.ActionLink("Edit", "MemberEdit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm pull-right", data_toggle = "modal", data_target = "#ModalMemberEdit" })
+                                    
+                                </th>
+                                
+                            </tr>
+
+                            @{
+                                if (Model.statusid == 2)
+                                {
+                                    <tr>
+                                        <td>সদস্য নাম্বার:</td>
+                                        <td><b>@Html.DisplayFor(model => model.membercode, new { @class = "form-control input-sm" })</b></td>
+                                    </tr>
+                                }
+                            }
+
+                            <tr>
+                                <td>প্লাটুনের নাম:</td>
+                                <td><b>@Html.DisplayFor(model => model.platunname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>পদবী: </td>
+                                <td><b>@Html.DisplayFor(model => model.designation, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>পিতার নাম:</td>
+                                <td><b>@Html.DisplayFor(model => model.bfname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>Father Name:</td>
+                                <td><b>@Html.DisplayFor(model => model.efname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            <tr>
+                                <td>মাতার নাম</td>
+                                <td><b>@Html.DisplayFor(model => model.bmname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            <tr>
+                                <td>Mother Name</td>
+                                <td><b>@Html.DisplayFor(model => model.emname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            
+                         
+                            <tr class="active">
+                                <th colspan="3">পারিবারিক তথ্য
+                                   
+                                @Html.ActionLink("Edit", "MemberDetailEdit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm pull-right", data_toggle = "modal", data_target = "#ModalMemberDetailEdit" })
+                                   
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>জন্ম তারিখ:</td>
+                                <td><b>@Html.DisplayFor(model => model.dob, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>বৈবাহিক অবস্থা: </td>
+                                <td><b>@Html.DisplayFor(model => model.maritalstatus, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            <tr>
+                                <td>স্বামী/স্ত্রীর নাম:</td>
+                                <td><b>@Html.DisplayFor(model => model.smname, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+                            <tr>
+                                <td>স্বামী/স্ত্রীর পেশা:</td>
+                                <td>
+                                    <b>@Html.DisplayFor(model => model.smpasa, new { @class = "form-control input-sm" })</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>জাতীয় পরিচয় পত্র নং: </td>
+                                <td>
+                                    <b>
+                                        @Html.DisplayFor(model => model.nid, new { @class = "form-control input-sm" })
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                @if (Model.sandadno == 1)
+                                {
+                                    <td>ড্রাইভিং লাইসেন্স নং:</td>
+                                    <td><b>@Html.DisplayFor(model => model.dobno, new { @class = "form-control input-sm" })</b></td>
+
+                                }
+                                else if (Model.sandadno == 2)
+                                {
+                                    <td>পাসপোর্ট নং: </td>
+                                    <td>@Html.DisplayFor(model => model.dobno, new { @class = "form-control input-sm" })</td>
+                                }
+                                else if (Model.sandadno == 3)
+                                {
+                                    <td>জন্ম নিবন্ধন সনদ নং: </td>
+                                    <td>@Html.DisplayFor(model => model.dobno, new { @class = "form-control input-sm" })</td>
+                                }
+
+                            </tr>
+                            <tr>
+                                <td>পেশা:</td>
+                                <td><b>@Html.DisplayFor(model => model.occupation, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>ধর্ম:</td>
+                                <td><b>@Html.DisplayFor(model => model.religion, new { @class = "form-control input-sm" })</b></td>
+                            </tr>
+
+                            <tr class="border-double active">
+                                <th colspan="3">ঠিকানা
+                                @Html.ActionLink("Edit", "AddressEdit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm pull-right", data_toggle = "modal", data_target = "#ModalAddressEdit" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td>স্থায়ী ঠিকানা: </td>
+                                <td>
+                                    <b>
+                                    গ্রাম/বাড়ী/রোড: @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" }),
+                                    ডাকঘর(কোডসহ):@Html.DisplayFor(model => model.prpostcode, new { @class = "form-control input-sm" }),
+                                    ওর্য়াড:@Html.DisplayFor(model => model.perunion, new { @class = "form-control input-sm" }),
+                                    ইউনিয়ন:  @Html.DisplayFor(model => model.perunions, new { @class = "form-control input-sm" }),
+                                    থানা/উপজেলা:@Html.DisplayFor(model => model.perthana, new { @class = "form-control input-sm" }),
+                                    জেলা:@Html.DisplayFor(model => model.perdist, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>বর্তমান ঠিকানা: </td>
+                            <td>
+                                <b>
+                                    গ্রাম/বাড়ী/রোড:  @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" }),
+                                    ডাকঘর(কোডসহ):@Html.DisplayFor(model => model.prespostcode, new { @class = "form-control input-sm" }),
+                                    ওর্য়াড:@Html.DisplayFor(model => model.presunion, new { @class = "form-control input-sm" }),
+                                     ইউনিয়ন:@Html.DisplayFor(model => model.presunions, new { @class = "form-control input-sm" })
+                                    থানা/উপজেলা:@Html.DisplayFor(model => model.presthana, new { @class = "form-control input-sm" }),
+                                    জেলা: @Html.DisplayFor(model => model.presdist, new { @class = "form-control input-sm" })
+
+                                </b>
+                            </td>
+                        </tr>
+                        <tr class="border-double active">
+                            <th colspan="3">অন্যান্য তথ্য
+                            @Html.ActionLink("Edit", "QuestionsEdit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm pull-right", data_toggle = "modal", data_target = "#ModalQuestionsEdit" })
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>১. আপনি কি আর কোন প্রশিক্ষণ নিতে চান ?</td>
+                            @{ if (Model.po == 1)
+                                {
+                                <td id="clo">উঃ মৌলিক </td>
+                                }
+                               else if (Model.po == 2)
+                               {
+                                <td id="clo">উঃ পেশাভিত্তিক</td>
+                               }
+                               else if (Model.po == 3)
+                               {
+                                <td id="clo">উঃ বৃত্তিমুলক</td>
+                               }
+                               else
+                               {
+                                <td id="clo">উঃ অন্যান্যা</td>
+                               }
+                            }
+                        </tr>
+                        <tr>
+                            <td>২. আপনি কি আনসার ভি ডি পি-র প্রশিক্ষন প্রাপ্ত?</td>
+                            @{ if (Model.p == 1)
+                                {
+                                <td id="clo">উঃ হ্যাঁ
+                                    @Html.ActionLink("ট্রেনিং", "Prasikkan", "Prasikkan", new { id = Model.Id }, new { @class = "btn btn-primary btn-xs", data_toggle = "modal", data_target = "#ModalPrasikkan" })
+                                </td>
+                                
+                                }
+                                else
+                                {
+                                <td id="clo">উঃ না</td>
+                                }
+                            }
+                        </tr>
+
+                        <tr>
+                            <td>৩. আপনি কি জননিরাপত্তা কাজে আনসার ভি ডি পি -এর কোন চাকুরী বা ডিউটি করতে চান?</td>
+                            @{ if (Model.pos == 1)
+                                 {
+                                    <td id="clo">উঃ অঙ্গিভুত আনসার হিসেবে</td>
+                                 }
+                                 else if (Model.pos == 2)
+                                 {
+                                    <td id="clo">উঃ নির্বাচন ডিউটি</td>
+                                 }
+                                 else if (Model.pos == 3)
+                                 {
+                                    <td id="clo">উঃ পূজা,মেলার নিরাপত্তা ডিউটি</td>
+                                 }
+                                 else
+                                 {
+                                    <td id="clo">উঃ যে কোন নিরাপত্তা ডিউটি</td>
+                                 }
+                            }
+
+                        </tr>
+
+                        <tr>
+                            <td>৪. আপনি কি  আনসার ভি ডি পি -এর উন্নয়ন ব্যাংকের শেয়ারহোল্ডার ?</td>
+
+                              @{ if (Model.pot == 1)
+                                 {
+                                    <td id="clo">উঃ শেয়ারহোল্ডার</td>
+                                 }
+                                 else if (Model.pot == 2)
+                                 {
+                                    <td id="clo">উঃ নতুন শেয়ার ক্রয়ে ইছ্ছুক</td>
+                                 }
+
+                                 else
+                                 {
+                                    <td id="clo">উঃ নতুন ঋণ নিতে ইছ্ছুক</td>
+                                 }
+                            }
+
+                        </tr>
+                            
+                        <tr class="border-double active">
+                            <th colspan="3">শারিরীক যোগ্যতার তথ্য
+                                @Html.ActionLink("Edit", "OthersEdit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm pull-right", data_toggle = "modal", data_target = "#ModalOthersEdit" })
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td>উচ্চতা: </td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.height, new { @class = "form-control input-sm" })
+
+                                </b>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>ওজন: </td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.weight, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>লিঙ্গ: </td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.zender, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>চোখের রং: </td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.cyecolor, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>রক্তের গ্রুপ: </td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.bloodgroup, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>সনাক্তকরণ চিহ্ন: </td>
+                            <td><b>@Html.DisplayFor(model => model.sanaktakarn, new { @class = "form-control input-sm" })</b></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>মোবাইল:</td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.mobile, new { @class = "form-control input-sm" })
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>স্বাক্ষর:</td>
+                            <td>
+                                <div class="thumbnaile">
+                                    <div class="captione">
+                                        <h4 style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">স্বাক্ষর পরিবর্তন</h4>
+
+                                        <p>
+
+                                            @Html.ActionLink("Edit", "disgedit", new { id = Model.Id }, new { @class = "btn btn-sm center-block label label-default", data_toggle = "modal", data_target = "#Modaldisgedit" })
+
+                                        </p>
+                                    </div>
+                                    <img style="width:100px;height:95px" src="~/MemberSignature/@Html.DisplayFor(model => model.membersign)">
+                                </div>
+                            </td>
+                        </tr>
+
+                            
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+        @{if (ViewBag.c == "true")
+        {
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+                        Html.RenderAction("PrasikkanDetails", "Member", Model.Id);
+                    }
+
+                </div>
+            </div>
+        }
+        }
+
+        @{if (ViewBag.e == "true")
+        {
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+                        Html.RenderAction("EventDetailsList", "Member", Model.Id);
+                    }
+
+                </div>
+            </div>
+        }
+        }
+        @{
+            if (ViewBag.pc == "true")
+            {
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        @{
+                            Html.RenderAction("PlatunchangeHistry", "Member", Model.Id);
+                        }
+
+                    </div>
+                </div>
+            }
+        }
+        @*Body Structure end*@
+        <div class="text-center ">
+            @{
+                if (Model.statusid == 2)
+                {
+                    if (ViewBag.type != "true")
+                    {
+                        <br />
+                        if (Model.isactive == true)
+                        {
+                            @Html.ActionLink("Deactive", "Deactive", new { id = Model.Id }, new { @class = "btn btn-danger", data_toggle = "modal", data_target = "#ModalActive" })
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Inactive", "Deactive", new { id = Model.Id }, new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#ModalActive" })
+                            @Html.ActionLink("Print", "MemberDetailsReport", new { id = Model.Id }, new { style = "margin-left:40px", @class = "btn btn-primary", target = "_blank" })
+                        }
+                    }
+
+
+                }
+                else if (Model.membercode == null)
+                {
+                    <br />
+                    if (Convert.ToInt16(Session["rolename"])==2)
+                    {
+                        @Html.ActionLink("Approved", "Approved", new { id = Model.Id }, new { @class = "btn btn-primary" }) 
+                    }
+                    else
+                    { 
+                   
+                        @Html.ActionLink("Approved", "Approved", new { id = Model.Id }, new { @class = "btn btn-primary"})
+                  
+                   }
+                    @Html.ActionLink("Rejected", "RejectedMember", new { id = Model.Id }, new { style = "margin-left:40px", @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to reject member?')" })
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<div id="ModalImageedit" class="modal fade">
+
+</div>
+
+<div id="ModalMemberEdit" class="modal fade">
+
+</div>
+
+<div id="ModalMemberDetailEdit" class="modal fade">
+
+</div>
+
+<div id="ModalAddressEdit" class="modal fade">
+
+</div>
+
+<div id="ModalQuestionsEdit" class="modal fade">
+
+</div>
+
+<div id="ModalPrasikkan" class="modal fade">
+
+</div>
+
+<div id="ModalOthersEdit" class="modal fade">
+
+</div>
+
+<div id="Modaldisgedit" class="modal fade">
+
+</div>
+
+<div id="ModalActive" class="modal fade">
+
+</div>
+
+
+@{if(TempData["error"]!=null)
+    { 
+        <div id="dialog" title="Basic dialog">
+           <p style="text-align:center;color:red"> @TempData["error"]</p>
+        </div>
+    }
+}
+
+
+@section Scripts {
+
+<script>
+    $(document).ready(function () {
+        if ('@Session["pid"]' != '') {
+            var id = '@Session["pid"]';
+            var url = '/Member/MemberDetailsReport/' + id;
+            window.open(url, '_blank');
+        }
+    })
+    $(function () {
+        $("#dialog").dialog();
+
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+
+                title: 'Member Edit',
+
+                autoOpen: false,
+
+                resizable: false,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                draggable: true,
+                buttons: {
+
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                },
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        });
+    });
+
+</script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

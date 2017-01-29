@@ -1,0 +1,37 @@
+﻿@model List<BAV.Models.MemberPlatunChangeList>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+<legend class="text-bold">প্লাটুন পরিবর্তনের তথ্য</legend>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr style="background-color:gray">
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>শুরুর তারিখ</th>
+                <th>শেষ তারিখ</th>
+             
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.PlatunName</td>
+                    <td>@item.Data.startdate.ToShortDateString()</td>
+                    <td>@item.Data.enddate.ToShortDateString()</td>
+                   
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>

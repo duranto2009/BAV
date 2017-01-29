@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Eventreportdataset" targetNamespace="http://tempuri.org/Eventreportdataset.xsd" xmlns:mstns="http://tempuri.org/Eventreportdataset.xsd" xmlns="http://tempuri.org/Eventreportdataset.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Eventreportdataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Eventreportdataset" msprop:Generator_UserDSName="Eventreportdataset">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EventvolantiarReport" msprop:Generator_TableClassName="EventvolantiarReportDataTable" msprop:Generator_TableVarName="tableEventvolantiarReport" msprop:Generator_TablePropName="EventvolantiarReport" msprop:Generator_RowDeletingName="EventvolantiarReportRowDeleting" msprop:Generator_RowChangingName="EventvolantiarReportRowChanging" msprop:Generator_RowEvHandlerName="EventvolantiarReportRowChangeEventHandler" msprop:Generator_RowDeletedName="EventvolantiarReportRowDeleted" msprop:Generator_UserTableName="EventvolantiarReport" msprop:Generator_RowChangedName="EventvolantiarReportRowChanged" msprop:Generator_RowEvArgName="EventvolantiarReportRowChangeEvent" msprop:Generator_RowClassName="EventvolantiarReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="membername" msprop:Generator_ColumnVarNameInTable="columnmembername" msprop:Generator_ColumnPropNameInRow="membername" msprop:Generator_ColumnPropNameInTable="membernameColumn" msprop:Generator_UserColumnName="membername" type="xs:string" minOccurs="0" />
+              <xs:element name="designation" msprop:Generator_ColumnVarNameInTable="columndesignation" msprop:Generator_ColumnPropNameInRow="designation" msprop:Generator_ColumnPropNameInTable="designationColumn" msprop:Generator_UserColumnName="designation" type="xs:string" minOccurs="0" />
+              <xs:element name="membercode" msprop:Generator_ColumnVarNameInTable="columnmembercode" msprop:Generator_ColumnPropNameInRow="membercode" msprop:Generator_ColumnPropNameInTable="membercodeColumn" msprop:Generator_UserColumnName="membercode" type="xs:string" minOccurs="0" />
+              <xs:element name="mobile" msprop:Generator_ColumnVarNameInTable="columnmobile" msprop:Generator_ColumnPropNameInRow="mobile" msprop:Generator_ColumnPropNameInTable="mobileColumn" msprop:Generator_UserColumnName="mobile" type="xs:string" minOccurs="0" />
+              <xs:element name="platun" msprop:Generator_ColumnVarNameInTable="columnplatun" msprop:Generator_ColumnPropNameInRow="platun" msprop:Generator_ColumnPropNameInTable="platunColumn" msprop:Generator_UserColumnName="platun" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

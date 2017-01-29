@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="prsikkandataset" targetNamespace="http://tempuri.org/prsikkandataset.xsd" xmlns:mstns="http://tempuri.org/prsikkandataset.xsd" xmlns="http://tempuri.org/prsikkandataset.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="prsikkandataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="prsikkandataset" msprop:Generator_UserDSName="prsikkandataset">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Prasikkandata" msprop:Generator_TableClassName="PrasikkandataDataTable" msprop:Generator_TableVarName="tablePrasikkandata" msprop:Generator_TablePropName="Prasikkandata" msprop:Generator_RowDeletingName="PrasikkandataRowDeleting" msprop:Generator_RowChangingName="PrasikkandataRowChanging" msprop:Generator_RowEvHandlerName="PrasikkandataRowChangeEventHandler" msprop:Generator_RowDeletedName="PrasikkandataRowDeleted" msprop:Generator_UserTableName="Prasikkandata" msprop:Generator_RowChangedName="PrasikkandataRowChanged" msprop:Generator_RowEvArgName="PrasikkandataRowChangeEvent" msprop:Generator_RowClassName="PrasikkandataRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="memberno" msprop:Generator_ColumnVarNameInTable="columnmemberno" msprop:Generator_ColumnPropNameInRow="memberno" msprop:Generator_ColumnPropNameInTable="membernoColumn" msprop:Generator_UserColumnName="memberno" type="xs:string" minOccurs="0" />
+              <xs:element name="membername" msprop:Generator_ColumnVarNameInTable="columnmembername" msprop:Generator_ColumnPropNameInRow="membername" msprop:Generator_ColumnPropNameInTable="membernameColumn" msprop:Generator_UserColumnName="membername" type="xs:string" minOccurs="0" />
+              <xs:element name="mobile" msprop:Generator_ColumnVarNameInTable="columnmobile" msprop:Generator_ColumnPropNameInRow="mobile" msprop:Generator_ColumnPropNameInTable="mobileColumn" msprop:Generator_UserColumnName="mobile" type="xs:string" minOccurs="0" />
+              <xs:element name="address" msprop:Generator_ColumnVarNameInTable="columnaddress" msprop:Generator_ColumnPropNameInRow="address" msprop:Generator_ColumnPropNameInTable="addressColumn" msprop:Generator_UserColumnName="address" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,112 @@
+﻿@model BAV.Models.Event
+
+@{
+    ViewBag.Title = "Prasikkan";
+    Layout = null;
+}
+
+    @*<script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />*@
+
+<script>
+    $(function () {
+        var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+        $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+        $("#sdate,#edate").datepicker({
+            dateFormat: "yy-mm-dd",
+            monthNamesShort: fullmonth_array,
+            changeMonth: true,
+            changeYear: true
+        }, $.datepicker.regional['bn-BD']);
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on("change", "#sdate,#edate", function () {
+        var dateArr = $(this).val().split('-');
+        var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+        $(this).val(banglaDate);
+    });
+</script>
+
+
+
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ইভেন্ট এডিট</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.Id)
+                        </div>
+
+
+
+                        <div class="form-group">
+                            ইভেন্টের নাম
+
+                            @Html.TextBoxFor(model => model.EventName, new { @class = "form-control" })
+
+
+                        </div>
+
+                        <div class="form-group">
+                            তারিখ
+
+                            @Html.TextBoxFor(model => model.Date, new { @class = "form-control", id = "sdate" })
+
+
+                        </div>
+
+                        <div class="form-group">
+                            এলাকা
+                            @Html.TextBoxFor(model => model.Area, new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group">
+                            শেষ তারিখ
+
+                            @Html.TextBoxFor(model => model.enddate, new { @class = "form-control", id = "edate" })
+
+
+                        </div>
+                        <div class="form-group">
+                            সক্রিয়করন
+                            @Html.CheckBoxFor(m => m.IsActive)
+
+
+                        </div>
+
+                        <div class="form-group text-center">
+                                <input type="submit" value="Update" class="btn btn-primary" />
+                         
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+

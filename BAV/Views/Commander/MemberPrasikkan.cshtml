@@ -1,0 +1,259 @@
+﻿@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">*@
+
+
+<style>
+    /*.dataTables_wrapper {
+        top: -13px;
+    }
+
+    .datatable-header, .datatable-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }*/
+
+    select {
+        padding: 7px;
+    }
+
+    .dataTable thead .sorting:before, .dataTable thead .sorting:after {
+        color: #fff !important;
+    }
+</style>
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h5 class="panel-title">প্রশিক্ষণপ্রাপ্ত সদস্যবৃন্দ</h5>
+
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">জেলা:</label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("disid", ViewBag.districlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">প্রশিক্ষণের নাম:</label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("prasikkanid", ViewBag.prasikkanlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div id="datatable">
+        <table class="table datatable-basic-four table-bordered table-striped table-hover" id="dTable">
+            <thead>
+
+                <tr class="bg-blue-600">
+                    <th>নং</th>
+                    <th>জেলা</th>
+                    <th>থানা</th>
+                    <th>প্লাটুনের নাম</th>
+                    <th>নাম</th>
+                    <th>পদবী</th>
+                    <th>মোবাইল</th>
+                    <th>সদস্য নাম্বার</th>
+                    <th></th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+
+                    <tr>
+                        <td>@item.Index</td>
+                        <td>@item.Data.Name</td>
+                        <td>@item.Data.subdis</td>
+                        <td>@item.Data.planame</td>
+                        <td>@item.Data.pi.BanglaName</td>
+                        <td>@item.Data.disignation</td>
+                        <td>@item.Data.pi.mobile</td>
+                        <td>@item.Data.m.IDCardNo</td>
+                        <td>
+                            <button class='btn btn-sm btn-info' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><span class='fa fa-times'>সম্পূর্ন দেখুন</span></button>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div id="partial"></div>
+
+
+    <div id="Modalvolantiardetails" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-default">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">সদস্যের বিবরণ</h4>
+                </div>
+                <div class="modal-body" id="detailspartial" style="height:500px;overflow:auto">
+
+
+
+                </div>
+                <div class="modal-footer border-default">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    @section Scripts {
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+        @*<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel=" stylesheet" />*@
+        @*<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>*@
+        <script>
+            $(document).ready(function () {
+                // Setup - add a text input to each footer cell
+                $('#dTable tfoot th').each(function () {
+                    var title = $(this).text();
+                    $(this).html('<input type="text" placeholder="' + title + '" />');
+                });
+
+                // DataTable
+                var table = $('#dTable').DataTable();
+
+                // Apply the search
+                table.columns().every(function () {
+                    var that = this;
+
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            });
+
+            function volantiarDetails(Id) {
+                $.ajax({
+                    type: "POST",
+                    data: { id: Id },
+                    url: '@Url.Action("volantiarDetails", "Commander")',
+
+                    success: function (result) {
+                        $('#detailspartial').html(result);
+
+                    }
+                });
+            }
+        </script>
+
+        <script type="text/javascript">
+
+            $("#prasikkanid").change(function () {
+
+                if ($("#prasikkanid option:selected").val() == '') {
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetPrasikkanMemberList", "Commander")',
+                        data: { Id: $("#prasikkanid").val() },
+                        success: function (result) {
+                            $('#datatable').hide();
+
+                            $('#partial').html(result);
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve.' + ex);
+                        }
+                    });
+                }
+
+                return false;
+
+            })
+
+            $("#disid").change(function () {
+
+                if ($("#disid option:selected").val() == '') {
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Volantiarlist", "Commander")',
+                        data: { cid: $("#disid").val() },
+                        success: function (result) {
+                            $('#datatable').hide();
+                            $('#partial').html(result);
+                        },
+                        error: function (ex) {
+
+                            alert('Failed to retrieve.' + ex);
+                        }
+                    });
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetPrasikkan", "Commander")',
+                        dataType: 'json',
+
+                        data: { idd: $("#disid").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#prasikkanid").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+
+        </script>
+        @Scripts.Render("~/bundles/jqueryval")
+
+    }
+
+
+

@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Ansar</title>
+    <link href="~/ansar-vdp.png" rel="shortcut icon" type="image/x-icon" />
+
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Back_Template/")assets/css/colors.css" rel="stylesheet" type="text/css">
+    @*<link href="~/fonts/fontstyle.css" rel="stylesheet" />*@
+    @*<link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />*@
+
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/forms/styling/switchery.min.js"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/ui/fullcalendar/fullcalendar.min.js"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/core/app.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/pages/extra_fullcalendar.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/pages/dashboard_boxed.js"></script>
+
+
+</head>
+
+<body class="navbar-top">
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-default navbar-fixed-top header-highlight">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">@*<img src="@Url.Content("~/Content/Back_Template/")assets/images/logo_light.png" alt="">*@</a>
+
+            <ul class="nav navbar-nav visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+                <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-git-compare"></i>
+                        <span class="visible-xs-inline-block position-right">Git updates</span>
+                        <span class="badge bg-warning-400">9</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-heading">
+                            Git updates
+                            <ul class="icons-list">
+                                <li><a href="#"><i class="icon-sync"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <ul class="media-list dropdown-content-body width-350">
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    Drop the IE <a href="#">specific hacks</a> for temporal inputs
+                                    <div class="media-annotation">4 minutes ago</div>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" class="btn border-warning text-warning btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-commit"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    Add full font overrides for popovers and tooltips
+                                    <div class="media-annotation">36 minutes ago</div>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" class="btn border-info text-info btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-branch"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span> branch
+                                    <div class="media-annotation">2 hours ago</div>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-merge"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    <a href="#">Eugene Kopyov</a> merged <span class="text-semibold">Master</span> and <span class="text-semibold">Dev</span> branches
+                                    <div class="media-annotation">Dec 18, 18:36</div>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    Have Carousel ignore keyboard events
+                                    <div class="media-annotation">Dec 12, 05:46</div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="dropdown-content-footer">
+                            <a href="#" data-popup="tooltip" title="All activity"><i class="icon-menu display-block"></i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p class="navbar-text"><span class="label bg-success">Online</span></p>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                @Html.Partial("_LoginPartial")
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-bubbles4"></i>
+                        <span class="visible-xs-inline-block position-right">Messages</span>
+                        <span class="badge bg-warning-400">2</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-content width-350">
+                        <div class="dropdown-content-heading">
+                            Messages
+                            <ul class="icons-list">
+                                <li><a href="#"><i class="icon-compose"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <ul class="media-list dropdown-content-body">
+                            <li class="media">
+                                <div class="media-left">
+                                    <img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                                    <span class="badge bg-danger-400 media-badge">5</span>
+                                </div>
+
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold">James Alexander</span>
+                                        <span class="media-annotation pull-right">04:58</span>
+                                    </a>
+
+                                    <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left">
+                                    <img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                                    <span class="badge bg-danger-400 media-badge">4</span>
+                                </div>
+
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold">Margo Baker</span>
+                                        <span class="media-annotation pull-right">12:16</span>
+                                    </a>
+
+                                    <span class="text-muted">That was something he was unable to do because...</span>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left"><img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold">Jeremy Victorino</span>
+                                        <span class="media-annotation pull-right">22:48</span>
+                                    </a>
+
+                                    <span class="text-muted">But that would be extremely strained and suspicious...</span>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left"><img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold">Beatrix Diaz</span>
+                                        <span class="media-annotation pull-right">Tue</span>
+                                    </a>
+
+                                    <span class="text-muted">What a strenuous career it is that I've chosen...</span>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="media-left"><img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold">Richard Vango</span>
+                                        <span class="media-annotation pull-right">Mon</span>
+                                    </a>
+
+                                    <span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="dropdown-content-footer">
+                            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main">
+                <div class="sidebar-content">
+
+                    <!-- User menu -->
+                    <div class="sidebar-user">
+                        <div class="category-content">
+                            <div class="media">
+                                <a href="#" class="media-left"><img src="@Url.Content("~/Content/Back_Template/")assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                                <div class="media-body">
+                                    <span class="media-heading text-semibold">@User.Identity.Name</span>
+                                 
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /user menu -->
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible">
+                        <div class="category-content no-padding">
+                            <ul class="navigation navigation-main navigation-accordion">
+
+                                <!-- Main -->
+                                <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+                                <li class="active"><a href="@Url.Action("Index", "Home")"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                                <li><a href="#"><i class="icon-user-plus"></i> <span>My Profile</span></a></li>
+                                @{
+
+                                    if (Session["superadmin"] == "true")
+                                    {
+                                        <li>
+                                            <a href="#"><i class="icon-user"></i> <span>সদস্য</span></a>
+
+                                            <ul>
+                                                <li><a href="@Url.Action("PersonalInfo", "Member")"><span>সদস্য নিবন্ধন</span></a></li>
+                                                <li><a href="@Url.Action("Memberlist", "Member")"><span>আবেদনকারী সদস্যদের তালিকা</span></a></li>
+                                                <li><a href="@Url.Action("MemberSearch", "Member")"><span>ডাটাবেজভুক্ত সদস্যবৃন্দ</span></a></li>
+                                                @if (Session["Ptrue"] == "True")
+                                                {
+                                                    <li><a href="@Url.Action("deactivememberlist", "Member")"><span>ইনএ্যাক্টিভ সদস্যবৃন্দ</span></a></li>
+
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            </ul>
+
+                                        </li>
+
+                                        <li>
+                                            <a href="#"><i class="icon-train2"></i> <span>প্রশিক্ষণ</span></a>
+
+                                            <ul>
+                                                @{
+                                        if (Session["Ptrue"] == "True")
+                                        {
+                                            <li><a href="@Url.Action("Prasikkan", "Common")"><span>প্রশিক্ষণের নাম</span></a></li>
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                                }
+
+                                                <li><a href="@Url.Action("PrasikkanMember", "Prasikkan")"><span>প্রশিক্ষণে সদস্য অর্ন্তভুক্তকরণ</span></a></li>
+                                                <li><a href="@Url.Action("PrasikkanSearch", "Prasikkan")"><span>প্রশিক্ষণপ্রাপ্ত সদস্যদের সনদ প্রদান</span></a></li>
+                                                <li><a href="@Url.Action("PrasikkanSearchList", "Prasikkan")"><span>প্রশিক্ষণপ্রাপ্ত সদস্য-সার্চ</span></a></li>
+                                            </ul>
+
+                                        </li>
+
+                                        <li>
+                                            <a href="#"><i class="icon-earth"></i> <span>ইভেন্ট</span></a>
+
+                                            <ul>
+                                                @{
+                                        if (Session["Ptrue"] == "True")
+                                        {
+                                            <li><a href="@Url.Action("CreateEvent", "Common")"><span>অপারেশনাল ইভেন্ট তৈরীকরণ</span></a></li>
+
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                                }
+                                                <li><a href="@Url.Action("distribution", "Work")"><span>সদস্যেদের কাজ বন্টন</span></a></li>
+                                                <li><a href="@Url.Action("Payment", "Work")"><span>সদস্যেদের বেতন প্রদান</span></a></li>
+                                            </ul>
+
+
+
+                                        </li>
+
+                                        if (Session["Ptrue"] == "True")
+                                        {
+                                            <li>
+                                                <a href="#"><i class="icon-list2"></i> <span>সাধারন আনসার</span></a>
+
+                                                <ul>
+                                                    <li><a href="@Url.Action("TranningName", "Tranning")"><span>প্রশিক্ষণের নাম</span></a></li>
+                                                    <li><a href="@Url.Action("PlatunChange", "Common")"><span>প্রশিক্ষণার্থী নিবন্ধন</span></a></li>
+                                                    <li><a href="@Url.Action("AnsarSearch", "Common")"><span>ডাটাবেজভুক্ত প্রশিক্ষণার্থী</span></a></li>
+                                                </ul>
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+
+                                        }
+
+                                        if (Session["Ptrue"] == "True")
+                                        {
+                                            <li>
+                                                <a href="#"><i class="icon-terminal"></i> <span>প্লাটুন</span></a>
+
+                                                <ul>
+                                                    <li><a href="@Url.Action("PlatunCreation", "Common")"><span>প্লাটুন তৈরীকরন</span></a></li>
+                                                    <li><a href="@Url.Action("PlatunChange", "Common")"><span>প্লাটুন পরিবর্তন</span></a></li>
+                                                </ul>
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+
+                                        }
+
+                                        if (Session["Ptrue"] == "True")
+                                        {
+                                            <li><a href="@Url.Action("ComandarCreation", "Common")"><i class="icon-stack"></i> <span>স্বাক্ষর প্রদানকারী</span></a></li>
+                                        }
+                                        else
+                                        {
+
+                                        }
+
+
+                                        <li><a href="@Url.Action("smssending", "Member")"><i class="icon-stack"></i> <span>তথ্য প্রেরন</span></a></li>
+                                    }
+                                }
+
+                                @if (Convert.ToInt16(Session["rolename"]) == 3)
+                                {
+                                    <li>
+                                        <a href="#"><i class="icon-user"></i> <span>সদস্য</span></a>
+
+                                        <ul>
+                                            <li><a href="@Url.Action("AppliedMember", "Commander")"><span>আবেদনকারী সদস্যদের তালিকা</span></a></li>
+                                            <li><a href="@Url.Action("Index", "Commander")"><span>ডাটাবেজভুক্ত সদস্যবৃন্দ</span></a></li>
+
+                                        </ul>
+
+                                    </li>
+                                    <li><a href="@Url.Action("PlatunDetails", "Commander")"><i class="icon-stack"></i> <span>প্লাটুনের তথ্য</span></a></li>
+                                    <li><a href="@Url.Action("MemberPrasikkan", "Commander")"><i class="icon-stack"></i> <span>প্রশিক্ষণ</span></a></li>
+                                    <li><a href="@Url.Action("MemberEvent", "Commander")"><i class="icon-stack"></i> <span>ইভেন্ট</span></a></li>
+                                    <li><a href="@Url.Action("SendMessage", "Commander")"><i class="icon-stack"></i> <span>তথ্য প্রেরন</span></a></li>
+
+                                }
+
+
+
+
+
+
+                                @if (Convert.ToInt16(Session["rolename"]) == 4)
+                                {
+                                    <li><a href="@Url.Action("RangRegister", "Account", new { id = "registerLink" })"><i class="icon-stack"></i> <span>Range Commander</span></a></li>
+                                    
+                                }
+
+                                @{
+                                    if (TempData["e"] == "true")
+                                    {
+                                        <li><a href="@Url.Action("Register", "Account", new { id = "registerLink" })"><i class="icon-copy"></i> <span>Register Account</span></a></li>
+                                        
+                                    }
+
+                                }
+
+                                <li><a href="@Url.Action("PasswordChange", "Account")"><i class="icon-coins"></i> <span>Change Password</span></a></li>
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /main navigation -->
+
+                </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Page header -->
+                @*<div class="page-header">
+                    <div class="page-header-content">
+                        <div class="page-title">
+                            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Dashboard</h4>
+                        </div>
+
+                        <div class="heading-elements">
+                            <div class="heading-btn-group">
+                                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="breadcrumb-line">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Dashboard</li>
+                        </ul>
+
+                        <ul class="breadcrumb-elements">
+                            <li><a href="#"><i class="icon-comment-discussion position-left"></i> Support</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-gear position-left"></i>
+                                    Settings
+                                    <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                                    <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                                    <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+                <!-- /page header -->
+                <!-- Content area -->
+                <div class="content">
+
+
+
+                    @RenderBody()
+
+
+                    <!-- Footer -->
+                    <div class="footer text-center">
+                        &copy; 2016. <a href="#">Developed By : <img src="~/BanglaDate/images/logo-url.jpg" />  Zencon Technology Ltd &nbsp; &nbsp;&nbsp; Contact No: +88 031 626272</a>
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    @RenderSection("scripts", required: false)
+
+
+
+
+</body>
+
+
+
+</html>

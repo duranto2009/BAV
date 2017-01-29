@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .l {
+        display: inline;
+        padding: .2em .6em .3em;
+    }
+</style>
+<div id="divStudentlist" >
+    @foreach (var items in ViewBag.districts as IEnumerable<SelectListItem>)
+    {
+         <label><input type="checkbox" value="@items.Value" class="chkclass" name="cked"><span class="l">@items.Text</span> </label>
+    
+    }
+</div> 
+
+

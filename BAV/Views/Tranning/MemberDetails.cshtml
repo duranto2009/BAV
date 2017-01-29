@@ -1,0 +1,519 @@
+﻿@model BAV.Models.ansermember
+
+@{
+    ViewBag.Title = "MemberDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .thumbnail {
+        position: relative;
+        overflow: hidden;
+        background-color: #f2f3db;
+        border: 0px solid #dddddd;
+        border-radius: 0px;
+    }
+
+    .caption {
+        position: absolute;
+        top: -100%;
+        right: 0;
+        background: rgba(66, 139, 202, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        text-align: center;
+        color: #fff !important;
+        z-index: 2;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .thumbnail:hover .caption {
+        top: 0%;
+    }
+
+    #clo {
+        color: green;
+    }
+</style>
+<script>
+    $(function () {
+        $("#dialog").dialog();
+
+    });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+
+                title: 'Member Edit',
+
+                autoOpen: false,
+
+                resizable: false,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                draggable: true,
+                buttons: {
+
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                },
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        })
+    });
+</script>
+
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">সাধারন আনসার সদস্যদের ব্যক্তিগত তথ্য</h3>
+    </div>
+    <div class="panel-body">
+
+        <p style="color:red">@TempData["comandar"]</p>
+        <legend class="text-bold">ব্যক্তিগত তথ্য</legend>
+        <div class="row ">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+
+                    <label>সদস্য নাম্বার: </label>
+                    @Html.DisplayFor(model => model.personno, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>পদবী: </label>
+                    @Html.DisplayFor(model => model.designation, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>সদস্যের নাম: </label>
+                    @Html.DisplayFor(model => model.bname, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>পিতার নাম: </label>
+                    @Html.DisplayFor(model => model.faname, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row ">
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>মোবাইল নং: </label>
+                    @Html.DisplayFor(model => model.bmobile, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>শিক্ষাগত যোগ্যতা: </label>
+                    @Html.DisplayFor(model => model.education, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>পেশা: </label>
+                    @Html.DisplayFor(model => model.occupation, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            @Html.ActionLink("Edit", "MemberEdit", new { id = Model.Id }, new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#ModalMembersEdit" })
+        </div>
+        @*Permanaent Address*@
+
+        <legend class="text-bold">স্থায়ী ঠিকানা</legend>
+
+        
+        <div class="text-right">
+            @Html.ActionLink("Edit", "AddressEdit", new { id = Model.Id }, new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#ModalAddresssEdit" })
+        </div>
+        <div class="row ">
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>গ্রাম/বাড়ী/রোড: </label>
+                    @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>ডাকঘর(কোডসহ): </label>
+                    @Html.DisplayFor(model => model.prpostcode, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row ">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>ওর্য়াড: </label>
+                    @Html.DisplayFor(model => model.perunion, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    @{
+                        if (Model.perunions != null)
+                        {
+                            <label>ইউনিয়ন: </label>
+                            @Html.DisplayFor(model => model.perunions, new { @class = "form-control input-sm" })
+
+                        }
+
+                    }
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>থানা/উপজেলা: </label>
+                    @Html.DisplayFor(model => model.perthana, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>জেলা: </label>
+                    @Html.DisplayFor(model => model.perdist, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+
+        @*Permanaent Address end*@
+        @*Present Address*@
+        <legend class="text-bold">কর্মস্থল</legend>
+        
+        <div class="row ">
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>গার্ডের নাম: </label>
+                    @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>থানা/উপজেলা: </label>
+                    @Html.DisplayFor(model => model.presthana, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label>জেলা: </label>
+                    @Html.DisplayFor(model => model.presdist, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+
+        @*Present Address end*@
+        @{if (ViewBag.c == "true")
+        {
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+                Html.RenderAction("PrasikkanDetails", "Tranning", Model.Id );
+                    }
+
+                </div>
+            </div>
+        }
+        }
+
+    </div>
+</div>
+
+
+
+<div id="ModalMembersEdit" class="modal fade">
+
+</div>
+
+
+
+<div id="ModalAddresssEdit" class="modal fade">
+
+</div>
+
+<div id="ModalMembersNoEdit" class="modal fade">
+
+</div>
+
+
+
+
+
+
+@*<h3 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif; ">প্রশিক্ষণার্থী সদস্যের বিবরণ</h3>*@
+
+@*<div id="dialog-edit" style="display: none">
+</div>*@
+@*<div class="container">
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1"></div>
+        <div class="col-xs-10 col-sm-10 col-md-10">
+            <p style="color:red">@TempData["comandar"]</p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">সাধারন আনসার সদস্যদের ব্যক্তিগত তথ্য</h3>
+                </div>
+                <div class="panel-body" style="background-color:#f2f3db">
+                    
+                    <div class="row ">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+
+                                <label>সদস্য নাম্বার: </label>
+                                @Html.DisplayFor(model => model.personno, new { @class = "form-control input-sm" })
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>পদবী: </label>
+                                @Html.DisplayFor(model => model.designation, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row ">
+
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>সদস্যের নাম: </label>
+                                @Html.DisplayFor(model => model.bname, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>পিতার নাম: </label>
+                                @Html.DisplayFor(model => model.faname, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="row ">
+
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>মোবাইল নং: </label>
+                                @Html.DisplayFor(model => model.bmobile, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>শিক্ষাগত যোগ্যতা: </label>
+                                @Html.DisplayFor(model => model.education, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>পেশা: </label>
+                                @Html.DisplayFor(model => model.occupation, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right">@Html.ActionLink("Edit", "MemberEdit", new { id = Model.Id }, new { @class = "editDialog btn btn-sm center-block" })</div>
+                    @*Permanaent Address*@
+
+                    @*<div class="row">
+                        <div class="col-md-12 alert alert-success form-inline">
+                            <p class="panel-title" style="text-align:center">স্থায়ী ঠিকানা</p>
+
+                        </div>
+                    </div>
+                    <div class="row text-right">@Html.ActionLink("Edit", "AddressEdit", new { id = Model.Id }, new { @class = "editDialog btn btn-sm center-block" })</div>
+                    <div class="row ">
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label>গ্রাম/বাড়ী/রোড: </label>
+                                @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>ডাকঘর(কোডসহ): </label>
+                                @Html.DisplayFor(model => model.prpostcode, new { @class = "form-control input-sm" })
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>ওর্য়াড: </label>
+                                @Html.DisplayFor(model => model.perunion, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                @{
+                                    if (Model.perunions != null)
+                                    {
+                                        <label>ইউনিয়ন: </label>
+                                        @Html.DisplayFor(model => model.perunions, new { @class = "form-control input-sm" })
+
+                                    }
+
+                                }
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>থানা/উপজেলা: </label>
+                                @Html.DisplayFor(model => model.perthana, new { @class = "form-control input-sm" })
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>জেলা: </label>
+                                @Html.DisplayFor(model => model.perdist, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                    @*Permanaent Address end*@
+                    @*Present Address*@
+
+                    @*<div class="row">
+                        <div class="col-md-12 alert alert-success form-inline">
+                            <p class="panel-title" style="text-align:center">কর্মস্থল</p>
+
+                        </div>
+                    </div>
+                    <div class="row ">
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label>গার্ডের নাম: </label>
+                                @Html.DisplayFor(model => model.paddress, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                 
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>থানা/উপজেলা: </label>
+                                @Html.DisplayFor(model => model.presthana, new { @class = "form-control input-sm" })
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label>জেলা: </label>
+                                @Html.DisplayFor(model => model.presdist, new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                    @*@*Present Address end*@
+                    @*@{if (ViewBag.c == "true")*@
+                    @*{
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                @{
+                                   Html.RenderAction("PrasikkanDetails", "Tranning", Model.Id);
+                                 }
+
+                            </div>
+                        </div>
+                    }
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+@{if (TempData["error"] != null)
+{
+    <div id="dialog" title="Basic dialog">
+        <p style="text-align:center;color:red"> @TempData["error"]</p>
+    </div>
+}
+}
+@section Scripts {
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "PrasikkanSearchList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">প্রশিক্ষণপ্রাপ্ত সদস্যদের তালিকা</h5>
+
+    </div>
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm("PrasikkanSearchList", "Prasikkan", FormMethod.Post, new  { @class = "form-inline" }))
+        {
+                
+            <div class="form-group" id="as">
+                <label for="exampleInputName2">প্রশিক্ষণ</label>
+
+                @Html.DropDownList("prasikkanid", ViewBag.prasikkan as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", required = true })
+
+            </div>
+    
+            <div class="form-group">
+                <label for="exampleInputName2">প্লাটুনের নাম</label>
+
+                @Html.DropDownList("Platun", ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", required = true })
+
+            </div>
+                    
+
+            <input type="submit" id="btnSearch" class="btn btn-success" value="Search" />
+
+                
+        }
+
+        @{
+            if (TempData["list"] != null)
+            {
+
+                Html.RenderAction("PrasikkanMemberreport", "Prasikkan");
+                  
+            }
+        }
+
+
+
+    </div>
+
+   
+</div>
+

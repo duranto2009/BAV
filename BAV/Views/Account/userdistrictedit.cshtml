@@ -1,0 +1,129 @@
+﻿@model BAV.Models.RangDistrict
+@{
+    ViewBag.Title = "userplatunedit";
+}
+<style>
+        .listbox {
+            width: 250px;
+            height:300px;
+        }
+
+    .btn-group, .btn-group-vertical {
+        vertical-align: text-bottom!important;
+    }
+
+ </style>
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">ব্যবহারকারীর জেলা পরিবর্তন করুন</h3> 
+    </div>
+    <div class="panel-body">
+
+        <div class="col-md-12 form-horizontal">
+            <div><input type="hidden" name="userid" id="userid" value="@ViewBag.userid" /></div>
+            <h4 class="heading-text">ব্যবহারকারীর নাম: <label id="username">@ViewBag.username</label></h4>
+            <div class="row">
+                @Html.ListBox("District", new SelectList(ViewBag.dislist, "Value", "Text"), new {@class="listbox",style="height:300px", id = "disid" })
+                <div class="btn-group">
+                    <button id="add" class="btn bg-slate-700" value="Add">Add</button>
+                    <button id="Remove" class="btn bg-purple-700" value="Remove">Remove</button>
+                </div>
+                @Html.ListBoxFor(model => model.DistrictId, new SelectList(ViewBag.districtlist, "Value", "Text"), new { @class = "listbox",style="height:300px", id = "rdis" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        @section Scripts {
+
+            <script src="~/BanglaDate/js/jquery.js"></script>
+
+            <script type="text/javascript">
+                $("#add").click(function () {
+
+                    if ($("#disid option:selected").val() != '') {
+
+                        $.ajax({
+
+                            type: 'POST',
+                            url: '@Url.Action("AddDistrict", "Account")',
+                            dataType: 'json',
+
+                            data: {
+                                dis: $("#disid option:selected").val(),
+                                userid: $("#userid").val()
+                            },
+
+                            success: function (Data) {
+                                $('#disid  :selected').each(function (i, selected) {
+                                    $(this).remove();
+                                });
+                                $("#rdis").empty();
+                                var markups = "";
+                                for (var x = 0; x < Data.length; x++) {
+                                    markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                                }
+                                $("#rdis").html(markups).show();
+                            },
+
+                            error: function (ex) {
+
+                                alert('Failed to retrieve District.' + ex);
+
+                            }
+
+                        });
+                    }
+
+                    return false;
+
+                });
+                $("#Remove").click(function () {
+
+                    if ($("#rdis option:selected").val() != '') {
+
+                        $.ajax({
+
+                            type: 'POST',
+                            url: '@Url.Action("Removedistrict", "Account")',
+                            dataType: 'json',
+
+                            data: {
+                                id: $("#rdis option:selected").val(),
+                                userid: $("#userid").val()
+                            },
+
+                            success: function (Data) {
+
+                                $('#rdis  :selected').each(function (i, selected) {
+                                    $(this).remove();
+                                });
+                                $("#disid").empty();
+                                var markups = "";
+                                for (var x = 0; x < Data.length; x++) {
+                                    markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                                }
+                                $("#disid").html(markups).show();
+
+
+                            },
+                            error: function (ex) {
+
+                                alert('Failed to retrieve District.' + ex);
+
+                            }
+
+
+                        });
+                    }
+
+                    return false;
+
+                });
+
+            </script>
+        }
+
+

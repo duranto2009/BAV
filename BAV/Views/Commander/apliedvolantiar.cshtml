@@ -1,0 +1,96 @@
+﻿@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+
+
+
+<table class="table datatable-basic-three table-bordered" id="dataTable">
+
+    <thead>
+
+        <tr class="bg-default">
+            <th>নং</th>
+            <th>জেলা</th>
+            <th>থানা</th>
+            <th>প্লাটুনের নাম</th>
+            <th>নাম</th>
+            <th>পদবী</th>
+            <th>মোবাইল</th>
+            <th></th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.Name</td>
+                <td>@item.Data.subdis</td>
+                <td>@item.Data.planame</td>
+                <td>@item.Data.pi.BanglaName</td>
+                <td>@item.Data.disignation</td>
+                <td>@item.Data.pi.mobile</td>
+                <td>
+                    <button class='btn btn-sm btn-success' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><i class='icon-profile'></i> বিস্তারিত</button>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#dataTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#dataTable').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+
+    function volantiarDetails(Id) {
+        $.ajax({
+            type: "POST",
+            data: { id: Id },
+            url: '@Url.Action("volantiarDetails", "Commander")',
+
+            success: function (result) {
+                $('#detailspartial').html(result);
+
+            }
+        });
+    }
+</script>
+
+

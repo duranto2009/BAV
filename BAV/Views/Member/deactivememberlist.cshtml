@@ -1,0 +1,135 @@
+﻿@model PagedList.IPagedList<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "deactivememberlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">নিষ্ক্রিয় ভিডিপি/টিডিপি সদস্যদের তালিকা</h5>
+
+    </div>
+
+    <div class="panel-body">
+
+        <div id="printdiv" class="printable"></div>
+        <div class="form-inline">
+            <div class="form-group" id="as">
+                <label for="exampleInputName2">প্লাটুনের নাম</label>
+
+                @Html.DropDownList("Platun", ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", required = "true" })
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputName2">সদস্য নং</label>
+
+                @Html.TextBox("memberid", null, new { @class = "form-control" })
+
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">মোবাইল</label>
+
+                @Html.TextBox("mobile", null, new { @class = "form-control" })
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table datatable-member-deactive table-bordered table-striped table-hover" id="Table">
+
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>জাতীয় পরিচয় পত্র নং</th>
+                <th>সদস্য নাম্বার</th>
+                <th>মোবাইল</th>
+                <th>Action</th>
+
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.pi.NID</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>
+                        @Html.ActionLink("Details", "MemberDetails", new { id = item.Data.pi.Id }, new { @class = "btn btn-info" })
+                    </td>
+                    <td hidden>@item.Data.pi.platunId</td>
+                </tr>
+        }
+
+        </table>
+    </div>
+
+
+</div>
+
+
+
+
+@section Scripts {
+
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script type="text/javascript">
+
+    $('.datatable-member-deactive').DataTable();
+
+    $('#Platun').change(function (event) {
+
+        var searchKey = $(this).val();
+        $(".table tr td:nth-child(8)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#memberid').keyup(function (event) {
+        var searchKey = $(this).val().toLowerCase();
+        $(".table tr td:nth-child(5)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#mobile').keyup(function (event) {
+        var searchKey = $(this).val().toLowerCase();
+        $(".table tr td:nth-child(6)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+
+</script>
+}
+

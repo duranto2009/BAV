@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="volantiarlsit" targetNamespace="http://tempuri.org/volantiarlsit.xsd" xmlns:mstns="http://tempuri.org/volantiarlsit.xsd" xmlns="http://tempuri.org/volantiarlsit.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="volantiarlsit" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="volantiarlsit" msprop:Generator_UserDSName="volantiarlsit">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="listvolantiar" msprop:Generator_TableClassName="listvolantiarDataTable" msprop:Generator_TableVarName="tablelistvolantiar" msprop:Generator_RowChangedName="listvolantiarRowChanged" msprop:Generator_TablePropName="listvolantiar" msprop:Generator_RowDeletingName="listvolantiarRowDeleting" msprop:Generator_RowChangingName="listvolantiarRowChanging" msprop:Generator_RowEvHandlerName="listvolantiarRowChangeEventHandler" msprop:Generator_RowDeletedName="listvolantiarRowDeleted" msprop:Generator_RowClassName="listvolantiarRow" msprop:Generator_UserTableName="listvolantiar" msprop:Generator_RowEvArgName="listvolantiarRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="membername" msprop:Generator_ColumnVarNameInTable="columnmembername" msprop:Generator_ColumnPropNameInRow="membername" msprop:Generator_ColumnPropNameInTable="membernameColumn" msprop:Generator_UserColumnName="membername" type="xs:string" minOccurs="0" />
+              <xs:element name="designation" msprop:Generator_ColumnVarNameInTable="columndesignation" msprop:Generator_ColumnPropNameInRow="designation" msprop:Generator_ColumnPropNameInTable="designationColumn" msprop:Generator_UserColumnName="designation" type="xs:string" minOccurs="0" />
+              <xs:element name="membercode" msprop:Generator_ColumnVarNameInTable="columnmembercode" msprop:Generator_ColumnPropNameInRow="membercode" msprop:Generator_ColumnPropNameInTable="membercodeColumn" msprop:Generator_UserColumnName="membercode" type="xs:string" minOccurs="0" />
+              <xs:element name="mobile" msprop:Generator_ColumnVarNameInTable="columnmobile" msprop:Generator_ColumnPropNameInRow="mobile" msprop:Generator_ColumnPropNameInTable="mobileColumn" msprop:Generator_UserColumnName="mobile" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

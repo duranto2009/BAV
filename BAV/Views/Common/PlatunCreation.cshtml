@@ -1,0 +1,54 @@
+﻿@model BAV.Models.Platun
+@{
+    ViewBag.Title = "Platun";
+}
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">প্লাটুন তৈরীকরন</h3>
+    </div>
+
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm("PlatunCreation", "Common", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="exampleInputName2">জেলা</label>
+                @Html.DropDownListFor(model => model.distric, ViewBag.presdistrics as IEnumerable<SelectListItem>, null, new { @class = "form-control", id = "distric", style = "font-size: 15px;" })
+               @Html.ValidationMessageFor( model => model.distric, null, new { style = "color:red" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">থানা</label>
+               @Html.DropDownListFor(model => model.SubDistrcId, ViewBag.presSubdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presubdis" })
+                @Html.ValidationMessageFor(model => model.SubDistrcId, null, new { style = "color:red" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">প্লাটুনের নাম</label>
+               @Html.TextBoxFor(m => m.PlatuneName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PlatuneName, null, new { style = "color:red" })
+            </div>
+
+             <input type="submit" class="btn btn-primary" value="Create" />
+
+        }
+
+    </div>
+
+    @{
+        if (TempData["platunlist"] != null)
+        {
+            
+            Html.RenderAction("PlatunList", "Common");
+             
+        }
+    }
+
+</div>
+
+

@@ -1,0 +1,45 @@
+﻿@model List<BAV.Models.prname>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+<legend class="text-bold">প্রশিক্ষণ সংক্রান্ত তথ্য</legend>
+@*<div class="row">
+    <div class="col-md-12 alert alert-success form-inline">
+        <p class="panel-title" style="text-align:center">প্রশিক্ষণ সংক্রান্ত তথ্য</p>
+
+    </div>
+</div>*@
+<div class="row">
+   
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr style="background-color:gray">
+
+                <th>প্রশিক্ষণের নাম</th>
+                <th>প্রশিক্ষণ প্রতিষ্ঠান</th>
+                <th>শুরুর তারিখ</th>
+                <th>শেষ তারিখ</th>
+                <th>সনদ নং </th>
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>@item.Data.pn.Name</td>
+                    <td>@item.Data.p.PraInstitudeName</td>
+                    <td>@item.Data.p.StartDate</td>
+                    <td>@item.Data.p.EndDate</td>
+                    <td>@item.Data.p.SNo</td>
+
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+  
+</div>
+

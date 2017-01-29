@@ -1,0 +1,108 @@
+﻿@*@model PagedList.IPagedList<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+    @using PagedList.Mvc;*@
+@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+
+@*<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel=" stylesheet" />*@
+
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+@*<style>
+    tfoot input {
+        width: 80%;
+       
+        box-sizing: border-box;
+    }
+</style>*@
+
+
+
+
+<div id="dialog-edit" style="display: none">
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table datatable-member-details table-bordered table-striped table-hover" id="Table">
+        <thead>
+
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>পদবী</th>
+                <th>মোবাইল</th>
+
+                @{
+                    if (TempData["s"] == "p")
+                    {
+                        <th>সদস্য নাম্বার</th>
+                    }
+                }
+                <th>প্রশিক্ষণ</th>
+                <th></th>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.disignation</td>
+                    <td>@item.Data.pi.mobile</td>
+
+                    @{
+                if (TempData["s"] == "p")
+                {
+                    <td>@item.Data.m.IDCardNo</td>
+                }
+                    }
+                    <td>
+                        @{
+                if (@item.Data.pi.p == 1)
+                {
+                    <label>হ্যাঁ</label>
+                }
+                else if (@item.Data.pi.p == 2)
+                {
+                    <label>না</label>
+                }
+                        }
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("প্রোফাইল", "MemberDetails", new { id = item.Data.pi.Id }, new { @class = "btn btn-primary" })
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<script src="//code.jquery.com/jquery-1.12.3.js"></script>
+@*<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+
+<script>
+   
+    $('.datatable-member-details').DataTable();
+
+
+
+</script>

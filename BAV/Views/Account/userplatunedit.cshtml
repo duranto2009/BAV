@@ -1,0 +1,208 @@
+﻿@model BAV.Models.UserPlatun
+@{
+    ViewBag.Title = "userplatunedit";
+
+}
+
+<style>
+    .listbox {
+        width: 250px;
+        height: 300px;
+    }
+
+    .btn-group, .btn-group-vertical {
+        vertical-align: text-bottom !important;
+    }
+</style>
+
+@*<h2 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif; ">প্লাটুন তৈরীকরন</h2><hr />*@
+
+    @*<div class="col-md-2"></div>
+    <div class="col-md-8 form-horizontal">*@
+    @*<div><input type="hidden" name="userid" id="userid" value="@ViewBag.userid" /></div>*@
+    @*<div class="form-group">
+        <label class="col-md-2 control-label">জেলা</label>
+        <div class="col-md-10">
+            @Html.DropDownList("distric", ViewBag.presdistrics as IEnumerable<SelectListItem>, null, new { @class = "form-control", id = "distric", style = "font-size: 15px;" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">থানা/উপজেলা</label>
+        <div class="col-md-10">
+            @Html.DropDownList("SubDistrcId", ViewBag.presSubdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presubdis", style = "font-size: 15px" })
+        </div>
+    </div>*@
+    @*<div class="row">
+        @Html.ListBox("platun", new SelectList(string.Empty, "Value", "Text"), new { style = "width:250px", id = "platun" })
+        <button id="add" value="Add">Add</button>
+        <button id="Remove" value="Remove">Remove</button>
+        @Html.ListBoxFor(model => model.PlatunId, new SelectList(ViewBag.platunlist, "Value", "Text"), new { style = "width:250px", id = "platunlist" })
+    </div>
+</div>
+    <div class="col-md-2"></div>*@
+
+
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">ব্যবহারকারীর প্লাটুন পরিবর্তন করুন</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">জেলা</label>
+            <div class="col-md-10">
+                @Html.DropDownList("distric", ViewBag.presdistrics as IEnumerable<SelectListItem>, null, new { @class = "form-control", id = "distric", style = "font-size: 15px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">থানা/উপজেলা</label>
+            <div class="col-md-10">
+                @Html.DropDownList("SubDistrcId", ViewBag.presSubdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presubdis", style = "font-size: 15px" })
+            </div>
+        </div>
+
+        <div class="col-md-12 form-horizontal">
+            <div><input type="hidden" name="userid" id="userid" value="@ViewBag.userid" /></div>
+            <h4 class="heading-text">ব্যবহারকারীর নাম: <label id="username">@ViewBag.username</label></h4>
+            <div class="row">
+                @Html.ListBox("platun", new SelectList(string.Empty, "Value", "Text"), new { @class = "listbox", style = "height:300px", id = "platun" })
+                <div class="btn-group">
+
+                    <button id="add" class="btn bg-slate-700" value="Add">Add</button>
+                    <button id="Remove" class="btn bg-purple-700" value="Remove">Remove</button>
+                </div>
+             
+                @Html.ListBoxFor(model => model.PlatunId, new SelectList(ViewBag.platunlist, "Value", "Text"), new { @class = "listbox", style = "height:300px", id = "platunlist" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+
+    <script type="text/javascript">
+
+        $("#presubdis").change(function () {
+            $("#platun").empty();
+
+            if ($("#presubdis option:selected").val() == '') {
+                $("#platun").empty();
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetPlatun", "Account")',
+                    dataType: 'json',
+
+                    data: {
+                        idd: $("#presubdis").val(),
+                        userid:$("#userid").val()
+                    },
+
+                    success: function (Data) {
+
+                        var markups = "";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#platun").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve Platun.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        });
+        $("#add").click(function () {
+          
+            if ($("#platun option:selected").val() != '') {
+              
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("AddPlatun", "Account")',
+                    dataType: 'json',
+                
+                    data: {
+                        plaid: $("#platun option:selected").val(),
+                        userid: $("#userid").val()
+                    },
+
+                    success: function (Data) {
+                        $('#platun  :selected').each(function (i, selected) {
+                            $(this).remove();
+                        });
+                        $("#platunlist").empty();
+                        var markups = "";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#platunlist").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve Platun.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        });
+        $("#Remove").click(function () {
+
+            if ($("#platunlist option:selected").val() != '') {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("RemovePlatun", "Account")',
+                    dataType: 'json',
+
+                    data: {
+                        id: $("#platunlist option:selected").val()
+                    },
+
+                    success: function (Data) {
+                        if(Data==true)
+                        {
+                            $('#platunlist  :selected').each(function (i, selected) {
+                                $(this).remove();
+                            });
+                        }
+                        else
+                        {
+                            alert('Failed to remove Platun.' + ex);
+                        }
+                       
+                    }
+
+                });
+            }
+
+            return false;
+
+        });
+
+    </script>
+
+
+}
+
+

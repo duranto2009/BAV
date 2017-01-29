@@ -1,0 +1,101 @@
+﻿@model BAV.Models.Ansartranning
+
+@{
+    ViewBag.Title = "Prasikkan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            প্রশিক্ষণার্থী নিবন্ধন
+        </h3>
+    </div>
+    <div class="panel-body">
+
+    @using (Html.BeginForm("Register", "Tranning", FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+    
+        <legend class="text-bold">প্রশিক্ষণের তথ্য</legend>
+        
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>প্রশিক্ষণের নাম</label>
+                    @Html.DropDownListFor(model => model.PraNameId, ViewBag.prasikkan as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", required = "true" })
+                    @Html.ValidationMessageFor(model => model.PraNameId, null, new { style="color:red"})
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+
+                    <label>প্রশিক্ষণ প্রতিষ্ঠান</label>
+                    @Html.TextBoxFor(model => model.PraInstitudeName, new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessageFor(model => model.PraInstitudeName,null, new { style="color:red"})
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>শুরুর তারিখ</label>
+
+                    @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", id = "sdate", required = "true" })
+                    @Html.ValidationMessageFor(model => model.StartDate, null, new { style = "color:red" })
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>শেষ তারিখ</label>
+                    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", id = "edate", required = "true" })
+                    @Html.ValidationMessageFor(model => model.EndDate, null, new { style = "color:red" })
+                </div>
+            </div>
+        </div>
+                                
+
+
+        <div class="row">
+            <a href="#" onclick="history.go(-1)">Previous Page.</a>
+            <input type="submit" value="Submit" class="btn btn-info center-block">
+        </div>
+       
+    }
+
+    </div>
+</div>
+
+     
+        @section Scripts {
+
+            <script src="~/BanglaDate/js/jquery.js"></script>
+            <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+            <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+            <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+            <script>
+                $(function () {
+                    var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+                    $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+                    $("#sdate,#edate").datepicker({
+                        dateFormat: "yy-mm-dd",
+                        monthNamesShort: fullmonth_array,
+                        changeMonth: true,
+                        changeYear: true
+                    }, $.datepicker.regional['bn-BD']);
+                });
+            </script>
+
+            <script type="text/javascript">
+                $(document).on("change", "#sdate,#edate", function () {
+                    var dateArr = $(this).val().split('-');
+                    var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+                    $(this).val(banglaDate);
+                });
+            </script>
+        }
+
+

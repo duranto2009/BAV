@@ -1,0 +1,53 @@
+﻿@model BAV.Models.Tranning
+
+@{
+    ViewBag.Title = "Prasikkan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">প্রশিক্ষণের নাম</h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("TranningName", "Tranning", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" id="as">
+                        <label class="col-md-3 control-label" for="exampleInputName2">প্রশিক্ষণ নাম</label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-md" })
+                            @Html.ValidationMessageFor(model => model.Name, null, new { style="color:red"})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Create" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @{
+            if (TempData["Prasikkan"] != null)
+            {
+                Html.RenderAction("PrasikkanNameList", "Tranning");
+
+            }
+        }
+
+    </div>
+</div>
+
+
+
+
+
+

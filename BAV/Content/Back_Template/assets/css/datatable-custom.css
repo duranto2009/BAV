@@ -1,0 +1,51 @@
+﻿    
+    .dataTables_wrapper {
+        border-top: 1px solid #ddd;
+    }
+
+    .datatable-header, .datatable-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    select {
+        padding: 7px;
+    }
+
+    /*.dataTable thead .sorting:before, .dataTable thead .sorting:after {
+        color: #fff !important;
+    }*/
+
+    .dataTables_filter input{
+        margin-left:10px;
+    }
+    .dataTables_length > label{
+        margin-right:10px;
+    }
+
+    .dataTables_length,.dataTables_filter,.dataTables_paginate,.dataTables_info{
+        margin:5px 0 5px 20px;
+    }
+
+    /*datatable header bg*/
+
+    .bg-default{
+        background-color:#F5F5F6;
+        border:1px solid #ddd;
+    }
+
+    .table-bordered tr[class*=bg-] > th, .table-bordered tr[class*=bg-] > td, .table-bordered tr > th[class*=bg-], .table-bordered tr > td[class*=bg-] {
+        border-color: #ddd;
+    }
+
+    .search-body{
+        padding: 10px 10px 0px 10px;
+    }
+
+    .search-body .form-group{
+        margin-bottom:5px;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 5px 15px;
+    }

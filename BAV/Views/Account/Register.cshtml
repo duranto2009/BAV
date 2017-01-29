@@ -1,0 +1,178 @@
+﻿@model BAV.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<link href="~/BanglaDate/css/dropdownliststyle.css" rel="stylesheet" />
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">রেজিস্ট্রেশন করুন</h3>
+    </div>
+    <div class="panel-body">
+        
+           
+       @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+
+        @Html.AntiForgeryToken()
+        @*@Html.ValidationSummary()*@
+        <div class="row">
+            <div class="col-md-6">
+               
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">ব্যবহারকারীর নাম:</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "Use" })
+                        @Html.ValidationMessageFor(x => x.UserName, null, new { style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <label class="col-lg-3 control-label">ভূমিকা:</label>
+                    <div class="col-md-9">
+
+                        @Html.DropDownListFor(model => model.role, ViewBag.pslist as IEnumerable<SelectListItem>, "Select Role", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.role, null, new { style = "color:red" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">পাসওয়ার্ড:</label>
+                    <div class="col-md-9">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Password, null, new { style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">পাসওয়ার্ড নিশ্চিত করুন:</label>
+                    <div class="col-md-9">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ConfirmPassword, null, new { style = "color:red" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       <div class="row">
+           <div class="col-md-6">
+               <div class="form-group">
+                   @{
+                       if (TempData["view"] == "s")
+                           {
+                               <label class="col-md-3 control-label">জেলা</label>
+                               <div class="col-md-9">
+                                   @Html.DropDownListFor(model => model.distric, ViewBag.districs as IEnumerable<SelectListItem>, null, new { @class = "form-control input-sm", id = "distric", style = "font-size: 15px;" })
+
+                               </div>
+                           }
+                   }
+
+               </div>
+           </div>
+           <div class="col-md-6">
+               <!-- Default multiselect -->
+               
+               <!-- /default multiselect -->
+               <div class="form-group">
+                   @{
+                       if (TempData["view"] == "s")
+                       {
+                           
+                           <label class="col-md-3 control-label">উপজেলা</label>
+                           <div class="multi-select-full">
+                               <div class="col-md-9" id="pa">
+                                   @Html.Partial("adminSubdistric")
+                               </div>
+                              
+                           </div>
+                           
+                       }
+                       else
+                       {
+                           <label class="col-md-3 control-label">প্লাটুন</label>
+                           <div class="col-md-9">
+                               @Html.Partial("adminPlatun")
+                           </div>
+                       }
+                   }
+               </div>
+           </div>
+       </div>
+
+
+        <div class="form-group">
+            <div class="text-right">
+                <input type="submit" class="btn btn-primary" value="রেজিস্টার" />
+            </div>
+
+            @Html.ActionLink("ব্যবহারকারীর তালিকা", "Inactive", "Account")
+
+        </div>
+       
+        <p style="text-align:center;color:red"> @TempData["error"]</p>
+
+        }
+        
+    </div>
+</div>
+
+        @section Scripts {
+
+            <script src="~/Scripts/jquery.sumoselect.js"></script>
+            <script type="text/javascript">
+                $("input#Use").on({
+                    keydown: function (e) {
+                        if (e.which === 32)
+                            return false;
+                    },
+                    change: function () {
+                        this.value = this.value.replace(/\s/g, "");
+                    }
+                });
+            </script>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $("#distric").change(function () {
+
+                        $.ajax({
+                            url: '@Url.Action("adminSubdistriclist", "Account")',
+                            contentType: 'application/html; charset=utf-8',
+                            type: 'GET',
+                            dataType: 'html',
+
+                            data: { id: $("#distric").val() },
+                        })
+
+                                .success(function (result) {
+
+
+                                    $("#pa").html(result);
+                                })
+
+                               .error(function (ex, status) {
+
+                                   alert(status);
+
+                               })
+
+                    });
+
+
+
+                });
+
+            </script>
+            @Scripts.Render("~/bundles/jqueryval")
+        }

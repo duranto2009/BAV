@@ -1,0 +1,828 @@
+﻿@model BAV.Models.PersonalInfo
+@{
+    ViewBag.Title = "Personal info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+					<!-- 2 columns form -->
+@using (Html.BeginForm("Personalinfo", "Member", FormMethod.Post, new {enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h5>
+            <hr />
+        </div>
+
+        <div class="panel-body">
+            <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+            <div class="row">
+
+                @if (User.Identity.Name == string.Empty)
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>জেলার নাম</label>
+                            @Html.DropDownList("countryId", ViewBag.countrylist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>থানা/উপজেলা</label>
+                            @Html.DropDownList("subdistricid", new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>থানা/উপজেলা</label>
+                            @Html.DropDownList("subdistricid", ViewBag.subdistriclist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>প্লাটুনের নাম</label>
+
+                        @Html.DropDownListFor(model => model.platunId, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm", id = "platun" })
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>পদবী</label>
+
+                        @Html.DropDownListFor(model => model.DesignationId, ViewBag.designationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>সদস্যের নাম </label>
+                        @Html.TextBoxFor(model => model.BanglaName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>Volunteer Name</label>
+                        @Html.TextBoxFor(model => model.EnglishName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>পিতার নাম</label>
+                        @Html.TextBoxFor(model => model.BanglaFatherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>Father's Name</label>
+                        @Html.TextBoxFor(model => model.EnglishFatherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>মাতার নাম</label>
+                        @Html.TextBoxFor(model => model.BanglaMotherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>Mother's Name</label>
+                        @Html.TextBoxFor(model => model.EnglishMotherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>বৈবাহিক অবস্থা</label><br />
+                        @Html.RadioButtonFor(model => model.MaritalStatus, "বিবাহিত", new { id = "m" })
+                        @Html.Label("1", "বিবাহিত")
+
+
+                        @Html.RadioButtonFor(model => model.MaritalStatus, "অবিবাহিত", new { @checked = true, id = "u" })
+                        @Html.Label("2", "অবিবাহিত")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>পেশা</label>
+                        @Html.TextBoxFor(model => model.occupation, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="display:none" id="b">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>স্বামী/স্ত্রীর নাম</label>
+                        @Html.TextBoxFor(model => model.WORHName, new { @class = "form-control input-sm", id = "f" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            স্বামী/স্ত্রীর পেশা
+                        </label>
+                        @Html.TextBoxFor(model => model.WorHOccupation, new { @class = "form-control input-sm", id = "l" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জাতীয় পরিচয় পত্র নং</label>
+                        @Html.TextBoxFor(model => model.NID, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>শিক্ষা</label>
+                        @Html.DropDownListFor(model => model.educationalQuId, ViewBag.exam as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label> সনদ টাইপ</label>
+
+                        @Html.DropDownListFor(model => model.dp, ViewBag.dobpasslist as IEnumerable<SelectListItem>, new { @class = "form-control input-sm", id = "dobpass" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6" id="dno" hidden>
+                    <div class="form-group">
+                        <label id="dlo">জন্ম নিবন্ধন সনদ নং</label>
+                        @Html.TextBoxFor(model => model.DOBSNo, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ধর্ম </label>
+
+                        @Html.DropDownListFor(model => model.ReligionId, ViewBag.Religion as IEnumerable<SelectListItem>, "সিলেক্ট ধর্ম", new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জন্ম তারিখ</label>
+                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", id = "DOB" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>মোবাইল</label>
+
+                        @Html.TextBoxFor(model => model.mobile, new { @class = "form-control", id = "mobile", placeholder = "English Number" })
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>স্বামী/স্ত্রী - বাবা/মা এর মোবাইল</label>
+                        @Html.TextBoxFor(model => model.faormomobile, new { @class = "form-control", id = "mobileform" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি আনসার ভি ডি পি -এর প্রশিক্ষন প্রাপ্ত ?</label><br />
+                        @Html.RadioButtonFor(model => model.ps, "1", new { id = "y" })
+                        @Html.Label("1", "হ্যাঁ")
+
+
+                        @Html.RadioButtonFor(model => model.ps, "2", new { })
+                        @Html.Label("2", "না")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি আর কোন প্রশিক্ষণ নিতে চান  ?</label><br />
+                        @Html.RadioButtonFor(model => model.po, "1")
+                        @Html.Label("1", "মৌলিক")
+
+
+                        @Html.RadioButtonFor(model => model.po, "2")
+                        @Html.Label("2", "পেশাভিত্তিক")
+                        @Html.RadioButtonFor(model => model.po, "3")
+                        @Html.Label("3", "বৃত্তিমুলক")
+
+
+                        @Html.RadioButtonFor(model => model.po, "4")
+                        @Html.Label("4", "অন্যান্যা")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর ডাটাবেজভুক্ত হতে চান ?</label><br />
+                        @Html.RadioButtonFor(model => model.p, "1", new { id = "s" })
+                        @Html.Label("1", "হ্যাঁ")
+
+
+                        @Html.RadioButtonFor(model => model.p, "2", new { })
+                        @Html.Label("2", "না")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর আইডি কার্ড চান  ?</label><br />
+                        @Html.RadioButtonFor(model => model.pst, "1", new { id = "t" })
+                        @Html.Label("1", "হ্যাঁ")
+
+
+                        @Html.RadioButtonFor(model => model.pst, "2", new { })
+                        @Html.Label("2", "না")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি জননিরাপত্তা কাজে আনসার ভি ডি পি -এর কোন চাকুরী বা ডিউটি করতে চান  ?</label><br />
+                        @Html.RadioButtonFor(model => model.pos, "1")
+                        @Html.Label("1", "অঙ্গিভুত আনসার হিসেবে")
+                        @Html.RadioButtonFor(model => model.pos, "2")
+                        @Html.Label("2", "নির্বাচন ডিউটি")
+                        @Html.RadioButtonFor(model => model.pos, "3")
+                        @Html.Label("3", "পূজা,মেলার নিরাপত্তা ডিউটি")
+                        @Html.RadioButtonFor(model => model.pos, "4")
+                        @Html.Label("4", "যে কোন নিরাপত্তা ডিউটি")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group">
+                        <label>আপনি কি আনসার ভি ডি পি -এর উন্নয়ন ব্যাংকের শেয়ারহোল্ডার  ?</label><br />
+                        @Html.RadioButtonFor(model => model.pot, "1")
+                        @Html.Label("1", "শেয়ারহোল্ডার")
+                        @Html.RadioButtonFor(model => model.pot, "2")
+                        @Html.Label("2", "নতুন শেয়ার ক্রয়ে ইছ্ছুক")
+                        @Html.RadioButtonFor(model => model.pot, "3")
+                        @Html.Label("3", "নতুন ঋণ নিতে ইছ্ছুক")
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Next <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
+        </div>
+    </div>
+}
+<!-- /2 columns form -->
+
+
+
+@*@using (Html.BeginForm("Personalinfo", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h3 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">সদস্য নিবন্ধন</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+
+                <div class="panel panel-default" style=" border: 1px solid rgba(0, 0, 0, 0.55)!important;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title " style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h3>
+                    </div>
+                    <div class="panel-body" style="background-color: rgba(25, 171, 90, 0.82)">
+                        <div class="row">
+                            <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+                            <div class="col-md-12 alert alert-success form-inline" style="background-color: rgb(176, 49, 49) !important; border-color: #468847 !important; ">
+                                <p class="panel-title" style="text-align: center; color: #333333 !important;">পারিবারিক তথ্য</p>
+
+                            </div>
+                        </div>
+                  
+                        <div class="row">
+
+                            @if(User.Identity.Name==string.Empty)
+                                {
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>জেলার নাম</label>
+                                        @Html.DropDownList("countryId", ViewBag.countrylist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                                   
+                                    </div>
+                                </div>
+                           
+                          
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>থানা/উপজেলা</label>
+                                        @Html.DropDownList("subdistricid", new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                                    </div>
+                                </div>
+                                }
+                             else
+                             {
+
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>থানা/উপজেলা</label>
+                                        @Html.DropDownList("subdistricid", ViewBag.subdistriclist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                                    </div>
+                                </div>
+
+                             }
+                     
+                        </div>
+                       
+                      
+                        <div class="row">
+                          
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>প্লাটুনের নাম</label>
+                                 
+                                    @Html.DropDownListFor(model => model.platunId,new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm",id="platun" })
+                                </div>
+                            </div>
+                          
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>পদবী</label>
+
+                                    @Html.DropDownListFor(model => model.DesignationId,ViewBag.designationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>সদস্যের নাম </label>
+                                    @Html.TextBoxFor(model => model.BanglaName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>পিতার নাম</label>
+                                    @Html.TextBoxFor(model => model.BanglaFatherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>মাতার নাম</label>
+                                    @Html.TextBoxFor(model => model.BanglaMotherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Volunteer Name</label>
+                                    @Html.TextBoxFor(model => model.EnglishName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Father's Name</label>
+                                    @Html.TextBoxFor(model => model.EnglishFatherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Mother's Name</label>
+                                    @Html.TextBoxFor(model => model.EnglishMotherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                                </div>
+                            </div>
+                         
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>বৈবাহিক অবস্থা</label><br />
+                                    @Html.RadioButtonFor(model => model.MaritalStatus, "বিবাহিত", new { id = "m" })
+                                    @Html.Label("1", "বিবাহিত")
+
+
+                                    @Html.RadioButtonFor(model => model.MaritalStatus, "অবিবাহিত", new { @checked = true, id = "u" })
+                                    @Html.Label("2", "অবিবাহিত")
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>পেশা</label>
+                                    @Html.TextBoxFor(model => model.occupation, new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none" id="b">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>স্বামী/স্ত্রীর নাম</label>
+                                    @Html.TextBoxFor(model => model.WORHName, new { @class = "form-control input-sm", id = "f" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        স্বামী/স্ত্রীর পেশা
+                                    </label>
+                                    @Html.TextBoxFor(model => model.WorHOccupation, new { @class = "form-control input-sm", id = "l" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>জাতীয় পরিচয় পত্র নং</label>
+                                    @Html.TextBoxFor(model => model.NID, new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>শিক্ষা</label>
+                                    @Html.DropDownListFor(model => model.educationalQuId, ViewBag.exam as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label> সনদ টাইপ</label>
+
+                                    @Html.DropDownListFor(model => model.dp, ViewBag.dobpasslist as IEnumerable<SelectListItem>, new { @class = "form-control input-sm",id="dobpass" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="dno" hidden>
+                                <div class="form-group">
+                                    <label id="dlo">জন্ম নিবন্ধন সনদ নং</label>
+                                    @Html.TextBoxFor(model => model.DOBSNo, new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+
+                          
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ধর্ম </label>
+
+                                    @Html.DropDownListFor(model => model.ReligionId, ViewBag.Religion as IEnumerable<SelectListItem>, "সিলেক্ট ধর্ম", new { @class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>জন্ম তারিখ</label>
+                                    @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", id = "DOB" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>মোবাইল</label>
+
+                                    @Html.TextBoxFor(model => model.mobile, new { @class = "form-control", id = "mobile", placeholder = "English Number" })
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>স্বামী/স্ত্রী - বাবা/মা এর মোবাইল</label>
+                                    @Html.TextBoxFor(model => model.faormomobile, new { @class = "form-control", id = "mobileform" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি আনসার ভি ডি পি -এর প্রশিক্ষন প্রাপ্ত ?</label><br />
+                                    @Html.RadioButtonFor(model=>model.ps,"1", new { id = "y" })
+                                    @Html.Label("1", "হ্যাঁ")
+
+
+                                    @Html.RadioButtonFor(model => model.ps, "2", new {  })
+                                    @Html.Label("2", "না")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি আর কোন প্রশিক্ষণ নিতে চান  ?</label><br />
+                                    @Html.RadioButtonFor(model => model.po, "1")
+                                    @Html.Label("1", "মৌলিক")
+
+
+                                    @Html.RadioButtonFor(model => model.po, "2")
+                                    @Html.Label("2", "পেশাভিত্তিক")
+                                    @Html.RadioButtonFor(model => model.po, "3")
+                                    @Html.Label("3", "বৃত্তিমুলক")
+
+
+                                    @Html.RadioButtonFor(model => model.po, "4")
+                                    @Html.Label("4", "অন্যান্যা")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর ডাটাবেজভুক্ত হতে চান ?</label><br />
+                                    @Html.RadioButtonFor(model => model.p, "1", new { id = "s" })
+                                    @Html.Label("1", "হ্যাঁ")
+
+
+                               @Html.RadioButtonFor(model => model.p, "2", new { })
+                                    @Html.Label("2", "না")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর আইডি কার্ড চান  ?</label><br />
+                                    @Html.RadioButtonFor(model => model.pst, "1", new { id = "t" })
+                                    @Html.Label("1", "হ্যাঁ")
+
+
+                                   @Html.RadioButtonFor(model => model.pst, "2", new { })
+                                    @Html.Label("2", "না")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি জননিরাপত্তা কাজে আনসার ভি ডি পি -এর কোন চাকুরী বা ডিউটি করতে চান  ?</label><br />
+                                    @Html.RadioButtonFor(model => model.pos, "1")
+                                    @Html.Label("1", "অঙ্গিভুত আনসার হিসেবে")
+                                    @Html.RadioButtonFor(model => model.pos, "2")
+                                    @Html.Label("2", "নির্বাচন ডিউটি")
+                                    @Html.RadioButtonFor(model => model.pos, "3")
+                                    @Html.Label("3", "পূজা,মেলার নিরাপত্তা ডিউটি")
+                                    @Html.RadioButtonFor(model => model.pos, "4")
+                                    @Html.Label("4", "যে কোন নিরাপত্তা ডিউটি")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label>আপনি কি আনসার ভি ডি পি -এর উন্নয়ন ব্যাংকের শেয়ারহোল্ডার  ?</label><br />
+                                    @Html.RadioButtonFor(model => model.pot, "1")
+                                    @Html.Label("1", "শেয়ারহোল্ডার")
+                                    @Html.RadioButtonFor(model => model.pot, "2")
+                                    @Html.Label("2", "নতুন শেয়ার ক্রয়ে ইছ্ছুক")
+                                    @Html.RadioButtonFor(model => model.pot, "3")
+                                    @Html.Label("3", "নতুন ঋণ নিতে ইছ্ছুক")
+
+                                </div>
+                            </div>
+                        </div>
+
+                      
+                            <div class="row text-center">
+                                <input type="submit" value="Next" class="btn btn-info center-block">
+                            </div>
+
+
+                        </div>
+                </div>
+             </div>
+        </div>
+   </div>
+}*@
+
+@section Scripts {
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+    <script>
+        $(function () {
+            var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+            $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+            $("#DOB").datepicker({
+                dateFormat: "yy-mm-dd",
+                monthNamesShort: fullmonth_array,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-70:+1"
+            }, $.datepicker.regional['bn-BD']);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on("change", "#DOB", function () {
+            var dateArr = $(this).val().split('-');
+            var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+            $(this).val(banglaDate);
+        });
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#b").hide();
+ 
+        });
+        $("#m").click(function () {
+            $("#b").show("slow");
+        });
+
+        $("#u").click(function () {
+            $("#b").hide("fast");
+            $("#f").val("");
+            $("#l").val("");
+        });
+        $('#dobpass').change(function (event) {
+
+            var searchKey = $(this).val();
+            if (searchKey != 4) {
+                var text = $('#dobpass option:selected').text();
+                $('#dno').show();
+                $('#dlo').text(text);
+            }
+            else
+            {
+                $('#dno').hide();
+            }
+           
+        });
+        $('#mobile').keypress(function (event) {
+
+            if (event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46)
+                return true;
+
+            else if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+                event.preventDefault();
+            var txt = $("#mobile").val();
+            if (txt.indexOf(".") > -1 && txt.split(".")[1].length > 1) {
+                var substr = txt.split(".")[1].substring(0, 1);
+                $("#mobile").val(txt.split(".")[0] + "." + substr);
+            }
+
+        });
+       
+    </script>
+
+    <script type="text/javascript">
+
+       
+
+            $("#countryId").change(function () {
+                $("#subdistricid").empty();
+                if ($("#countryId option:selected").val() == '') {
+                    $("#subdistricid").empty();
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetThana", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#countryId").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#subdistricid").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+      
+
+    </script>
+
+     <script type="text/javascript">
+
+      
+
+            $("#subdistricid").change(function () {
+                $("#platun").empty();
+                if ($("#subdistricid option:selected").val() == '') {
+                    $("#platun").empty();
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("platunlist", "Member")',
+                        dataType: 'json',
+
+                        data: { id: $("#subdistricid").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#platun").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Platun.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+     
+
+</script>
+  
+    
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

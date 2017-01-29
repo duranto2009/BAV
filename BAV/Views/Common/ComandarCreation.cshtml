@@ -1,0 +1,141 @@
+﻿@model BAV.Models.ComandarSpecification
+@{
+    ViewBag.Title = "Signature Creation";
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">আইডি কার্ডে স্বাক্ষর প্রদানকারী তৈরীকরন</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            
+
+                @using (Html.BeginForm("ComandarCreation", "Common", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @*@Html.ValidationSummary()*@
+                    
+                      <div class="row" style="text-align:center;color:red"> @TempData["error"]</div>
+                    
+                      <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">কমান্ডার টাইপ</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(model => model.comandartype, ViewBag.comandar as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", style = "font-size: 15px;" })
+                                    @Html.ValidationMessageFor(x => x.comandartype, null, new { style="color:red"})
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">নামের প্রথম অংশ</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "বাংলায়" })
+                                    @Html.ValidationMessageFor(x => x.FirstName, null, new { style = "color:red" })
+                                </div>
+                            </div>
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">নামের শেষ অংশ</label>
+                              <div class="col-md-9">
+                                  @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "বাংলায়" })
+                                  @Html.ValidationMessageFor(x => x.LastName, null, new { style = "color:red" })
+                              </div>
+                          </div>
+
+                          <input type="submit" class="btn btn-primary pull-right" value="Submit" />
+                      </div>
+                    
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">জেলা</label>
+                              <div class="col-md-9">
+                                  @Html.DropDownListFor(model => model.DistricId, ViewBag.presdistrics as IEnumerable<SelectListItem>, null, new { @class = "form-control input-sm", id = "distric", style = "font-size: 15px;" })
+                                  @Html.ValidationMessageFor(x => x.DistricId, null, new { style = "color:red" })
+                              </div>
+                          </div>
+                          
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">আপলোড ছবি </label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.SignatureImage, new { id = "IMGTxtp", placeholder = "Image Path", readOnly = "true", @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.SignatureImage, null, new { style = "color:red" })
+                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(model => model.signimage, new { type = "file", id = "text-box", onchange = "ShowImagePreviewPicture(this);", accept = ".png, .jpg, .jpeg" })
+                                </div>
+                                <div class="col-md-5">
+                                    <img src="#" id="ImgPrvPIC" />
+                                </div>
+                            </div>
+                            
+                         
+                      </div>
+                }
+
+           
+        </div>
+
+        @{
+            if (TempData["comandarlist"] != null)
+            {
+                Html.RenderAction("ComandarList", "Common");
+
+            }
+        }
+
+    </div> 
+
+ 
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+      
+        function ShowImagePreviewPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var ext = input.value.substr(input.value.lastIndexOf('.') + 1).toLowerCase();
+
+                    if (input.files[0].size < 1048576) {
+                        $("#ImgPrvPIC").prop('src', e.target.result)
+                       .width(100)
+                       .height(100);
+                        $("#IMGTxtp").val(input.value);
+                    }
+                    else if (!(ext == "jpeg" || ext == "jpg" || ext == "png")) {
+                        alert("Invalid image file, must select a *.jpeg, *.jpg, or *.png file.");
+                    }
+                    else {
+                        alert("File is too large, must select file under 1 MB. File  Size: " + (input.files[0].size / 1048576).toFixed(1) + " MB");
+
+                    }
+
+                };
+
+                if (input.files[0].size < 1048576) {
+                    reader.readAsDataURL(input.files[0]);
+                    $("#error").empty();
+                }
+                else {
+                    $("#IMGTxtp").val('');
+                    $('#ImgPrvPIC').attr('src', '');
+                    $("#error").text("File is too small.File size (1024*768)");
+
+                }
+            }
+        }
+
+
+    
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

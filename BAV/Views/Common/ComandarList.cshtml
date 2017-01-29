@@ -1,0 +1,179 @@
+﻿@model List<BAV.Models.ComandarSpecification>
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+<link href="~/BanglaDate/css/Table.css" rel="stylesheet" />
+<link href="~/fonts/fontstyle.css" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+<br />
+<div class="table-responsive">
+    <table class="table datatable-member-search table-bordered table-striped table-hover">
+        <tr>
+
+            <th>No</th>
+            <th>Comamdar Type</th>
+            <th>Comandar Name</th>
+
+            <th>Action</th>
+        </tr>
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+    {
+            <tr>
+                <td>@item.Index</td>
+                <td>
+                    @if (item.Data.comandartype == 1)
+                {
+
+                        <label>জেলা কমান্ডার</label>
+                }
+                else
+                {
+                        <label>জোন কমান্ডার</label>
+                }
+                </td>
+                <td>@item.Data.FirstName @item.Data.LastName</td>
+
+                <td>
+                    @{
+        if (@item.Data.IsActive == true)
+        {
+            @Html.ActionLink("Inactive", "InactiveComandar", new { id = item.Data.Id }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#ModalInActive" })
+
+        }
+        else
+        {
+            @Html.ActionLink("Active", "InactiveComandar", new { id = item.Data.Id }, new { @class = "btn btn-danger", data_toggle = "modal", data_target = "#ModalActive" })
+        }
+                    }
+
+
+                </td>
+            </tr>
+    }
+
+    </table>
+</div>
+
+
+
+<div id="ModalInActive" class="modal fade">
+
+</div>
+
+<div id="ModalActive" class="modal fade">
+
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+
+                title: 'Comandar Edit',
+
+                autoOpen: false,
+
+                //resizable: true,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                //draggable: true,
+
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        })
+    });
+</script>
+
+
+   @*<div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <table class="table table-striped table-bordered table-hover ">
+            <tr>
+
+                <th>No</th>
+                <th>Comamdar Type</th>
+                <th>Comandar Name</th>
+                
+                <th>Action</th>
+            </tr>
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@if (item.Data.comandartype == 1)
+                        {
+                          
+                         <label>জেলা কমান্ডার</label>
+                        }
+                        else
+                        {
+                           <label>জোন কমান্ডার</label>
+                        }
+                    </td>
+                    <td>@item.Data.FirstName @item.Data.LastName</td>
+                  
+                    <td>
+                        @{
+                           if (@item.Data.IsActive == true)
+                            {
+                              @Html.ActionLink("Inactive", "InactiveComandar", new { id = item.Data.Id }, new { @class = "editDialog btn btn-info center-block" }) 
+                            
+                            }
+                           else
+                           {
+                             @Html.ActionLink("Active", "InactiveComandar", new { id = item.Data.Id }, new { @class = "editDialog btn btn-danger center-block" })
+                           }
+                        }
+
+                      
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-lg-2"></div>
+
+<div id="dialog-edit" style="display: none">
+</div>*@

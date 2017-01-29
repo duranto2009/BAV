@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ThanaList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h3 class="panel-title">Thana/Upzilla List</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+
+                <tr class="bg-blue-600">
+                    <th>নং</th>
+                    <th>থানা/উপজেলা</th> 
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in ViewBag.SubDistrictList)
+                {
+
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <a href="">
+                                @item.Name
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    i++;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

@@ -1,0 +1,199 @@
+﻿@model BAV.Models.BodyStructure
+@{
+    ViewBag.Title = "BodyStractureinfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+					<!-- 2 columns form -->
+@using (Html.BeginForm("BodyStractureinfo", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h5>
+            <hr />
+        </div>
+
+        <div class="panel-body">
+            <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+            <legend class="text-bold">শারিরীক যোগ্যতার তথ্য</legend>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+    var Personalinfo = (BAV.Models.PersonalInfo)Session["Personalinfo"];
+    var Addressinfo = (BAV.Models.Address)Session["Addressinfo"];
+                    }
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>উচ্চতা</label><br />
+
+                        @Html.DropDownListFor(model => model.footid, ViewBag.Foot as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:100px" })
+                        @Html.DropDownListFor(model => model.inchid, ViewBag.Inch as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:100px" })
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওজন</label><br />
+
+                        @Html.TextBoxFor(model => model.WeightKg, new { @class = "input-sm", style = "width:120px" }) <label>কেজি</label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>লিঙ্গ</label><br />
+
+                        @Html.RadioButtonFor(model => model.GenderId, "1", new { @checked = true, id = "m" })
+                        @Html.Label("1", "পুরুষ")
+                        @Html.RadioButtonFor(model => model.GenderId, "2", new { id = "m" })
+                        @Html.Label("2", "মহিলা")
+
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>চোখের রং</label>
+
+                        @Html.DropDownListFor(model => model.EyeColorId, ViewBag.eyecolor as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>রক্তের গ্রুপ</label>
+                        @Html.DropDownList("bid", ViewBag.BloodGroup as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>সনাক্তকরণ চিহ্ন</label>
+                        @Html.TextBoxFor(model => model.SanaktakaranSign, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <input type="submit" value="Next" class="btn btn-info center-block">
+            </div>
+
+            <a href="#" onclick="history.go(-1)">Previous Page.</a>
+        </div>
+    </div>
+}
+<!-- /2 columns form -->
+
+
+@*@using (Html.BeginForm("BodyStractureinfo", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+     <h3 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">সদস্য নিবন্ধন</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+
+                <div class="panel panel-default" style=" border: 1px solid rgba(0, 0, 0, 0.55)!important;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title " style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h3>
+                    </div>
+                    <div class="panel-body" style="background-color: rgba(25, 171, 90, 0.94);">
+
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success form-inline" style="background-color: rgb(176, 49, 49) !important; border-color: #468847 !important; ">
+                                <p class="panel-title" style="text-align: center; color: #333333 !important;">শারিরীক যোগ্যতার তথ্য</p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                @{
+                                        var Personalinfo = (BAV.Models.PersonalInfo)Session["Personalinfo"];
+                                        var Addressinfo = (BAV.Models.Address)Session["Addressinfo"];
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>উচ্চতা</label><br />
+
+                                    @Html.DropDownListFor(model => model.footid, ViewBag.Foot as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:100px" })
+                                    @Html.DropDownListFor(model => model.inchid, ViewBag.Inch as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:100px" })
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ওজন</label><br />
+
+                                    @Html.TextBoxFor(model => model.WeightKg, new { @class = "input-sm", style = "width:120px" }) <label>কেজি</label>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>লিঙ্গ</label><br />
+
+                                    @Html.RadioButtonFor(model => model.GenderId, "1", new { @checked = true, id = "m" })
+                                    @Html.Label("1", "পুরুষ")
+                                    @Html.RadioButtonFor(model => model.GenderId, "2", new { id = "m" })
+                                    @Html.Label("2", "মহিলা")
+
+
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>চোখের রং</label>
+
+                                    @Html.DropDownListFor(model => model.EyeColorId, ViewBag.eyecolor as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>রক্তের গ্রুপ</label>
+                                    @Html.DropDownList("bid", ViewBag.BloodGroup as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>সনাক্তকরণ চিহ্ন</label>
+                                    @Html.TextBoxFor(model => model.SanaktakaranSign, new { @class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <input type="submit" value="Next" class="btn btn-info center-block">
+                        </div>
+
+                        <a href="#" onclick="history.go(-1)">Previous Page.</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}*@

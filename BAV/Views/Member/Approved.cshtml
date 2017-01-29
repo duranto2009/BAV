@@ -1,0 +1,44 @@
+﻿@model BAV.Models.Member
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Approved", "Member"))
+
+{
+
+    @Html.ValidationSummary(true)
+
+
+            <fieldset>
+
+                <legend>Member Code</legend>
+
+                <table style="width:100%">
+                    <tr>
+                        <td style="padding:5px"><b></b></td>
+                        <td>
+                            @Html.HiddenFor(model => model.MemberId, new { @class = "form-control input-sm" })
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td style="padding:5px"><b>Member Code</b></td>
+                        <td>
+                            @Html.TextBoxFor(model => model.IDCardNo, new { @class = "form-control input-sm" })
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="2" style="text-align:center;padding:20px">
+                            <button type="submit" id="btnUpdate" name="Command" value="Update" onclick="return confirm('Are you sure you want to Save?')" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                <span class="ui-button-text">Submit</span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+}

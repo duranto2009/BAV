@@ -1,0 +1,366 @@
+﻿@model BAV.Models.PersonalInfoMemberAddressBodyStructureReligion
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login - Ansar</title>
+    <!-- core CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Front_Template/")css/bootstrap.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/font-awesome.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/animate.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/owl.carousel.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/owl.transitions.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/prettyPhoto.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/main.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Content/Front_Template/")js/html5shiv.js"></script>
+    <script src="@Url.Content("~/Content/Front_Template/")js/respond.min.js"></script>
+    <![endif]-->
+    @*<link rel="shortcut icon" href="images/ico/favicon.ico">*@
+    <link href="~/ansar-vdp.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-57-precomposed.png">
+
+
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link href="~/fonts/fontstyle.css" rel="stylesheet" />
+
+
+
+    <style>
+        html {
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            padding-bottom: 6rem;
+            min-height: 100%;
+            font-family: "SolaimanLipi", "Helvetica Neue", Arial, sans-serif;
+        }
+
+
+
+        #header {
+            padding: 10px 0;
+        }
+
+        #main-menu.navbar-default {
+            background: #007870 url(http://ansarvdp.gov.bd/wp-content/themes/ansarandvdp/images/header.png) repeat-x !important;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .login-label {
+            color: #fff;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .ltm-login {
+            margin-top: 20px;
+        }
+
+
+
+        label {
+            color: #444;
+            font-weight: normal;
+            margin-top: 5px;
+            padding: 0 !important;
+        }
+
+        #main-menu.navbar-default {
+            background: #3b5998 none repeat scroll 0 0;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+
+
+
+        .login-info {
+            color: #f00;
+            float: right;
+            margin-right: 195px;
+            font-size: 16px;
+        }
+
+    
+
+        
+
+        .panel-heading {
+            padding: 10px 0 !important;
+        }
+
+        #footer {
+            position: relative;
+            right: 0;
+            bottom: -94px;
+            left: 0;
+            padding: 1rem;
+            background: #016B63;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        body {
+            font-family: "SolaimanLipi",Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+        }
+
+        .panel {
+            margin-top: 27%;
+        }
+
+        .panel-footer {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+
+        .table-user-information > tbody > tr {
+            border-top: 1px solid rgb(221, 221, 221);
+        }
+
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
+
+
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+
+        .toppad {
+            margin-top: 20px;
+        }
+
+    
+      
+
+    </style>
+
+</head>
+
+<body>
+    <header id="header">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="~/Home/Index/"><img src="@Url.Content("~/Content/Front_Template/")/images/logo_small.png" alt="logo"></a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+                    new
+                    {
+
+                        @class = "navbar-form navbar-right ltm-login",
+                        id = "loginform"
+
+
+                    }))
+                    {
+
+
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+
+                            <label class="login-label control-label">UserName:</label>
+
+                            @Html.TextBox("UserName", null, new { @class = "form-control", placeholder = "username" })
+                        </div>
+                        <div class="form-group">
+                            <label class="login-label control-label">Password:</label>
+                            @Html.Password("Password", null, new { @class = "form-control", placeholder = "password" })
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-md"><span class="glyphicon glyphicon-log-in"></span> Log In</button>
+
+                        @*<input type="submit" value="Log In" class="btn btn-primary" />*@
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px;color:red"> @TempData["error"]</div>
+
+                    }
+
+
+
+
+                </div>
+
+                <span style="display:none" id="login-alert" class="login-info alert alert-danger"></span>
+                <div style="float:right; font-size: 80%; position: relative; top:-10px;color:red"> @TempData["error"]</div>
+
+
+            </div>
+
+
+        </nav><!--/nav-->
+
+    </header>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">সাধারণ আনসারদের ব্যক্তিগত তথ্য ফরম</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center">
+                                @*<img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">*@
+                                <img class="img-circle img-responsive" style="width:150px;height:100px" src="~/VolantiarImage/@Html.DisplayFor(model => model.Imge)">
+                            </div>
+
+                            <div class=" col-md-9 col-lg-9 ">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>সদস্য নাম্বার:</td>
+                                            <td>@Html.DisplayFor(model => model.membercode, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>প্লাটুনের নাম:</td>
+                                            <td>@Html.DisplayFor(model => model.platunname, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>বাংলায় নাম: </td>
+                                            <td>@Html.DisplayFor(model => model.bname, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>ইংরেজী নাম:</td>
+                                            <td>@Html.DisplayFor(model => model.ename, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>পিতার নাম: </td>
+                                            <td>@Html.DisplayFor(model => model.efname, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>মাতার নাম:</td>
+                                            <td>@Html.DisplayFor(model => model.emname, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>জন্ম তারিখ: </td>
+                                            <td>@Html.DisplayFor(model => model.dob, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>বৈবাহিক অবস্থা: </td>
+                                            <td>@Html.DisplayFor(model => model.maritalstatus, new { @class = "form-control input-sm" })</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="panel-footer">
+                                        <p class="panel-title" style="text-align:center">বর্তমান ঠিকানা</p>
+                                    </div>
+                                </div>
+                                <div class="row ">
+
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>গ্রাম/বাড়ী/রোড: </label>
+                                            @Html.DisplayFor(model => model.presaddress, new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>ডাকঘর(কোডসহ): </label>
+                                            @Html.DisplayFor(model => model.prespostcode, new { @class = "form-control input-sm" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>ইউনিয়ন/ওর্য়াড: </label>
+                                            @Html.DisplayFor(model => model.presunion, new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>থানা/উপজেলা: </label>
+                                            @Html.DisplayFor(model => model.presthana, new { @class = "form-control input-sm" })
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>জেলা: </label>
+                                            @Html.DisplayFor(model => model.presdist, new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-sm-6">
+                    &copy; 2016. <a target="_blank" href="#">Digital Innovation Pilot Project</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="divStudentlist" style="height: 100px; overflow: auto; border: solid; width: 250px;">
+    @foreach (var items in ViewBag.platunlist as IEnumerable<SelectListItem>)
+    {
+        <table width="100%">
+            <tr>
+                <td width="20px">
+                    <input type="checkbox" value="@items.Value" class="chkclass" name="platun" />
+                </td>
+                <td width="100px">
+                @items.Text
+                </td>
+            </tr>
+
+        </table>
+
+    }
+</div>  

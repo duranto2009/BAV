@@ -1,0 +1,177 @@
+﻿@model BAV.Models.PersonalInfo
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">পারিবারিক তথ্য</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm("MemberDetailEdit", "Member", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>বৈবাহিক অবস্থা</label><br />
+                            @Html.RadioButtonFor(model => model.MaritalStatus, "বিবাহিত", new { id = "m" })
+                            @Html.Label("1", "বিবাহিত")
+
+
+                            @Html.RadioButtonFor(model => model.MaritalStatus, "অবিবাহিত", new { @checked = true, id = "u" })
+                            @Html.Label("2", "অবিবাহিত")
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পেশা</label>
+                            @Html.TextBoxFor(model => model.occupation, new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="display:none" id="b">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>স্বামী/স্ত্রীর নাম</label>
+                            @Html.TextBoxFor(model => model.WORHName, new { @class = "form-control input-sm", id = "f" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>
+                                স্বামী/স্ত্রীর পেশা
+                            </label>
+                            @Html.TextBoxFor(model => model.WorHOccupation, new { @class = "form-control input-sm", id = "l" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>জাতীয় পরিচয় পত্র নং</label>
+                            @Html.TextBoxFor(model => model.NID, new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>শিক্ষা</label>
+                            @Html.DropDownListFor(model => model.educationalQuId, ViewBag.exam as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label> সনদ টাইপ</label>
+
+                            @Html.DropDownListFor(model => model.dp, ViewBag.dobpasslist as IEnumerable<SelectListItem>, new { @class = "form-control input-sm", id = "dobpass" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6" id="dno" hidden>
+                        <div class="form-group">
+                            <label id="dlo">জন্ম নিবন্ধন সনদ নং</label>
+                            @Html.TextBoxFor(model => model.DOBSNo, new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>ধর্ম </label>
+
+                            @Html.DropDownListFor(model => model.ReligionId, ViewBag.Religion as IEnumerable<SelectListItem>, "সিলেক্ট ধর্ম", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+                    @*<div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জন্ম তারিখ</label>
+                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", id = "DOB" })
+                    </div>
+                </div>*@
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>মোবাইল</label>
+
+                            @Html.TextBoxFor(model => model.mobile, new { @class = "form-control", id = "mobile" })
+
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>স্বামী/স্ত্রী - বাবা/মা এর মোবাইল</label>
+                            @Html.TextBoxFor(model => model.faormomobile, new { @class = "form-control", id = "mobileform" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="text-align:center">
+                    <input type="submit" id="btnedit" class="btn btn-info" value="Update" />
+                </div>
+
+            }
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#b").hide();
+
+
+        });
+        $("#m").click(function () {
+            $("#b").show("slow");
+        });
+
+        $("#u").click(function () {
+            $("#b").hide("fast");
+            $("#f").val("");
+            $("#l").val("");
+        });
+        $('#dobpass').change(function (event) {
+
+            var searchKey = $(this).val();
+            if (searchKey != 4) {
+                var text = $('#dobpass option:selected').text();
+                $('#dno').show();
+                $('#dlo').text(text);
+            }
+            else {
+                $('#dno').hide();
+            }
+
+        });
+    </script>
+
+
+    @Scripts.Render("~/bundles/jqueryval")

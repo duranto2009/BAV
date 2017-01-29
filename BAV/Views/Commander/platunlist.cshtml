@@ -1,0 +1,70 @@
+﻿@model List<BAV.Models.PlaDistric>
+
+@{
+    ViewBag.Title = "Platoon";
+    Layout = null;
+}
+
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+
+<table class="table datatable-basic-five table-bordered table-striped table-hover" id="planTable">
+
+    <thead>
+
+        <tr class="bg-blue-600">
+            <th>নং</th>
+            <th>প্লাটুনের নাম</th>
+            <th>তৈরির তারিখ</th>
+            <th>জেলা</th>
+            <th>থানা</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.PlatuneName</td>
+                <td>@item.Data.creationdte.ToShortDateString()</td>
+                <td>@item.Data.disnane</td>
+                <td>@item.Data.subname</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#planTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#planTable').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+
+</script>

@@ -1,0 +1,157 @@
+﻿@model BAV.Models.PersonalInfo
+
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ব্যক্তিগত তথ্য</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm("MemberEdit", "Member", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>প্লাটুনের নাম</label>
+                            @Html.DropDownListFor(model => model.platunId, ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "platun" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পদবী</label>
+                            @Html.DropDownListFor(model => model.DesignationId, ViewBag.designationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>সদস্যের নাম </label>
+                            @Html.TextBoxFor(model => model.BanglaName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>Volantier Name</label>
+                            @Html.TextBoxFor(model => model.EnglishName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পিতার নাম</label>
+                            @Html.TextBoxFor(model => model.BanglaFatherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>Father's Name</label>
+                            @Html.TextBoxFor(model => model.EnglishFatherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+
+
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>মাতার নাম</label>
+                            @Html.TextBoxFor(model => model.BanglaMotherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>Mother's Name</label>
+                            @Html.TextBoxFor(model => model.EnglishMotherName, new { @class = "form-control input-sm", placeholder = "ইংরেজী-বড় হাতে" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>জন্ম তারিখ</label>
+                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", id = "DOB" })
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="form-group">
+                            <br />
+                            <input type="submit" id="btnedit" class="btn btn-success" value="Update" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            }
+
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/BanglaDate/js/jquery.js"></script>
+<script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+<link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+ 
+<script>
+
+    $(function () {
+        var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+        $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+        $("#DOB").datepicker({
+            dateFormat: "yy-mm-dd",
+            monthNamesShort: fullmonth_array,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-70:+1"
+        }, $.datepicker.regional['bn-BD']);
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on("change", "#DOB", function () {
+        var dateArr = $(this).val().split('-');
+        var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+        $(this).val(banglaDate);
+    });
+</script>
+
+@Scripts.Render("~/bundles/jqueryval")

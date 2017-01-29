@@ -1,0 +1,38 @@
+﻿#Table {
+        font-family: "SolaimanLipi","Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #ddd;
+        background-color: white;
+    }
+
+        #Table tr td {
+            border: 1px solid #c2c7c6;
+            padding: 3px 7px 2px;
+        }
+
+        #Table tr:nth-child(2n+1) {
+            background-color: #e4dede;
+            padding: 3px 7px 2px;
+        }
+
+        #Table tr th {
+            background-color: #808080;
+            font-size: 14px;
+            color: #FFFFFF;
+            padding-bottom: 4px;
+            padding-top: 5px;
+            text-align: left;
+            border: 1px solid #c2c7c6;
+            padding: 3px 7px 2px;
+        }
+
+        #Table tr {
+            padding: 3px 7px 2px;
+        }
+
+            #Table tr:hover {
+                background-color: #fffddc;
+            }

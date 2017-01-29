@@ -1,0 +1,216 @@
+﻿
+@model PagedList.IPagedList<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">ডাটাবেজভুক্ত ভিডিপি/টিডিপি সদস্যবৃন্দ</h5>
+
+    </div>
+    <div class="panel-body">
+        <div id="printdiv" class="printable"></div>
+        @using (Html.BeginForm("MemberList", "Member", FormMethod.Post))
+        {
+             <div class="row">
+
+            <div class="col-md-3">
+                <div class="form-group" id="as">
+                    <label for="exampleInputName2">পদবী</label>
+
+                    @Html.DropDownList("degisnation", ViewBag.degisnationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">শিক্ষাগত যোগ্যতা</label>
+
+                    @Html.DropDownList("education", ViewBag.educationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">প্লাটুনের নাম</label>
+
+                    @Html.DropDownList("Platun", ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">সদস্য নং</label>
+
+                    @Html.TextBox("memberid", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+    <div class="table-responsive">
+        <button id="printbtn" class="btn bg-slate-700 pull-right" target="_blank">Print</button>
+        <br />
+        <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>সদস্যের নাম</th>
+                <th>পদবী</th>
+                <th>সদস্য নাম্বার</th>
+                <th>এলাকা</th>
+                <th>শিক্ষাগত যোগ্যতা</th>
+                <th>মোবাইল</th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.disignation</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>@item.Data.a.PresAddress</td>
+                    <td>@item.Data.ex.Name</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>
+                        @Html.ActionLink("সম্পূর্ন দেখুন", "MemberDetails", new { id = item.Data.pi.Id }, new { @class = "btn btn-info" })
+
+                    </td>
+                    <td hidden>
+                        @item.Data.platunid
+                    </td>
+                    <td hidden>
+                        @item.Data.ex.Id
+                    </td>
+                    <td hidden>
+                        @item.Data.pi.DesignationId
+                    </td>
+                </tr>
+        }
+
+        </table>
+    </div>
+
+    @Html.Hidden("RedirectTo", Url.Action("PrintlistMember", "Member"))
+
+</div>
+
+    @section Scripts {
+
+        <script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+
+
+        <script type="text/javascript">
+            $('.datatable-member-search').DataTable();
+
+            $(document).ready(function () {
+
+            
+
+                $("#area").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/Member/GetArea",
+                            type: "POST",
+                            dataType: "json",
+                            data: { Prefix: request.term },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.PresAddress, value: item.PresAddress };
+                                }))
+
+                            }
+                        })
+                    },
+                    messages: {
+                        noResults: "", results: ""
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+
+            $('#degisnation').change(function (event) {
+
+                var searchKey = $(this).val();
+                $("#Table tr td:nth-child(12)").each(function () {
+                    var cellText = $(this).text().toLowerCase();
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().show();
+                    }
+                    else {
+                        $(this).parent().hide();
+                    }
+                });
+            });
+
+            $('#memberid').keyup(function (event) {
+                var searchKey = $(this).val().toLowerCase();
+                $("#Table tr td:nth-child(5)").each(function () {
+                    var cellText = $(this).text().toLowerCase();
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().show();
+                    }
+                    else {
+                        $(this).parent().hide();
+                    }
+                });
+            });
+
+            $('#Platun').change(function (event) {
+
+                var searchKey = $(this).val();
+                $("#Table tr td:nth-child(10)").each(function () {
+                    var cellText = $(this).text().toLowerCase();
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().show();
+                    }
+                    else {
+                        $(this).parent().hide();
+                    }
+                });
+            });
+            $('#education').change(function (event) {
+
+                var searchKey = $(this).val();
+                $("#Table tr td:nth-child(11)").each(function () {
+                    var cellText = $(this).text().toLowerCase();
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().show();
+                    }
+                    else {
+                        $(this).parent().hide();
+                    }
+                });
+            });
+            $('#printbtn').click(function (e) {
+                if ($("#Platun option:selected").val() == '') {
+                 
+                    return false;
+                }
+                else {
+                    var idd = $("#Platun option:selected").val();
+                    var url = "/Member/PrintlistMember?" + $.param({ idd: idd });
+                    window.open(url, '_blank');
+                    redirectWindow.location;
+                  
+                }
+            });
+
+        </script>
+    }

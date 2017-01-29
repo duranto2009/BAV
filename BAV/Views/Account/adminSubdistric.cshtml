@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<style>
+    #divStudentlist {
+        height: 110px;
+        overflow: auto;
+        border: 1px solid #ddd;
+        width: 342px;
+    }
+
+    td {
+        padding: 7px!important;
+
+    }
+
+    tr:hover {
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .checker input[type=checkbox], .choice input[type=radio] {
+        border: none !important;
+        background: none !important;
+        display: -moz-inline-box !important;
+        display: inline-block !important;
+        margin: 0 !important;
+        vertical-align: top !important;
+        cursor: pointer !important;
+        position: absolute !important;
+        top: -2px !important;
+        left: -2px !important;
+        z-index: 2 !important;
+        opacity: 0 !important;
+        filter: alpha(opacity=0) !important;
+    }
+
+</style>
+
+<div id="divStudentlist">
+    @foreach (var items in ViewBag.Subdistrics as IEnumerable<SelectListItem>)
+    {
+        <table>
+            <tr>
+                <td>
+                    <input type="checkbox" value="@items.Value" class="checker chkclass" name="cked" />
+                </td>
+                <td>
+                    @items.Text
+                </td>
+            </tr>
+
+        </table>
+
+    }
+</div>

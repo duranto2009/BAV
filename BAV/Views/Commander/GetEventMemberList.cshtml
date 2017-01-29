@@ -1,0 +1,83 @@
+﻿@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#eTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#eTable').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12 ">
+        <table id="eTable" class="table table-responsive table-bordered">
+            <thead>
+                <tr>
+                    <th>নং</th>
+                    <th>জেলা</th>
+                    <th>থানা</th>
+                    <th>প্লাটুনের নাম</th>
+                    <th>সদস্যের নাম</th>
+                    <th>জাতীয় পরিচয় পত্র নং</th>
+                    <th>সদস্য নাম্বার</th>
+
+                    <th>মোবাইল</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tfoot hidden>
+                <tr>
+                    <th>নং</th>
+                    <th>জেলা</th>
+                    <th>থানা</th>
+                    <th>প্লাটুনের নাম</th>
+                    <th>সদস্যের নাম</th>
+                    <th>জাতীয় পরিচয় পত্র নং</th>
+                    <th>সদস্য নাম্বার</th>
+
+                    <th>মোবাইল</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+                    <tr>
+                        <td>@item.Index</td>
+                        <td>@item.Data.Name</td>
+                        <td>@item.Data.disignation</td>
+                        <td>@item.Data.planame</td>
+                        <td>@item.Data.pi.BanglaName</td>
+                        <td>@item.Data.pi.NID</td>
+                        <td>@item.Data.m.IDCardNo</td>
+                        <td>@item.Data.pi.mobile</td>
+                        <td><button class='btn btn-sm btn-info' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><span class='fa fa-times'>সম্পূর্ন দেখুন</span></button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

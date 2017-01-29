@@ -1,0 +1,160 @@
+﻿@model PagedList.IPagedList<BAV.Models.Personevent>
+@using PagedList.Mvc;
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+<br />
+<div class="form-inline">
+    <div class="form-group">
+        <label>সদস্য নং</label>
+        @Html.TextBox("memberid", null, new { @class = "form-control" })
+    </div>
+    @Html.ActionLink("Print", "eventvolantiarlistprint", new { eventid = TempData["eventid"] }, new { @class = "btn bg-slate-600 pull-right", target = "_blank" })
+</div>
+<br />
+<div class="table-responsive">
+    <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+
+        <tr>
+            <th>নং</th>
+            <th>সদস্যের নাম</th>
+            <th>সদস্য নাম্বার</th>
+            <th>ইভেন্টের নাম  </th>
+            <th>তারিখ</th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+    {
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.pi.BanglaName</td>
+                <td>@item.Data.m.IDCardNo</td>
+                <td>@item.Data.e.EventName</td>
+                <td>@item.Data.em.starttime.ToShortDateString()</td>
+                <td>
+      @{
+        if (@ViewBag.s == "1")
+        {
+            if (@item.Data.em.IsActive == true && @item.Data.em.workfor == "c")
+            {
+                @Html.ActionLink("Pay", "PaySalaryToVolantier", new { id = item.Data.em.Id }, new { @class = "btn btn-info", disabled = true,data_toggle = "modal",  data_target = "#ModalPay" })
+            }
+            else
+            {
+                @Html.ActionLink("Pay", "PaySalaryToVolantier", new { id = item.Data.em.Id }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#ModalPay" })
+            }
+
+            if (@item.Data.em.IsActive == true)
+            {
+
+                @Html.ActionLink("Closed", "EventMemberEdit", new { id = item.Data.em.Id }, new { @class = "editDialog btn btn-info" })
+
+            }
+
+        }
+        else
+        {
+            @Html.ActionLink("Distribute", "Workdistribution", new { id = item.Data.em.Id }, new { @class = "editDialog btn btn-info" })
+        }
+                    }
+
+
+
+                </td>
+
+            </tr>
+
+    }
+
+    </table>
+</div>
+
+<div id="ModalPay" class="modal fade">
+
+</div>
+
+<div id="dialog-edit" style="display: none">
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+          
+                title: 'Event',
+
+                autoOpen: false,
+
+                resizable: true,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                draggable: true,
+
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        })
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $('#memberid').keyup(function (event) {
+        var searchKey = $(this).val().toLowerCase();
+        $("#Table tr td:nth-child(3)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+
+
+</script>
+
+  

@@ -1,0 +1,292 @@
+﻿@model BAV.Models.Image
+@{
+    ViewBag.Title = "MemberImageInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Register", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h5>
+            <hr />
+        </div>
+
+        <div class="panel-body">
+            <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+            <legend class="text-bold">ছবি আপলোড</legend>
+            <div class="row">
+                <div class="col-md-3">
+                    <b>আপলোড ছবি :</b>
+                </div>
+                <div class="col-md-3">@Html.TextBoxFor(model => model.picture, new { id = "IMGTxtp", placeholder = "Image Path", readOnly = "true" })</div>
+                <div class="col-md-3"> @Html.TextBoxFor(model => model.pictures, new { type = "file", id = "text-box", onchange = "ShowImagePreviewPicture(this);", accept = ".png, .jpg, .jpeg" })</div>
+                <div class="col-md-3"><img src="#" id="ImgPrvPIC" /></div>
+            </div><br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <b>জাতীয় পরিচয় পত্র সনদ :</b>
+                </div>
+                <div class="col-md-3">@Html.TextBoxFor(model => model.NIDImage, new { id = "IMGTxt", placeholder = "Image Path", readOnly = "true" })</div>
+                <div class="col-md-3"> @Html.TextBoxFor(model => model.NIDImages, new { type = "file", id = "text-box2", onchange = "ShowImagePreview(this);", accept = ".png, .jpg, .jpeg" })</div>
+                <div class="col-md-3"><img src="#" id="ImgPrv" /></div>
+            </div><br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <b>আপলোড জন্ম নিবন্ধন সনদ :</b>
+                </div>
+                <div class="col-md-3">@Html.TextBoxFor(model => model.DOBSImage, new { id = "IMGTxtd", placeholder = "Image Path", readOnly = "true" })</div>
+                <div class="col-md-3"> @Html.TextBoxFor(model => model.DOBSImaged, new { type = "file", id = "text-box3", onchange = "ShowImagePreviewPictureDOB(this);", accept = ".png, .jpg, .jpeg" })</div>
+                <div class="col-md-3"><img src="#" id="ImgPrvPICd" /></div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-3">
+                    <b>আপলোড স্বাক্ষর :</b>
+                </div>
+                <div class="col-md-3">@Html.TextBoxFor(model => model.ImageofBsign, new { id = "IMGTxtps", placeholder = "Image Path", readOnly = "true" })</div>
+                <div class="col-md-3"> @Html.TextBoxFor(model => model.ImageofSigned, new { type = "file", id = "text-box4", onchange = "ShowImagePreviewPicturePS(this);", accept = ".png, .jpg, .jpeg" })</div>
+                <div class="col-md-3"><img src="#" id="ImgMemberSign" /></div>
+            </div><br />
+
+            <div class="row">
+                <div class="col-md-12 alert alert-success form-inline">
+                    <p class="panel-title" style="text-align:center"></p>
+
+                </div>
+            </div>
+            <div><label id="error" style="color:red" /></div>
+            <div class="row text-center">
+                <input type="submit" value="Submit" class="btn btn-info center-block">
+            </div>
+            <a href="#" onclick="history.go(-1)">Previous Page.</a>
+        </div>
+    </div>
+}
+<!-- /2 columns form -->
+
+
+@*@using (Html.BeginForm("Register", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <h3 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">সদস্য নিবন্ধন</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+
+                <div class="panel panel-default" style=" border: 1px solid rgba(0, 0, 0, 0.55)!important;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title " style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">স্বেচ্ছাসেবী ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h3>
+                    </div>
+                    <div class="panel-body" style="background-color: rgba(25, 171, 90, 0.94);">
+
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success form-inline" style="background-color: rgba(247, 99, 99, 0.97) !important; border-color: #468847  !important;">
+                                <p class="panel-title" style="text-align: center; color: #333333 !important;">ছবি আপলোড</p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <b>আপলোড ছবি :</b>
+                            </div>
+                            <div class="col-md-3">@Html.TextBoxFor(model => model.picture, new { id = "IMGTxtp", placeholder = "Image Path", readOnly = "true" })</div>
+                            <div class="col-md-3"> @Html.TextBoxFor(model => model.pictures, new { type = "file", id = "text-box", onchange = "ShowImagePreviewPicture(this);", accept = ".png, .jpg, .jpeg" })</div>
+                            <div class="col-md-3"><img src="#" id="ImgPrvPIC" /></div>
+                        </div><br />
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <b>জাতীয় পরিচয় পত্র সনদ :</b>
+                            </div>
+                            <div class="col-md-3">@Html.TextBoxFor(model => model.NIDImage, new { id = "IMGTxt", placeholder = "Image Path", readOnly = "true" })</div>
+                            <div class="col-md-3"> @Html.TextBoxFor(model => model.NIDImages, new { type = "file", id = "text-box2", onchange = "ShowImagePreview(this);", accept = ".png, .jpg, .jpeg" })</div>
+                            <div class="col-md-3"><img src="#" id="ImgPrv" /></div>
+                        </div><br />
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <b>আপলোড জন্ম নিবন্ধন সনদ :</b>
+                            </div>
+                            <div class="col-md-3">@Html.TextBoxFor(model => model.DOBSImage, new { id = "IMGTxtd", placeholder = "Image Path", readOnly = "true" })</div>
+                            <div class="col-md-3"> @Html.TextBoxFor(model => model.DOBSImaged, new { type = "file", id = "text-box3", onchange = "ShowImagePreviewPictureDOB(this);", accept = ".png, .jpg, .jpeg" })</div>
+                            <div class="col-md-3"><img src="#" id="ImgPrvPICd" /></div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <b>আপলোড স্বাক্ষর :</b>
+                            </div>
+                            <div class="col-md-3">@Html.TextBoxFor(model => model.ImageofBsign, new { id = "IMGTxtps", placeholder = "Image Path", readOnly = "true" })</div>
+                            <div class="col-md-3"> @Html.TextBoxFor(model => model.ImageofSigned, new { type = "file", id = "text-box4", onchange = "ShowImagePreviewPicturePS(this);", accept = ".png, .jpg, .jpeg" })</div>
+                            <div class="col-md-3"><img src="#" id="ImgMemberSign" /></div>
+                        </div><br />
+
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success form-inline">
+                                <p class="panel-title" style="text-align:center"></p>
+
+                            </div>
+                        </div>
+                        <div><label id="error" style="color:red" /></div>
+                        <div class="row text-center">
+                            <input type="submit" value="Submit" class="btn btn-info center-block">
+                        </div>
+                        <a href="#" onclick="history.go(-1)">Previous Page.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}*@
+
+@section Scripts {
+
+    <script>
+        function ShowImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var ext = input.value.substr(input.value.lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files[0].size < 10485769678) {
+                        $("#ImgPrv").prop('src', e.target.result)
+                       .width(100)
+                       .height(100);
+                        $("#IMGTxt").val(input.value);
+                    }
+                    else if (!(ext == "jpeg" || ext == "jpg" || ext == "png")) {
+                        alert("Invalid image file, must select a *.jpeg, *.jpg, or *.png file.");
+                    }
+                    else {
+                        alert("File is too large, must select file under 1 MB. File  Size: " + (input.files[0].size / 1048576).toFixed(1) + " MB");
+                    }
+                };
+                if (input.files[0].size < 10485769678) {
+                    reader.readAsDataURL(input.files[0]);
+                    $("#error").empty();
+                }
+                else {
+                    $("#IMGTxt").val('');
+                    $('#ImgPrv').attr('src', '');
+                    $("#error").text("File is too small.File size (1024*768)");
+
+                }
+            }
+        }
+        function ShowImagePreviewPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var ext = input.value.substr(input.value.lastIndexOf('.') + 1).toLowerCase();
+
+                    if (input.files[0].size < 1048576) {
+                        $("#ImgPrvPIC").prop('src', e.target.result)
+                       .width(100)
+                       .height(100);
+                        $("#IMGTxtp").val(input.value);
+                    }
+                    else if (!(ext == "jpeg" || ext == "jpg" || ext == "png")) {
+                        alert("Invalid image file, must select a *.jpeg, *.jpg, or *.png file.");
+                    }
+                    else {
+                        alert("File is too large, must select file under 1 MB. File  Size: " + (input.files[0].size / 1048576).toFixed(1) + " MB");
+
+                    }
+
+                };
+
+                if (input.files[0].size < 1048576) {
+                    reader.readAsDataURL(input.files[0]);
+                    $("#error").empty();
+                }
+                else {
+                    $("#IMGTxtp").val('');
+                    $('#ImgPrvPIC').attr('src', '');
+                    $("#error").text("File is too small.File size (1024*768)");
+
+                }
+            }
+        }
+
+
+        function ShowImagePreviewPictureDOB(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var ext = input.value.substr(input.value.lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files[0].size < 10485769678) {
+                        $("#ImgPrvPICd").prop('src', e.target.result)
+                       .width(100)
+                       .height(100);
+                        $("#IMGTxtd").val(input.value);
+                    }
+                    else if (!(ext == "jpeg" || ext == "jpg" || ext == "png")) {
+                        alert("Invalid image file, must select a *.jpeg, *.jpg, or *.png file.");
+                    }
+                    else {
+                        alert("File is too large, must select file under 1 MB. File  Size: " + (input.files[0].size / 1048576).toFixed(1) + " MB");
+                    }
+
+
+
+                };
+                if (input.files[0].size < 10485769678) {
+                    reader.readAsDataURL(input.files[0]);
+                    $("#error").empty();
+                }
+                else {
+                    $("#IMGTxtd").val('');
+                    $('#ImgPrvPICd').attr('src', '');
+                    $("#error").text("File is too small.");
+
+                }
+
+            }
+        }
+        function ShowImagePreviewPicturePS(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var ext = input.value.substr(input.value.lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files[0].size < 10485769678) {
+                        $("#ImgMemberSign").prop('src', e.target.result)
+                       .width(100)
+                       .height(100);
+                        $("#IMGTxtps").val(input.value);
+                    }
+                    else if (!(ext == "jpeg" || ext == "jpg" || ext == "png")) {
+                        alert("Invalid image file, must select a *.jpeg, *.jpg, or *.png file.");
+                    }
+                    else {
+                        alert("File is too large, must select file under 1 MB. File  Size: " + (input.files[0].size / 1048576).toFixed(1) + " MB");
+                    }
+
+
+
+                };
+                if (input.files[0].size < 10485769678) {
+                    reader.readAsDataURL(input.files[0]);
+                    $("#error").empty();
+                }
+                else {
+                    $("#IMGTxtps").val('');
+                    $('#ImgMemberSign').attr('src', '');
+                    $("#error").text("File is too small.");
+
+                }
+
+            }
+        }
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,81 @@
+﻿@model BAV.Models.Personevent
+
+@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="col-md-12">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.em.Id)
+                @Html.HiddenFor(model => model.em.workfor)
+            </div>
+            <div class="form-group">
+                সদস্যের নং : 
+
+                @Html.DisplayFor(model => model.m.IDCardNo, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                প্লাটুনের নাম : 
+              
+
+                @Html.DisplayFor(model => model.planame, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                সদস্যের নাম : 
+
+                @Html.DisplayFor(model => model.pi.BanglaName, new { @class = "form-control" })
+
+
+            </div>
+
+            <div class="form-group">
+                ইভেন্টের নাম : 
+
+                @Html.DisplayFor(model => model.e.EventName , new { @class = "form-control" })
+
+
+            </div>
+
+            <div class="form-group">
+                তারিখ : 
+
+                @Html.DisplayFor(model => model.e.Date, new { @class = "form-control"})
+
+
+            </div>
+
+            <div class="form-group">
+                এলাকা : 
+                @Html.DisplayFor(model => model.e.Area, new { @class = "form-control" })
+
+            </div>
+          
+            <div class="form-group">
+                Workfor : @Html.Display("c",null,new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Closed" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+     <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+  
+}
+

@@ -1,0 +1,194 @@
+﻿@model PagedList.IPagedList<BAV.Models.aninfoantrad>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">ডাটাবেজভুক্ত সাধারন আনসার সদস্যবৃন্দ</h3>
+    </div>
+    <div id="printdiv" class="printable"></div>
+    <div class="panel-body">
+
+        <div class="form-inline">
+
+            <div class="form-group" id="as">
+                <label for="exampleInputName2">পদবী</label>
+                @Html.DropDownList("degisnation", ViewBag.degisnationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">শিক্ষাগত যোগ্যতা</label>
+                @Html.DropDownList("education", ViewBag.educationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">সদস্য নং</label>
+               @Html.TextBox("memberid", null, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputName2">প্রশিক্ষণের নাম</label>
+                @Html.DropDownList("tranningId", ViewBag.prasikkan as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+            </div>
+
+        </div>
+
+    </div>
+ 
+    <div class="table-responsive">
+        <button id="printbtn" class="btn bg-slate-700 pull-right">Print</button>
+        <br />
+        <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+            <thead>
+                <tr>
+                    <th>নং</th>
+                    <th>পদবী </th>
+                    <th>সদস্য নাম্বার</th>
+                    <th>সদস্যের নাম</th>
+                    <th>শিক্ষাগত যোগ্যতা</th>
+                    <th>মোবাইল</th>
+                    <th>Action</th>
+                    <th hidden></th>
+                    <th hidden></th>
+                    <th hidden></th>
+                </tr>
+            </thead>
+            <tfoot hidden>
+                <tr>
+                    <th>নং</th>
+                    <th>পদবী </th>
+                    <th>সদস্য নাম্বার</th>
+                    <th>সদস্যের নাম</th>
+                    <th>শিক্ষাগত যোগ্যতা</th>
+                    <th>মোবাইল</th>
+                    <th>Action</th>
+                    <th hidden></th>
+                    <th hidden></th>
+                    <th hidden></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+                    <tr>
+                        <td>@item.Index</td>
+                        <td>@item.Data.digname</td>
+                        <td>@item.Data.ai.personno</td>
+                        <td>@item.Data.ai.Name</td>
+                        <td>@item.Data.education</td>
+                        <td>@item.Data.ai.mobile</td>
+                        <td>
+                            @Html.ActionLink("সম্পূর্ন দেখুন", "MemberDetails", new { id = item.Data.ai.Id }, new { @class = "btn btn-info" })
+                        </td>
+                        <td hidden>
+                            @item.Data.ai.Degisnation
+                        </td>
+                        <td hidden>
+                            @item.Data.ai.education
+                        </td>
+                        <td hidden>
+                            @item.Data.at.PraNameId
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    @Html.Hidden("RedirectTo", Url.Action("PrintlistMember", "Member"))
+</div>
+
+@section Scripts {
+
+   <script type="text/javascript">
+
+    $('#degisnation').change(function (event) {
+
+        var searchKey = $(this).val();
+        $("#Table tr td:nth-child(8)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#memberid').keyup(function (event) {
+        var searchKey = $(this).val().toLowerCase();
+        $("#Table tr td:nth-child(3)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#anname').keyup(function (event) {
+        var searchKey = $(this).val().toLowerCase();
+        $("#Table tr td:nth-child(4)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#tranningId').change(function (event) {
+        var searchKey = $(this).val();
+        $("#Table tr td:nth-child(10)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#education').change(function (event) {
+
+        var searchKey = $(this).val();
+        $("#Table tr td:nth-child(9)").each(function () {
+            var cellText = $(this).text().toLowerCase();
+            if (cellText.indexOf(searchKey) >= 0) {
+                $(this).parent().show();
+            }
+            else {
+                $(this).parent().hide();
+            }
+        });
+    });
+    $('#printbtn').click(function (e) {
+        var degisnationId = $("#degisnation option:selected").val();
+        var educationId = $("#education option:selected").val();
+        var tranningIdId = $("#tranningId option:selected").val();
+
+        var url = "/Tranning/PrintlistMember?" + $.param({ did: degisnationId, eduId: educationId, trnId: tranningIdId });
+        window.open(url, '_blank');
+        redirectWindow.location;
+
+    });
+
+
+</script>
+
+}
+
+
+
+

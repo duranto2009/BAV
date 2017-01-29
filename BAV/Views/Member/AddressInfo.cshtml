@@ -1,0 +1,523 @@
+﻿@model BAV.Models.Address
+@{
+    ViewBag.title = "Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+					<!-- 2 columns form -->
+@using (Html.BeginForm("AddressInfo", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h5>
+            <hr />
+        </div>
+       
+        <div class="panel-body">
+            <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+            <legend class="text-bold">বর্তমান ঠিকানা</legend>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+    var Personalinfo = (BAV.Models.PersonalInfo)Session["Personalinfo"];
+                    }
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জেলা</label>
+                        @Html.DropDownListFor(model => model.PresDistric, ViewBag.presdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presdis", required = "true" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+
+                        <label>থানা/উপজেলা</label>
+                        @Html.DropDownListFor(model => model.PresSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control", id = "subpresdis", required = "true" })
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" id="prersward" style="display:none">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+
+                        @Html.TextBoxFor(model => model.PresWard, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PresPostCodeId, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="presunionward">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ইউনিয়ন</label>
+                        @Html.TextBoxFor(model => model.PresUnion, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+                        @Html.TextBoxFor(model => model.PresWardM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6" id="presunionpostcode">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PresPostCodeIdM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        <label>মহল্লা/বাড়ী/রোড</label>
+                        @Html.TextBoxFor(model => model.PresAddress, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+
+            </div>
+            <legend class="text-bold">স্থায়ী ঠিকানা</legend>
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জেলা</label>
+
+                        @Html.DropDownListFor(model => model.PerDistric, ViewBag.distric as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "predis", required = "true" })
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>থানা/উপজেলা</label>
+                        @Html.DropDownListFor(model => model.PerSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm", id = "presubdis", required = "true" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="perward" style="display:none">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+                        @Html.TextBoxFor(model => model.PerWard, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PerPostCodeId, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="perunionward">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ইউনিয়ন</label>
+                        @Html.TextBoxFor(model => model.PerUnion, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+                        @Html.TextBoxFor(model => model.PerWardM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6" id="perunionpostcode">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PerPostCodeIdM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>মহল্লা/গ্রাম/বাড়ী/রোড</label>
+                        @Html.TextBoxFor(model => model.PerAddress, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row text-center">
+                <input type="submit" value="Next" class="btn btn-info center-block">
+            </div>
+            <a href="#" onclick="history.go(-1)">Previous Page.</a>
+        </div>
+    </div>
+}
+<!-- /2 columns form -->
+
+
+
+@*@using (Html.BeginForm("AddressInfo", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h3 style="text-align: center; font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;">সদস্য নিবন্ধন</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+
+                <div class="panel panel-default" style=" border: 1px solid rgba(0, 0, 0, 0.55)!important;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title " style="font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;"> ভিডিপি/টিডিপি সদস্যদের ব্যক্তিগত তথ্য ফরম</h3>
+                    </div>
+                    <div class="panel-body" style="background-color: rgba(25, 171, 90, 0.94);">
+
+                        @Html.ValidationSummary(true)
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success form-inline" style="background-color: rgb(176, 49, 49) !important; border-color: #468847 !important;">
+                                <p class="panel-title" style="text-align: center; color: #333333 !important;">বর্তমান ঠিকানা</p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                @{
+                                   var Personalinfo = (BAV.Models.PersonalInfo)Session["Personalinfo"];
+                                }
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>জেলা</label>
+                                    @Html.DropDownListFor(model => model.PresDistric, ViewBag.presdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presdis", required = "true" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                 
+                                    <label>থানা/উপজেলা</label>
+                                    @Html.DropDownListFor(model => model.PresSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control", id = "subpresdis", required = "true" })
+                                
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" id="prersward" style="display:none">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ওর্য়াড</label>
+                             
+                                    @Html.TextBoxFor(model => model.PresWard, new { @class = "form-control input-sm" })
+                                
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ডাকঘর(কোডসহ)</label>
+                                    @Html.TextBoxFor(model => model.PresPostCodeId, new { @class = "form-control input-sm" })
+                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="presunionward">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ইউনিয়ন</label>
+                                    @Html.TextBoxFor(model => model.PresUnion, new { @class = "form-control input-sm" })
+                                  
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ওর্য়াড</label>
+                                    @Html.TextBoxFor(model => model.PresWardM, new { @class = "form-control input-sm" })
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="presunionpostcode">
+                                <div class="form-group">
+                                    <label>ডাকঘর(কোডসহ)</label>
+                                    @Html.TextBoxFor(model => model.PresPostCodeIdM, new { @class = "form-control input-sm" })
+                                  
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 ">
+                                <div class="form-group">
+                                    <label>মহল্লা/বাড়ী/রোড</label>
+                                    @Html.TextBoxFor(model => model.PresAddress, new { @class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success form-inline" style="background-color: rgb(176, 49, 49) !important; border-color: #468847 !important;">
+                                <p class="panel-title" style="text-align: center; color: #333333 !important;">স্থায়ী ঠিকানা</p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>জেলা</label>
+
+                                    @Html.DropDownListFor(model => model.PerDistric, ViewBag.distric as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "predis", required = "true" })
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>থানা/উপজেলা</label>
+                                    @Html.DropDownListFor(model => model.PerSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm", id = "presubdis", required = "true" })
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="perward" style="display:none">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ওর্য়াড</label>
+                                    @Html.TextBoxFor(model => model.PerWard, new { @class = "form-control input-sm" })
+                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ডাকঘর(কোডসহ)</label>
+                                    @Html.TextBoxFor(model => model.PerPostCodeId, new { @class = "form-control input-sm" })
+                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="perunionward">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ইউনিয়ন</label>
+                                    @Html.TextBoxFor(model => model.PerUnion, new { @class = "form-control input-sm" })
+                                 
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>ওর্য়াড</label>
+                                    @Html.TextBoxFor(model => model.PerWardM, new { @class = "form-control input-sm" })
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="perunionpostcode">
+                                <div class="form-group">
+                                    <label>ডাকঘর(কোডসহ)</label>
+                                    @Html.TextBoxFor(model => model.PerPostCodeIdM, new { @class = "form-control input-sm" })
+                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>মহল্লা/গ্রাম/বাড়ী/রোড</label>
+                                    @Html.TextBoxFor(model => model.PerAddress, new { @class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row text-center">
+                            <input type="submit" value="Next" class="btn btn-info center-block">
+                        </div>
+                        <a href="#" onclick="history.go(-1)">Previous Page.</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+}*@
+    
+    @section Scripts {
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $("#presdis").change(function () {
+                var s = $("#presdis").val();
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13||s==74) {
+                    $("#prersward").show();
+                    $("#presunionward").hide();
+                    $("#presunionpostcode").hide();
+
+                }
+                else {
+                    $("#prersward").hide();
+                    $("#presunionward").show();
+                    $("#presunionpostcode").show();
+                }
+            })
+            $("#predis").change(function () {
+
+                var s = $("#predis").val()
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13|| s==74) {
+
+                    $("#perward").show();
+                    $("#perunionpostcode").hide();
+                    $("#perunionward").hide();
+                }
+                else {
+                    $("#perward").hide();
+                    $("#perunionpostcode").show();
+                    $("#perunionward").show();
+                }
+
+            })
+
+        });
+
+      
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#presdis").change(function () {
+
+                $("#subpresdis").empty();
+                $("#presward").empty();
+                $("#presunion").empty();
+                $("#preswardM").empty();
+                $("#prespostcodeM").empty();
+                $("#prespostcode").empty();
+                if ($("#presdis option:selected").val() == '') {
+                    $("#subpresdis").empty();
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetThana", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#presdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#subpresdis").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+        });
+
+    </script>
+   
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Dropdownlist Selectedchange event
+
+            $("#predis").change(function () {
+                $("#presubdis").empty();
+                $("#preward").empty();
+                $("#prewardM").empty();
+                $("#perpostcodeM").empty();
+                $("#prepc").empty();
+                if ($("#predis option:selected").val() == '') {
+                    $("#presubdis").empty();
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetThana", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#predis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#presubdis").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+        });
+
+    </script>
+
+ 
+}
+
+

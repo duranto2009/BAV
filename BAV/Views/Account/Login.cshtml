@@ -1,0 +1,332 @@
+﻿@model BAV.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Ansar & VDP Management</title>
+    <!-- core CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Front_Template/")css/bootstrap.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/font-awesome.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/animate.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/owl.carousel.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/owl.transitions.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/prettyPhoto.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/main.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Front_Template/")css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Content/Front_Template/")js/html5shiv.js"></script>
+    <script src="@Url.Content("~/Content/Front_Template/")js/respond.min.js"></script>
+    <![endif]-->
+   
+    <link href="~/ansar-vdp.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/Front_Template/")images/ico/apple-touch-icon-57-precomposed.png">
+
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link href="~/fonts/fontstyle.css" rel="stylesheet" />
+
+            
+
+    <style>
+
+
+        html {
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            padding-bottom: 6rem;
+            min-height: 100%;
+            font-family: "SolaimanLipi", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        
+
+        #header {
+            padding:10px 0;
+        
+        }
+
+        #main-menu.navbar-default {
+            background: #007870 url(http://ansarvdp.gov.bd/wp-content/themes/ansarandvdp/images/header.png) repeat-x !important;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .login-label {
+            color: #fff;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+  
+        #main-slider {
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: 50% 0;
+            background-size: cover;
+        }
+
+        label {
+            color: #444;
+            font-weight: normal;
+            margin-top: 5px;
+            padding: 0 !important;
+        }
+
+        #main-menu.navbar-default {
+            background: #3b5998 none repeat scroll 0 0;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+     .login-info {
+            color: #f00;
+            float: right;
+            margin-right: 195px;
+            font-size: 16px;
+        }
+
+        #loginbox {
+            position: relative;
+            top: -42px;
+            right: 0;
+            left: 89px;
+            bottom: 0;
+        }
+
+        #signupbox {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top:40%;
+            background:#fff;
+            opacity:0.9;
+        }
+
+        .form-control{
+            background:#ddd!important;
+        }
+
+        .panel-heading{
+            padding:10px 0!important;
+        }
+
+        #footer {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+            background: #d2d2d2;
+            text-align: center;
+            font-weight: bold;
+        }
+            #footer a {
+                color: #1f1e1e !important;
+            }
+        .cols {
+            color: #1f1e1e !important;
+        }
+        
+        
+        
+         .validation-summary {
+            color: #f00;
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            left: 92px;
+            padding: 0;
+            position: relative;
+            top: 0;
+        }
+
+        .member-error {
+            color: red;
+            font-weight: bold;
+            left: 0;
+            position: relative;
+            top: -5px;
+        }
+        .button {
+            font-size: 15px;
+            background-color: #004540;
+            border-color: #0a4642;
+        }
+        .btnsize
+        {
+            height:40px;
+        }
+        .dropdown-menu > li > a:hover
+        {
+            background-color:green;
+            color:#fff;
+        }
+    </style>
+       
+</head>
+
+<body id="home" class="homepage">
+
+    <header id="header">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img class="img-responsive" src="@Url.Content("~/Content/Front_Template/")/images/logo_mini.png" alt="logo"></a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+                    new
+                    {
+                        @class = "navbar-form navbar-right ltm-login",
+                        id = "loginform"
+
+                    }))
+                    {
+
+                       
+                        @Html.ValidationSummary(true)
+                        if (TempData["login_error"] != null)
+                        {
+                            <span style="margin-top:-17px" class="validation-summary">
+                                @TempData["login_error"]
+                            </span>
+                            
+                        }
+                      
+                        <div class="form-group">
+
+                            <label class="login-label control-label">UserName:</label>
+
+                           @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "username" })
+                        </div>
+                        <div class="form-group">
+                            <label class="login-label control-label">Password:</label>
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "password" })
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-md"><span class="glyphicon glyphicon-log-in"></span> Log In</button>
+
+                  
+                    }
+
+                </div>
+
+               
+
+
+            </div>
+
+
+        </nav><!--/nav-->
+
+    </header>
+
+    <section id="main-slider" style="background-image: url(@Url.Content("~/Content/Front_Template/")images/anasr_bg.jpg)">
+ 
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-7">
+                   
+                </div>
+
+                <div class="col-sm-6 col-lg-5">
+
+
+                    <div id="signupbox">
+
+                        <h2 class="panel-heading">Search Member</h2>
+                        <div class="member-error">@TempData["error"]</div>
+                        @Html.Partial("MemberSearch", new BAV.Models.Member())
+
+                        <div id="loginbox">
+
+                            <form id="loginform" class="form-horizontal" role="form">
+                                <div class="row">
+                                    <div class="col-md-5"><a class="btn btn-success btn-lg button btnsize"  href="~/Member/Personalinfo">Volunteer Registration</a></div>
+                                    <div class="col-md-4">
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle btnsize" type="button" id="menu1" data-toggle="dropdown">
+                                                Form Download
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation"><a role="menuitem" href=@Url.Content("~/Account/Report?id="+1)>Education From</a></li>
+                                                <li role="presentation"><a role="menuitem" href=@Url.Content("~/Account/Report?id="+2)>Death From</a></li>
+                                                <li role="presentation"><a role="menuitem" href=@Url.Content("~/Account/Report?id="+3)>Kaizan From</a></li>
+                                                <li role="presentation"><a role="menuitem" href=@Url.Content("~/Account/Report?id="+4)>VDP Registration Form</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                            </form>
+                         
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section><!--/#main-slider-->
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-sm-6 cols">
+                    &copy; 2016. <a  href="#">Innovation in Public Service. Powered by  <img src="~/a2i.png" width="30" height="25" /> </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</body>
+
+
+
+</html>

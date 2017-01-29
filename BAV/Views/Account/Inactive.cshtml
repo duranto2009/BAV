@@ -1,0 +1,116 @@
+﻿@model List<BAV.Models.uurd> 
+@{
+    ViewBag.Title = "DeActive";
+}
+
+<style>
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px 1px!important;
+    }
+    .btn{
+        padding:7px!important;
+    }
+</style>
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h5 class="panel-title">ব্যবহারকারীদের তালিকা</h5>
+    </div>
+
+
+    <table class="table datatable-basic table-bordered table-striped table-hover">
+            <thead>
+
+                <tr class="bg-purple-300">
+
+                    <th>No</th>
+                    <th>User Name</th>
+                    <th>Password</th>
+                    <th>Distric</th>
+                    <th>Role</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+                    <tr>
+                        <td>@item.Index</td>
+                        <td>@item.Data.u.UserName</td>
+                        <td>@item.Data.password</td>
+                        <td>@item.Data.d.Name</td>
+                        <td>@item.Data.r.RoleName</td>
+
+                        @if (@item.Data.u.IsActive == true)
+                        {
+                            <td>
+                                @Html.ActionLink("Active", "deactive", "Account", new { id = item.Data.u.Id }, new { @class = "btn btn-info" })
+                                @if (Convert.ToInt16(Session["rolename"]) == 4)
+                                {
+
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Edit", "userplatunedit", "Account", new { id = item.Data.u.Id }, new { @class = "btn btn-info" })
+                                }
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@Html.ActionLink("Deactive", "activate", "Account", new { id = item.Data.u.Id }, new {  @class = "btn btn-danger" })</td>
+                        }
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+
+</div>
+
+
+@section Scripts {
+
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/pages/datatables_basic.js"></script>
+    @*<script>
+
+        // Setting datatable defaults
+        $.extend($.fn.dataTable.defaults, {
+            autoWidth: false,
+            columnDefs: [{
+                orderable: false,
+                width: '100px',
+                targets: [5]
+            }],
+            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+            },
+            drawCallback: function () {
+                $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+            },
+            preDrawCallback: function () {
+                $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+            }
+        });
+
+        $(function () {
+
+            $('.datatable-basic').DataTable();
+
+        });
+
+    </script>*@
+}
+

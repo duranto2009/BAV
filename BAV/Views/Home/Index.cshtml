@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<style>
+
+    /*a.custom-panel:hover, a.custom-panel:focus {
+        color: #818da2;
+    }*/
+
+    .tile-stats.bg-blue-400:hover {
+        background-color: #0277BD;
+    }
+
+    .tile-stats.bg-pink-400:hover {
+        background-color: #AD1457;
+    }
+
+    .tile-stats.bg-slate:hover {
+        background-color: #37474F;
+    }
+
+    .tile-stats.bg-purple:hover {
+        background-color: #4527A0;
+    }
+
+    /*.tile-stats.tile-white:hover {
+        background: #f2f2f2;
+    }*/
+
+    .tile-stats.tile-white {
+        background: #ffffff;
+        border: 1px solid #ebebeb;
+    }
+
+    .tile-stats {
+        position: relative;
+        display: block;
+        /*background: #303641;*/
+        padding: 20px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        -webkit-border-radius: 5px;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 5px;
+        -moz-background-clip: padding;
+        border-radius: 5px;
+        background-clip: padding-box;
+        -moz-transition: all 300ms ease-in-out;
+        -o-transition: all 300ms ease-in-out;
+        -webkit-transition: all 300ms ease-in-out;
+        transition: all 300ms ease-in-out;
+    }
+
+    .tile-stats.tile-white .icon {
+        color: #f2f2f2;
+    }
+
+    .tile-stats .icon {
+        bottom: 30px!important;
+    }
+
+    .tile-stats .icon {
+        color: rgba(0, 0, 0, 0.1);
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        z-index: 1;
+    }
+
+    .tile-stats .icon i {
+        font-size: 100px;
+        line-height: 0;
+        margin: 0;
+        padding: 0;
+        vertical-align: bottom;
+    }
+    
+
+    .tile-stats.tile-white .num, .tile-stats.tile-white h3, .tile-stats.tile-white p {
+        color: #303641;
+    }
+
+
+        .tile-stats .num {
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        .tile-stats .num, .tile-stats h3, .tile-stats p {
+            position: relative;
+            color: #ffffff;
+            z-index: 5;
+            margin: 0;
+            padding: 0;
+        }
+
+    .tile-stats h3 {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    .panel-flat > .panel-heading {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #949494;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+    .navigation li + li {
+        margin-top: 1px;
+        border-bottom: 1px solid rgba(69, 74, 84, 0.7);
+    }
+
+    .sidebar {
+        background: linear-gradient(135deg,#000 0,#062a64 100%);
+    }
+
+    .header-highlight .navbar-header:not([class*=bg-]) {
+        background-color: #010814;
+    }
+
+</style>
+
+<!-- Event Modal -->
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog  modal-xs">
+        <div class="modal-content">
+            <div class="modal-header border-default">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+</div>
+
+<!-- Basic view -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="fa fa-calendar"></i> Event Calendar</h6>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="fullcalendar-basic"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                
+                   
+
+                <a class="custom-panel" href="@Url.Action("DistrictList", "Home")">
+                    <div class="tile-stats bg-blue-400">
+                        <div class="icon"><i class="fa fa-map-marker"></i></div>
+
+                        <div class="num" data-start="0" data-end="9" data-duration="1500" data-delay="0">@ViewBag.DistrictCount</div>
+
+
+                        <h3>District</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-12">
+                <a class="custom-panel" href="@Url.Action("PlatunDetails", "Commander")">
+                    <div class="tile-stats bg-pink-400">
+                        <div class="icon"><i class="fa fa-group"></i></div>
+                        <div class="num" data-start="0" data-end="9" data-duration="1500" data-delay="0">@ViewBag.PlatunCount</div>
+                        <h3>Platuns</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-12">
+                <a class="custom-panel" href="@Url.Action("PlatunDetails", "Commander")">
+                    <div class="tile-stats bg-slate">
+                        <div class="icon"><i class="fa fa-user"></i></div>
+                        <div class="num" data-start="0" data-end="9" data-duration="1500" data-delay="0">@ViewBag.MemberCount</div>
+                        <h3>Members</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-12">
+                <a class="custom-panel" href="@Url.Action("PlatunDetails", "Commander")">
+                    <div class="tile-stats bg-purple">
+                        <div class="icon"><i class="fa fa-gavel"></i></div>
+                        <div class="num" data-start="0" data-end="9" data-duration="1500" data-delay="0">@ViewBag.TrainingCount</div>
+                        <h3>Training</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div id="ModalDistrict" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-default">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title">District List</h4>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr class="bg-blue-600">
+                            <th>নং</th>
+                            <th>জেলা</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in ViewBag.DistrictList)
+                        {
+                           
+                                <tr>
+                                <td>@i</td>
+                                <td>@item.Name</td>
+                                
+
+                            </tr> 
+                            
+                           
+                            i++;
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+
+
+<!-- /basic view -->
+
+
+
+
+
+

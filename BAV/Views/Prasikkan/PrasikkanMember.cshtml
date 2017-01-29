@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">প্রশিক্ষণে সদস্য অর্ন্তভুক্তকরণ</h5>
+
+    </div>
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm("PrasikkanMember", "Prasikkan", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label for="exampleInputName2">প্রশিক্ষণের নাম</label>
+
+                @Html.DropDownList("prasikkan", ViewBag.prasikkan as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", required = "true" })
+
+            </div>
+            <div class="form-group" id="as">
+                <label for="exampleInputName2">প্রশিক্ষণ প্রতিষ্ঠান</label>
+
+                @Html.TextBox("pn", null, new { @class = "form-control", required = "true" })
+
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName2">শুরুর তারিখ</label>
+
+                @Html.TextBox("sdate", null, new { @class = "form-control", id = "sdate", required = "true" })
+
+            </div>
+             <br />
+            <input style="margin-top:5px" type="submit" id="s" value="অর্ন্তভুক্ত করা" onclick="return confirm('Are you sure you want to Save?')" disabled="disabled" class="btn btn-success center-block">
+            <p style="text-align:center;color:red">@TempData["error"]</p>
+            <div id="partial"></div>
+        }
+
+      
+    </div>
+</div>
+
+        @section Scripts {
+
+            <script src="~/BanglaDate/js/jquery.js"></script>
+            <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+            <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+            <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+            <script>
+                $(function () {
+                    var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+                    $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+                    $("#sdate").datepicker({
+                        dateFormat: "yy-mm-dd",
+                        monthNamesShort: fullmonth_array,
+                        changeMonth: true,
+                        changeYear: true
+                    }, $.datepicker.regional['bn-BD']);
+                });
+            </script>
+            <script type="text/javascript">
+                $(document).on("change", "#sdate", function () {
+                    var dateArr = $(this).val().split('-');
+                    var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+                    $(this).val(banglaDate);
+                });
+            </script>
+            <script type="text/javaScript">
+                $(function () {
+                    $("#ckbCheckAll").click(function () {
+                        $(".checkbox").prop('checked', $(this).prop('checked'));
+                        $('#s').prop('disabled', !$('.checkbox:checked').length);
+                    });
+                    $('.checkbox').click(function () {
+
+                        $('#s').prop('disabled', !$('.checkbox:checked').length);
+
+                    });
+                });
+            </script>
+            <script type="text/javascript">
+                $('#area').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(6)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#memberid').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(5)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#Platun').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(2)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+
+                $(function () {
+                    $('#prasikkan').change(function () {
+                        $('#partial').html("");
+                        var p = $('#prasikkan').val();
+
+                        $.ajax({
+                            type: "POST",
+                            data: { pid: p },
+                            url: '@Url.Action("MemberPrasikkanDetailsList", "Prasikkan")',
+                            success: function (result) {
+                                $('#partial').html(result);
+                            }
+                        });
+                    });
+                })
+            </script>
+
+
+        }
+

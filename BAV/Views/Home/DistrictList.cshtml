@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "DistrictList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h3 class="panel-title">District List</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+
+                <tr class="bg-blue-600">
+                    <th>নং</th>
+                    <th>জেলা</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in ViewBag.DistrictList)
+                {
+
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <a href="@Url.Action("ThanaList", "Home", new { id = @item.Id })">
+                                @item.Name
+                            </a>
+                       
+                        </td>
+
+
+                    </tr>
+
+
+                    i++;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

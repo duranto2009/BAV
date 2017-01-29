@@ -1,0 +1,151 @@
+﻿@model BAV.Models.AnsarInfo
+@{
+    ViewBag.Title = "Personal info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            প্রশিক্ষণার্থী নিবন্ধন
+        </h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Personalinfo", "Tranning", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+          
+                <p style="text-align:center;color:black;"><b>@TempData["eror"]</b></p>
+                <legend class="text-bold">ব্যক্তিগত তথ্য</legend>
+            
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>থানা/উপজেলা</label>
+                            @Html.DropDownListFor(model => model.Upid, ViewBag.subdistriclist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.Upid, null, new { style="color:red"})
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পদবী</label>
+
+                            @Html.DropDownListFor(model => model.Degisnation, ViewBag.designationlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.Degisnation, null, new { style = "color:red" })
+                         </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>সদস্যের নাম </label>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                            @Html.ValidationMessageFor(model => model.Name, null, new { style = "color:red" })
+                         </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পিতার নাম</label>
+                            @Html.TextBoxFor(model => model.FatherName, new { @class = "form-control input-sm", placeholder = "বাংলায়" })
+                            @Html.ValidationMessageFor(model => model.FatherName, null, new { style = "color:red" })
+                         </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>পেশা</label>
+                            @Html.TextBoxFor(model => model.occupation, new { @class = "form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.occupation, null, new { style = "color:red" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>শিক্ষা</label>
+                            @Html.DropDownListFor(model => model.education, ViewBag.exam as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.education, null, new { style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>মোবাইল</label>
+
+                            @Html.TextBoxFor(model => model.mobile, new { @class = "form-control", id = "mobile", placeholder = "English Number", maxlength = 11 })
+                            @Html.ValidationMessageFor(model => model.mobile, null, new { style = "color:red" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>বয়স</label>
+
+                            @Html.TextBoxFor(model => model.age, new { @class = "form-control", id = "age", maxlength = 11, placeholder = "Numeric Value" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>স্মার্ট কার্ড নং </label>
+                            @Html.TextBoxFor(model => model.personno, new { @class = "form-control input-sm", id = "perid", placeholder = "English Number" })
+                            @Html.ValidationMessageFor(model => model.personno, null, new { style = "color:red" })
+                         </div>
+                    </div>
+
+                </div>
+
+                <div class="row text-center">
+                    <input type="submit" value="Next" class="btn btn-primary center-block">
+                </div>
+
+        }
+    </div>
+</div> 
+
+@section Scripts {
+
+ <script src="~/BanglaDate/js/jquery.js"></script>
+
+    <script>
+        $("#mobile").keypress(function (e) {
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        })
+        $("#age").keypress(function (e) {
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        })
+        $("#perid").keypress(function (e) {
+          
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        })
+
+    </script>
+   
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

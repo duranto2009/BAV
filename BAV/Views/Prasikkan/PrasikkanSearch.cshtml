@@ -1,0 +1,247 @@
+﻿@model PagedList.IPagedList<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    
+    .ui-datepicker {
+        z-index: 9999 !important;
+    }
+</style>
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">প্রশিক্ষণপ্রাপ্ত সদস্যদের সনদ প্রদান</h5>
+
+    </div>
+
+    <div class="panel-body">
+
+
+        <div class="row">
+           
+            <div class="col-md-3">
+                <div class="form-group" id="as">
+                    <label for="exampleInputName2">প্রশিক্ষণের নাম</label>
+
+                   @Html.DropDownList("Prid", ViewBag.prasikkan as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">প্লাটুনের নাম</label>
+
+                    @Html.DropDownList("Platun", ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">সদস্য নং</label>
+
+                    @Html.TextBox("memberid", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">সদস্যের নাম</label>
+
+                    @Html.TextBox("membername", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table datatable-prasikkan-search table-bordered table-striped table-hover" id="Table">
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>সদস্যের নাম</th>
+                <th>জাতীয় পরিচয় পত্র নং</th>
+                <th>সদস্য নাম্বার</th>
+                <th>এলাকা</th>
+                <th>মোবাইল</th>
+                <th>Action</th>
+
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.pi.NID</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>@item.Data.a.PresAddress</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>
+                        @Html.ActionLink("ট্রেনিং সনদ", "PrasikkanUpdate", "Prasikkan", new { id = item.Data.p.Id }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#ModalPrasikkanSearch" })
+                    </td>
+                    <td hidden>
+                        @item.Data.platunid
+                    </td>
+                    <td hidden>@item.Data.p.PraNameId</td>
+                </tr>
+        }
+
+        </table>
+    </div>
+
+
+
+    @if (!String.IsNullOrEmpty(@ViewBag.error))
+    {
+
+        @:
+        <script type="text/javascript">alert('@ViewBag.error')</script>
+    }
+
+</div>
+
+
+<div id="ModalPrasikkanSearch" class="modal fade">
+
+</div>
+
+@*<div id="dialog-edit" style="display: none">
+    <input type="submit" value="Close" class="btn btn-default" />
+</div>*@
+
+
+        @section Scripts {
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".editDialog").on("click", function (e) {
+
+                        var url = $(this).attr('href');
+
+                        $("#dialog-edit").dialog({
+
+                            title: 'ট্রেনিং সনদ',
+
+                            autoOpen: false,
+
+                            resizable: true,
+
+                            height: 'auto',
+
+                            width: 'auto',
+
+                            show: { effect: 'drop', direction: "up" },
+
+                            modal: true,
+
+                            draggable: true,
+
+
+                            open: function (event, ui) {
+
+                                $(this).load(url);
+
+                            },
+
+                            close: function (event, ui) {
+
+                                $(this).dialog('close');
+
+                            },
+
+                        });
+
+                   
+
+                        $("#dialog-edit").dialog('open');
+                        return false;
+
+                    })
+                });
+
+            </script>
+
+
+
+            <script type="text/javascript">
+                $('#membername').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(3)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#area').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(5)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#memberid').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(4)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#Platun').change(function (event) {
+
+                    var searchKey = $(this).val();
+                    $("#Table tr td:nth-child(9)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#Prid').change(function (event) {
+
+                    var searchKey = $(this).val();
+                    $("#Table tr td:nth-child(10)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+
+
+                $('#close').click(function () {
+                    $('#dialog-edit').modal('hide');
+                });
+            </script>
+        }

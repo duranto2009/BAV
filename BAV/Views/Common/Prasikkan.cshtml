@@ -1,0 +1,49 @@
+﻿@model BAV.Models.PrasikkanName
+
+@{
+    ViewBag.Title = "Prasikkan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">প্রশিক্ষণের নাম</h5>
+
+    </div>
+
+    <div class="panel-body">
+        <div id="printdiv" class="printable"></div>
+        @using (Html.BeginForm("Prasikkan", "Common", FormMethod.Post, new { @class = "form-inline" }))
+        {
+             @Html.AntiForgeryToken()
+             @Html.ValidationSummary(true)
+            <div class="form-group" id="as">
+                <label for="exampleInputName2">প্রশিক্ষণ নাম</label>
+
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+
+            </div>
+            
+            <input type="submit" id="btnSearch" class="btn btn-primary" value="Create" />
+
+        }
+
+    </div>
+
+    @{
+        if (TempData["Prasikkan"] != null)
+        {
+
+            Html.RenderAction("PrasikkanNameList", "Common");
+        }
+    }
+
+</div>
+
+
+     

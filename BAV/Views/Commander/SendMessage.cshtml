@@ -1,0 +1,239 @@
+﻿
+@{
+    ViewBag.Title = "SendMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .pull-right{
+        margin-right:1px!important;
+    }
+</style>
+
+<p style="text-align:center;color:green">@TempData["error"]</p>
+@using (Html.BeginForm("SendMessage", "Commander", FormMethod.Post))
+{
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h5 class="panel-title">সদস্যবৃন্দকে তথ্য প্রেরন</h5>
+
+    </div>
+    <div class="panel-body">
+        <div class="row message-box">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        
+                        <div class="col-md-12">
+                            @Html.TextArea("ms", null, new { @class = "form-control" , placeholder="আপনার বার্তা বা তথ্য লিখুন" })
+                        </div>
+                    </div>
+                    <div class="form-group pull-right">
+                        <input type="submit" id="s" value="প্রেরণ করুন" onclick="return confirm('Are you sure you want to Save?')" disabled="disabled" class="btn bg-primary-800">
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">জেলা:</label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("disid", ViewBag.districlist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">থানা:</label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("subdisid", ViewBag.subdistriclist as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">প্লাটুন:</label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("platoonid", new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <div id="partial"></div>
+</div>
+    
+}
+
+
+
+@section Scripts {
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+    @*<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>*@
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel=" stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#dTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#dTable').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+
+    
+</script>
+
+    <script type="text/javascript">
+
+    $("#disid").change(function () {
+
+        if ($("#disid option:selected").val() == '') {
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("MSSVolantiarList", "Commander")',
+                    data: { cid: $("#disid").val() },
+                    success: function (result) {
+                        $('#datatable').hide();
+                        $('#partial').html(result);
+                    },
+                    error: function (ex) {
+
+                        alert('Failed to retrieve.' + ex);
+                    }
+                });
+                 $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetThana", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#disid").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value=''>সিলেক্ট</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#subdisid").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+            }
+
+            return false;
+
+        })
+        $("#subdisid").change(function () {
+
+            if ($("#subdisid option:selected").val() == '') {
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("MSSVolantiarList", "Commander")',
+                data: { sdid: $("#subdisid").val() },
+                success: function (result) {
+                    $('#datatable').hide();
+                    $('#partial').html(result);
+                },
+                error: function (ex) {
+
+                    alert('Failed to retrieve.' + ex);
+
+                }
+                   
+                });
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetPlatuon", "Commander")',
+                    dataType: 'json',
+
+                    data: { idd: $("#subdisid").val() },
+
+                    success: function (Data) {
+
+                        var markup = "<option value=''>সিলেক্ট</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markup += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#platoonid").html(markup).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve.' + ex);
+
+                    }
+
+                });
+        }
+
+     
+    })
+        $("#platoonid").change(function () {
+
+            if ($("#platoonid option:selected").val() == '') {
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("MSSVolantiarList", "Commander")',
+                    data: { pid: $("#platoonid").val() },
+                    success: function (result) {
+                        $('#datatable').hide();
+                        $('#partial').html(result);
+                    },
+                    error: function (ex) {
+
+                        alert('Failed to retrieve.' + ex);
+                    }
+                });
+                
+            }
+
+            return false;
+
+        })
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

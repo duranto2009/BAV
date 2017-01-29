@@ -1,0 +1,219 @@
+﻿@model PagedList.IPagedList<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "MemberEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">ইভেন্টে সদস্য অর্ন্তভুক্তকরণ</h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("MemberEvent", "Work", FormMethod.Post))
+        {
+        
+            <table class="table table-bordered">
+
+                <tbody>
+
+                    <tr class="success" id="as" hidden="hidden">
+                        <td><b>ইভেন্টের নাম</b></td>
+                        <td><b>@Html.Hidden("idevent")</b></td>
+                        
+                    </tr>
+
+                    <tr class="success" id="as">
+                        <td><b> ইভেন্টের নাম</b></td>
+                        
+                        <td>
+                            @ViewBag.name
+                        </td>
+                        <td><b>তারিখ</b></td>
+                      
+                        <td>
+                            @ViewBag.date
+                        </td>
+                        <td><b>এলাকা</b></td>
+                        
+                        <td>
+                            @ViewBag.area
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+            <br />
+            <div class="text-center">
+                <input type="submit" id="s" value="Submit" onclick="return confirm('Are you sure you want to Save?')" disabled="disabled" class="btn btn-primary center-block">
+            </div>
+            
+            <p style="text-align:center;color:red">@TempData["error"]</p>
+
+            <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">সদস্যের নাম</label>
+
+                    @Html.TextBox("membername", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">প্লাটুনের নাম</label>
+
+                    @Html.DropDownList("Platun", ViewBag.platunname as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+
+                </div>
+            </div> 
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">সদস্য নং</label>
+
+                    @Html.TextBox("memberid", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName2">মোবাইল</label>
+
+                    @Html.TextBox("mobile", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+            
+            
+        </div>
+
+            <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>সদস্যের নাম</th>
+
+                <th>সদস্য নাম্বার</th>
+                <th>এলাকা</th>
+                <th>মোবাইল</th>
+                <th><input type="checkbox" id="ckbCheckAll" /></th>
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>@item.Data.a.PresAddress</td>
+                    <td>@item.Data.pi.mobile</td>
+
+                    <td>
+                        <input type="checkbox" value="@item.Data.pi.Id" name="ids" class="checkbox" />
+                    </td>
+                    <td hidden>@item.Data.pi.platunId</td>
+                </tr>
+            }
+
+        </table>
+        }
+    </div>
+</div>
+
+
+        @section Scripts {
+
+            <script src="~/BanglaDate/js/jquery.js"></script>
+
+            <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+
+            <script type="text/javaScript">
+                $(function () {
+                    $("#ckbCheckAll").click(function () {
+                        $(".checkbox").prop('checked', $(this).prop('checked'));
+                        $('#s').prop('disabled', !$('.checkbox:checked').length);
+                    });
+                    $('.checkbox').click(function () {
+
+                        $('#s').prop('disabled', !$('.checkbox:checked').length);
+
+                    });
+                });
+            </script>
+
+            <script type="text/javascript">
+
+                $('#area').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(5)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#membername').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(3)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#memberid').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(4)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#mobile').keyup(function (event) {
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(6)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+                $('#Platun').change(function (event) {
+
+                    var searchKey = $(this).val().toLowerCase();
+                    $("#Table tr td:nth-child(8)").each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchKey) >= 0) {
+                            $(this).parent().show();
+                        }
+                        else {
+                            $(this).parent().hide();
+                        }
+                    });
+                });
+
+
+            </script>
+        }
+

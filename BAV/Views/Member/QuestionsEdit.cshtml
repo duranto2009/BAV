@@ -1,0 +1,142 @@
+﻿@model BAV.Models.PersonalInfo
+@{
+    Layout = null;
+}
+
+<link href="~/fonts/fontstyle.css" rel="stylesheet" />
+
+<style>
+
+    .body {
+        font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.428571429;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+</style>
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">অন্যান্য তথ্য</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm("QuestionsEdit", "Member", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>১।&nbsp;&nbsp; আপনি কি আনসার ভি ডি পি -এর প্রশিক্ষন প্রাপ্ত ?</label><br />
+                            @Html.RadioButtonFor(model => model.ps, "1", new { id = "y" })
+                            @Html.Label("1", "হ্যাঁ")
+
+
+                            @Html.RadioButtonFor(model => model.ps, "2", new { })
+                            @Html.Label("2", "না")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>২।&nbsp;&nbsp; আপনি কি আর কোন প্রশিক্ষণ নিতে চান  ?</label><br />
+                            @Html.RadioButtonFor(model => model.po, "1")
+                            @Html.Label("1", "মৌলিক")
+
+
+                            @Html.RadioButtonFor(model => model.po, "2")
+                            @Html.Label("2", "পেশাভিত্তিক")
+                            @Html.RadioButtonFor(model => model.po, "3")
+                            @Html.Label("3", "বৃত্তিমুলক")
+
+
+                            @Html.RadioButtonFor(model => model.po, "4")
+                            @Html.Label("4", "অন্যান্যা")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>৩।&nbsp;&nbsp; আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর ডাটাবেজভুক্ত হতে চান ?</label><br />
+                            @Html.RadioButtonFor(model => model.p, "1", new { id = "s" })
+                            @Html.Label("1", "হ্যাঁ")
+
+
+                            @Html.RadioButtonFor(model => model.p, "2", new { })
+                            @Html.Label("2", "না")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>৪।&nbsp;&nbsp; আপনি কি ভলানটিয়ার হিসেবে আনসার ভি ডি পি -এর আইডি কার্ড চান  ?</label><br />
+                            @Html.RadioButtonFor(model => model.pst, "1", new { id = "t" })
+                            @Html.Label("1", "হ্যাঁ")
+
+
+                            @Html.RadioButtonFor(model => model.pst, "2", new { })
+                            @Html.Label("2", "না")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>৫।&nbsp;&nbsp; আপনি কি জননিরাপত্তা কাজে আনসার ভি ডি পি -এর কোন চাকুরী বা ডিউটি করতে চান  ?</label><br />
+                            @Html.RadioButtonFor(model => model.pos, "1")
+                            @Html.Label("1", "অঙ্গিভুত আনসার হিসেবে")
+                            @Html.RadioButtonFor(model => model.pos, "2")
+                            @Html.Label("2", "নির্বাচন ডিউটি")
+                            @Html.RadioButtonFor(model => model.pos, "3")
+                            @Html.Label("3", "পূজা,মেলার নিরাপত্তা ডিউটি")
+                            @Html.RadioButtonFor(model => model.pos, "4")
+                            @Html.Label("4", "যে কোন নিরাপত্তা ডিউটি")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row body">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>৬।&nbsp;&nbsp; আপনি কি জননিরাপত্ত কাজে আনসার ভি ডি পি -এর উন্নয়ন ব্যাংকের শেয়ারহোল্ডার  ?</label><br />
+                            @Html.RadioButtonFor(model => model.pot, "1")
+                            @Html.Label("1", "শেয়ারহোল্ডার")
+                            @Html.RadioButtonFor(model => model.pot, "2")
+                            @Html.Label("2", "নতুন শেয়ার ক্রয়ে ইছ্ছুক")
+                            @Html.RadioButtonFor(model => model.pot, "3")
+                            @Html.Label("3", "নতুন ঋণ নিতে ইছ্ছুক")
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <input type="submit" value="Submit" class="btn btn-info center-block">
+                </div>
+
+            }
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+

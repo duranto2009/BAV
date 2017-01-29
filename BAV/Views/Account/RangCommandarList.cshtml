@@ -1,0 +1,113 @@
+﻿@model List<BAV.Models.uurd>
+@{
+    ViewBag.Title = "DeActive";
+}
+
+<style>
+    .dataTables_length {
+        float: right;
+        display: inline-block;
+        margin: 15px 20px 20px 20px !important;
+    }
+
+    .dataTables_filter {
+        position: relative;
+        display: block;
+        float: left;
+        margin: 15px 0 20px 20px !important;
+    }
+
+    .dataTables_info {
+        float: left;
+        padding: 8px 20px !important;
+        margin-bottom: 20px;
+    }
+
+    .panel > .dataTables_wrapper .table-bordered {
+        border-top: 1px solid #ddd !important;
+        border-bottom: 1px solid #ddd !important;
+        margin-bottom: 10px;
+    }
+
+
+    .dataTables_filter input {
+        margin-left: 8px;
+    }
+</style>
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h5 class="panel-title">রেঞ্জ কমান্ডার এর তালিকা</h5>
+
+    </div>
+
+
+     <table class="table datatable-list table-bordered table-striped table-hover">
+            <thead>
+
+                <tr class="bg-blue-600">
+
+                    <th>Sl No</th>
+                    <th>User Name</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                    <tr>
+                        <td>@item.Index</td>
+                        <td>@item.Data.u.UserName</td>
+                        <td>@item.Data.password</td>
+                        <td>@item.Data.r.RoleName</td>
+                        @if (@item.Data.u.IsActive == true)
+                    {
+                            <td>
+                                @Html.ActionLink("Inactive", "deactive", "Account", new { id = item.Data.u.Id }, new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Edit", "userdistrictedit", "Account", new { id = item.Data.u.Id }, new { @class = "btn btn-info" })
+                            </td>
+                    }
+                    else
+                    {
+                            <td>@Html.ActionLink("Active", "activate", "Account", new { id = item.Data.u.Id }, new { @class = "btn btn-info" })</td>
+                    }
+
+
+
+                    </tr>
+            }
+
+            </tbody>
+        </table>
+
+
+
+</div>
+
+
+@section Scripts{
+
+<script type="text/javascript" src="@Url.Content("~/Content/Back_Template/")assets/js/plugins/tables/datatables/datatables.min.js"></script>
+
+
+    <script>
+
+        $(function () {
+
+
+            // Basic datatable
+            $('.datatable-list').DataTable();
+
+
+
+        });
+
+    </script>
+
+}
+

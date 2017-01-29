@@ -1,0 +1,125 @@
+﻿@model BAV.Models.Prasikkan
+
+@{
+    ViewBag.Title = "Prasikkan";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ট্রেনিং সনদ</h4>
+        </div>
+
+        <div class="modal-body">
+            @using (Html.BeginForm("PrasikkanUpdate", "Prasikkan", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row" id="modalwindow">
+
+                    <div class="col-md-12">
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.Id)
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.MemberId)
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label>প্রশিক্ষণের নাম:</label>
+                                    @Html.DisplayFor(m => m.PraName)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label>প্রশিক্ষণ প্রতিষ্ঠান:</label>
+                                    @Html.DisplayFor(model => model.PraInstitudeName, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label> শুরুর তারিখ:</label>
+                                    @Html.DisplayFor(model => model.StartDate, new { @class = "form-control", id = "sdate" })
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>  সনদ নং</label>
+                                    @Html.TextBoxFor(model => model.SNo, new { @class = "form-control", required = true })
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>শেষ তারিখ</label>
+                                    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", id = "edate", required = true })
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="text-align:center">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+
+
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+    <script>
+        $(function () {
+            var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+            $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+            $("#sdate,#edate").datepicker({
+                dateFormat: "yy-mm-dd",
+                monthNamesShort: fullmonth_array,
+                changeMonth: true,
+                changeYear: true
+            }, $.datepicker.regional['bn-BD']);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on("change", "#sdate,#edate", function () {
+            var dateArr = $(this).val().split('-');
+            var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+            $(this).val(banglaDate);
+        });
+
+    </script>
+
+
+

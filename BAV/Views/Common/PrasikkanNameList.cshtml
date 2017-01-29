@@ -1,0 +1,29 @@
+﻿@model PagedList.IPagedList<BAV.Models.PrasikkanName>
+@using PagedList.Mvc;
+
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+
+        <tr>
+            <th>নং</th>
+            <th>প্রশিক্ষণের নাম</th>
+            <th>তৈরীর তারিখ</th>
+
+        </tr>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.Name</td>
+                <td>@item.Data.CreationDate.ToShortDateString()</td>
+            </tr>
+        }
+
+    </table>
+</div>
+

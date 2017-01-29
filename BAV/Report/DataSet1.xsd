@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="image" msprop:Generator_TableClassName="imageDataTable" msprop:Generator_TableVarName="tableimage" msprop:Generator_TablePropName="image" msprop:Generator_RowDeletingName="imageRowDeleting" msprop:Generator_RowChangingName="imageRowChanging" msprop:Generator_RowEvHandlerName="imageRowChangeEventHandler" msprop:Generator_RowDeletedName="imageRowDeleted" msprop:Generator_UserTableName="image" msprop:Generator_RowChangedName="imageRowChanged" msprop:Generator_RowEvArgName="imageRowChangeEvent" msprop:Generator_RowClassName="imageRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="imageurl" msprop:Generator_ColumnVarNameInTable="columnimageurl" msprop:Generator_ColumnPropNameInRow="imageurl" msprop:Generator_ColumnPropNameInTable="imageurlColumn" msprop:Generator_UserColumnName="imageurl" type="xs:string" minOccurs="0" />
+              <xs:element name="presa" msprop:Generator_ColumnVarNameInTable="columnpresa" msprop:Generator_ColumnPropNameInRow="presa" msprop:Generator_ColumnPropNameInTable="presaColumn" msprop:Generator_UserColumnName="presa" type="xs:string" minOccurs="0" />
+              <xs:element name="presdis" msprop:Generator_ColumnVarNameInTable="columnpresdis" msprop:Generator_ColumnPropNameInRow="presdis" msprop:Generator_ColumnPropNameInTable="presdisColumn" msprop:Generator_UserColumnName="presdis" type="xs:string" minOccurs="0" />
+              <xs:element name="prespost" msprop:Generator_ColumnVarNameInTable="columnprespost" msprop:Generator_ColumnPropNameInRow="prespost" msprop:Generator_ColumnPropNameInTable="prespostColumn" msprop:Generator_UserColumnName="prespost" type="xs:string" minOccurs="0" />
+              <xs:element name="presward" msprop:Generator_ColumnVarNameInTable="columnpresward" msprop:Generator_ColumnPropNameInRow="presward" msprop:Generator_ColumnPropNameInTable="preswardColumn" msprop:Generator_UserColumnName="presward" type="xs:string" minOccurs="0" />
+              <xs:element name="pressubdis" msprop:Generator_ColumnVarNameInTable="columnpressubdis" msprop:Generator_ColumnPropNameInRow="pressubdis" msprop:Generator_ColumnPropNameInTable="pressubdisColumn" msprop:Generator_UserColumnName="pressubdis" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

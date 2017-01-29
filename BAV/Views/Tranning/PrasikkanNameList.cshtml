@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<BAV.Models.Tranning>
+@using PagedList.Mvc;
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+        <tr>
+            <th>নং</th>
+            <th>প্রশিক্ষণের নাম</th>
+            <th>তৈরীর তারিখ</th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+    {
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.Name</td>
+                <td>@item.Data.CreationDate.ToShortDateString()</td>
+                <td>@Html.ActionLink("Edit", "TranningEdit", new { id = item.Data.Id }, new { @class = "btn btn-success", data_toggle = "modal", data_target = "#ModalTrainingEdit" })</td>
+            </tr>
+    }
+
+    </table>
+</div>
+
+<div id="ModalTrainingEdit" class="modal fade">
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+
+                title: 'Training Edit',
+
+                autoOpen: false,
+
+                resizable: false,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                draggable: true,
+
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        })
+    });
+</script>

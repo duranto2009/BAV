@@ -1,0 +1,18 @@
+﻿
+ @font-face {
+  font-family: 'SolaimanLipi';
+  src: url('../fonts/SolaimanLipi.eot') format('embedded-opentype'),
+  url('../fonts/SolaimanLipi.svg') format('svg'),
+  url('../fonts/SolaimanLipi.woff') format('woff'),
+  src: url('../fonts/SolaimanLipi.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+  body {
+            font-family: SolaimanLipi,Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }

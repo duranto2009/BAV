@@ -1,0 +1,131 @@
+﻿@model PagedList.IPagedList<BAV.Models.Event>
+@using PagedList.Mvc;
+
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+
+    <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+
+        <tr>
+
+            <th>নং</th>
+            <th>ইভেন্টের নাম</th>
+            <th>তারিখ</th>
+            <th>এলাকা</th>
+            @{if (@TempData["r"] == "false")
+        {
+                <th>Action</th>
+        }
+        else
+        {
+
+        }
+            }
+
+        </tr>
+
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+    {
+            <tr>
+                <td>@item.Index</td>
+                <td>@item.Data.EventName</td>
+                <td>@item.Data.Date</td>
+                <td>@item.Data.Area</td>
+                @{if (@TempData["r"] == "false")
+            {
+                    <td>
+
+                        @Html.ActionLink("Edit", "EventEdit", new { id = item.Data.Id }, new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#ModalEventEdit" })
+
+
+
+                        @{if (@item.Data.IsActive == false)
+                    {
+                    }
+                    else
+                    {
+                            @Html.ActionLink("Assign", "MemberEvent", "Work", new { id = item.Data.Id }, new { @class = "btn btn-primary"})
+                    }
+                        }
+                    </td>
+            }
+                }
+            </tr>
+
+    }
+
+    </table>
+</div>
+
+
+<div id="ModalEventEdit" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+
+
+        @*<div id="dialog-edit" style="display: none">
+
+            </div>*@
+
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+
+                $(".editDialog").on("click", function (e) {
+
+                    var url = $(this).attr('href');
+
+                    $("#dialog-edit").dialog({
+
+                        title: 'Event Edit',
+
+                        autoOpen: false,
+
+                        resizable: true,
+
+                        height: 'auto',
+
+                        width: 'auto',
+
+                        show: { effect: 'drop', direction: "up" },
+
+                        modal: true,
+
+                        draggable: true,
+
+
+                        open: function (event, ui) {
+
+                            $(this).load(url);
+
+                        },
+
+                        close: function (event, ui) {
+
+                            $(this).dialog('close');
+
+                        }
+
+
+                    });
+
+
+
+                    $("#dialog-edit").dialog('open');
+
+                    return false;
+
+                })
+            });
+        </script>

@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'kalpurush';
+    src: url('../fonts/kalpurush.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SolaimanLipi';
+    src: url('../fonts/SolaimanLipi.ttf') format('truetype');
+}
+
+body {
+    font-family: 'kalpurush', 'SolaimanLipi', Arial;
+}
+
+#date_of_birth {
+    font-family: 'kalpurush', 'SolaimanLipi', Arial;
+}
+
+.ui-widget {
+    font-family: 'kalpurush', 'SolaimanLipi', Verdana, Arial, sans-serif /*{ffDefault}*/;
+    font-size: 1.1em /*{fsDefault}*/;
+}
+
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: 'kalpurush', 'SolaimanLipi', Verdana, Arial, sans-serif /*{ffDefault}*/;
+    font-size: 1em;
+}

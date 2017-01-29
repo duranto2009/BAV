@@ -1,0 +1,259 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">বেতন প্রদান</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm("PaySalaryToVolantier", "Work", FormMethod.Post, new { enctype = "multipart/form-data", target = "_blank" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.Hidden("id")
+                            @Html.Hidden("workfor")
+                        </div>
+                        <div class="form-group">
+                            Starting Date :
+
+                            @Html.Display("stdate", "{0:dd-MMM-yyyy}", new { @class = "form-control" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @{
+                                    if (@ViewBag.workfor == "h")
+                                    {
+                                        <label>Per Hour Cost:</label>
+                                    }
+                                    else if (@ViewBag.workfor == "m")
+                                    {
+                                        <label>Monthly Salary:</label>
+                                    }
+                                    else if (@ViewBag.workfor == "c")
+                                    {
+                                        <label>Salary:</label>
+                                    }
+
+                            }
+                            @Html.Display("salary", null, new { @class = "form-control" })
+                            Tk
+
+
+                        </div>
+                        <div class="form-group">
+                          @{
+                                if (@ViewBag.workfor == "h")
+                                {
+                                                <label>Hour :</label>
+                                                @Html.Display("month", null, new { @class = "form-control" })
+                                                <label>Hours</label>
+                                }
+                                else if (@ViewBag.workfor == "m")
+                                {
+                                                <label>Month :</label>
+                                                @Html.Display("month", null, new { @class = "form-control" })
+                                                <label>Months</label>
+
+                                }
+
+                          }
+
+
+
+                        </div>
+                         @{
+                                if (@ViewBag.workfor == "h")
+                                {
+
+                                }
+                                else if (@ViewBag.workfor == "m")
+                                {
+                                    <div class="form-group">
+                                        Day :
+
+                                        @Html.Display("day", null, new { @class = "form-control" })
+                                        days
+
+                                    </div>
+                                }
+
+                          }
+                          @{
+                                if (@ViewBag.workfor == "h")
+                                {
+                                    <div class="form-group">
+                                        Total Salary :
+                                        @Html.Display("totalsalry", null, new { @class = "form-control" })
+                                        Tk
+
+                                    </div>
+                                }
+                                else if (@ViewBag.workfor == "m")
+                                {
+
+                                }
+
+                          }
+
+
+                        <div class="form-group">
+
+                            @{
+                                    if (@ViewBag.workfor == "h")
+                                    {
+
+                                                   <label>Get Salary :</label>
+                                                    @Html.Display("hmgs", null, new { @class = "form-control" })
+                                                    <label>Tk</label>
+                                    }
+                                    else if (@ViewBag.workfor == "m")
+                                    {
+                                                    <label>Get Salary :</label>
+                                                    @Html.Display("hmgs", null, new { @class = "form-control" })
+                                                    <label>Months</label>
+                                    }
+
+                            }
+
+                        </div>
+
+                        <div class="form-group">
+                            @{
+                if (@ViewBag.workfor == "h")
+                {
+                    <label>  Get Salary :</label>
+                                @Html.TextBox("gsmm", null, new { @class = "form-control" })
+
+                }
+                else if (@ViewBag.workfor == "m")
+                {
+                    <label>  Get Salary of Month :</label>
+                                @Html.TextBox("gsm", null, new { @class = "form-control" })
+                }
+
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            @{
+                if (@ViewBag.workfor == "h")
+                {
+
+                }
+                else if (@ViewBag.workfor == "m")
+                {
+                    <label> Due Salary :</label>
+                                @Html.Display("salaryaterendevent", null, new { @class = "form-control" })
+                                <label>Tk</label>
+                }
+                            }
+                        </div>
+
+
+
+
+
+
+                        @{
+                if (@ViewBag.workfor == "h")
+                {
+                    if (@ViewBag.gsmm != 0)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Pay" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+
+
+                }
+                else if (@ViewBag.workfor == "m")
+                {
+                    if (@ViewBag.gsm != 0)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Pay" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                    else if (@ViewBag.salaryaterendevent != 0)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Pay" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                }
+                else if (@ViewBag.workfor == "c")
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Pay" class="btn btn-success" />
+                        </div>
+                    </div>
+                }
+
+                        }
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+    <script>
+        $(function () {
+            var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+            $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+            $("#sdate,#edate").datepicker({
+                dateFormat: "yy-mm-dd",
+                monthNamesShort: fullmonth_array,
+                changeMonth: true,
+                changeYear: true
+            }, $.datepicker.regional['bn-BD']);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on("change", "#sdate,#edate", function () {
+            var dateArr = $(this).val().split('-');
+            var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+            $(this).val(banglaDate);
+        });
+    </script>
+
+

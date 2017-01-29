@@ -1,0 +1,108 @@
+﻿@model BAV.Models.BodyStructure
+@{
+    Layout = null;
+}
+
+<link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">শারিরীক যোগ্যতার তথ্য</h4>
+        </div>
+
+        <div class="modal-body">
+
+          @using (Html.BeginForm("OthersEdit", "Member", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.MemberId)
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>উচ্চতা</label><br />
+                            @Html.DropDownListFor(model => model.footid, ViewBag.Foot as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:80px" })
+                            @Html.DropDownListFor(model => model.inchid, ViewBag.Inch as IEnumerable<SelectListItem>, "সিলেক্ট", new { style = "width:80px" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>ওজন</label><br />
+
+                            @Html.TextBoxFor(model => model.WeightKg, new { @class = "input-sm", style = "width:90px" }) <label>কেজি</label>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+
+                        <div class="form-group">
+                            <label>লিঙ্গ</label><br />
+
+                            @Html.RadioButtonFor(model => model.GenderId, "1", new { @checked = true, id = "m" })
+                            @Html.Label("1", "পুরুষ")
+                            @Html.RadioButtonFor(model => model.GenderId, "2", new { id = "m" })
+                            @Html.Label("2", "মহিলা")
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>চোখের রং</label>
+
+                            @Html.DropDownListFor(model => model.EyeColorId, ViewBag.eyecolor as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>রক্তের গ্রুপ</label>
+                            @Html.DropDownListFor(model => model.BloodGroupId, ViewBag.BloodGroup as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>সনাক্তকরণ চিহ্ন</label>
+                            @Html.TextBoxFor(model => model.SanaktakaranSign, new { @class = "form-control input-sm" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align:center">
+                    <input type="submit" id="btnedit" class="btn btn-info" value="Update" />
+                </div>
+
+
+            }
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/BanglaDate/js/jquery.js"></script>
+<script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>

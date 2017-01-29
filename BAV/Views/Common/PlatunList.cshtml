@@ -1,0 +1,180 @@
+﻿@model List<BAV.Models.PlaDistric>
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+@*<link href="~/BanglaDate/css/Table.css" rel="stylesheet" />*@
+
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+<link href="~/fonts/fontstyle.css" rel="stylesheet" />
+
+
+@*<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel=" stylesheet" />*@
+
+@*<style>
+    tfoot input {
+        width: 80%;
+        box-sizing: border-box;
+    }
+</style>*@
+
+
+<div class="table-responsive">
+    <table class="table datatable-member-search table-bordered table-striped table-hover" id="Table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Platun Name</th>
+                <th>Creation Date</th>
+                <th>Distric</th>
+                <th>Thana</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tfoot hidden>
+            <tr>
+                <th>No</th>
+                <th>Platun Name</th>
+                <th>Creation Date</th>
+                <th>Distric</th>
+                <th>Thana</th>
+                <th>Action</th>
+
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.PlatuneName</td>
+                    <td>@item.Data.creationdte.ToShortDateString()</td>
+                    <td>@item.Data.disnane</td>
+                    <td>@item.Data.subname</td>
+                    <td>
+                        @{
+            if (@item.Data.Isactive == true)
+            {
+                @Html.ActionLink("Inactive", "InactivePlatun", new { id = item.Data.PlatunId }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#ModalInactive" })
+            }
+            else
+            {
+                @Html.ActionLink("Deactive", "InactivePlatun", new { id = item.Data.PlatunId }, new { @class = "btn btn-danger", data_toggle = "modal", data_target = "#ModalActive" })
+            }
+                        }
+
+                        @Html.ActionLink("Edit", "EditPlatun", new { id = item.Data.PlatunId }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#ModalPlatunEdit" })
+                    </td>
+
+
+
+                </tr>
+        }
+
+        </tbody>
+    </table>
+</div>
+
+
+<div id="ModalPlatunEdit" class="modal fade">
+
+</div>
+
+<div id="ModalInactive" class="modal fade">
+
+</div>
+
+<div id="ModalActive" class="modal fade">
+
+</div>
+
+@*<div id="dialog-edit" style="display: none">
+</div>*@
+
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".editDialog").on("click", function (e) {
+
+            var url = $(this).attr('href');
+
+            $("#dialog-edit").dialog({
+
+                title: 'Platun Edit',
+
+                autoOpen: false,
+
+                //resizable: true,
+
+                height: 'auto',
+
+                width: 'auto',
+
+                show: { effect: 'drop', direction: "up" },
+
+                modal: true,
+
+                //draggable: true,
+
+
+                open: function (event, ui) {
+
+                    $(this).load(url);
+
+                },
+
+                close: function (event, ui) {
+
+                    $(this).dialog('close');
+
+                }
+
+
+            });
+
+
+
+            $("#dialog-edit").dialog('open');
+
+            return false;
+
+        })
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#Table tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#Table').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+</script>

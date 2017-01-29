@@ -1,0 +1,260 @@
+﻿@model BAV.Models.monthlyhourlycontact
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="col-md-12">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.Hidden("id")
+            </div>
+            <div class="form-group">
+                @Html.RadioButton("m", "1",true, new { id = "m" })
+                @Html.Label("1", "Monthly")
+                @Html.RadioButton("m", "2", new { id = "h" })
+                @Html.Label("2", "Hourly")
+                @Html.RadioButton("m", "3", new { id = "c" })
+                @Html.Label("3", "Contract")
+           
+            </div>
+            <div id="monthly">
+               
+                <div class="form-group alert-success">
+                    <p class="panel-title" style="text-align:center">Monthly</p>
+                </div>
+                <div class="form-group">
+                    Start Date
+                    @Html.TextBoxFor(model => model.mbs.dutystart, new { @class = "form-control", id = "d",required=true})
+                </div>
+
+                <div class="form-group">
+                   Shift <br />
+                    @Html.RadioButtonFor(model => model.mbs.settime, "1", new { id = "m", @checked = true })
+                    @Html.Label("1", "Day")
+                    @Html.RadioButtonFor(model => model.mbs.settime, "2", new { id = "h" })
+                    @Html.Label("2", "Night")
+                    
+                </div>
+                <div class="form-group">
+                    Per Day Cost
+                    @Html.TextBoxFor(model => model.mbs.perdaycost, new { @class = "form-control", id = "t", required = true })
+
+                </div>
+              
+                <div class="form-group">
+                    Salary
+                    @Html.TextBoxFor(model => model.mbs.salary, new { @class = "form-control", id = "st", required = true })
+
+                </div>
+
+
+            </div>
+           
+            <div id="hourly" style="display:none">
+                <div class="form-group alert-success form-inline">
+                    <p class="panel-title" style="text-align:center">Hourly</p>
+                </div>
+               
+                <div class="form-group">
+                    Start Date
+                    @Html.TextBoxFor(model => model.hbm.Startingdate, new { @class = "form-control", id = "sd"})
+                    
+                </div>
+
+                <div class="form-group">
+                    Shift <br />
+                    @Html.RadioButtonFor(model => model.hbm.settime, "1", new { id = "m", @checked = true })
+                    @Html.Label("1", "Day")
+                    @Html.RadioButtonFor(model => model.hbm.settime, "2", new { id = "h" })
+                    @Html.Label("2", "Night")
+                </div>
+                <div class="form-group">
+                    Per Day Hour
+                    @Html.TextBoxFor(model => model.hbm.perdayduty, new { @class = "form-control", id = "pdd" })
+                  
+                </div>
+                <div class="form-group">
+                    Per Hour Salary
+                    @Html.TextBoxFor(model => model.hbm.amount, new { @class = "form-control", id = "a" })
+                    
+                </div>
+
+         
+            </div>
+            <div id="contact" style="display:none">
+                <div class="form-group alert-success form-inline">
+                    <p class="panel-title" style="text-align:center"> Contract Based</p>
+                </div>
+             
+                <div class="form-group">
+                    Start Date
+                    @Html.TextBoxFor(model => model.cbm.StartDate, new { @class = "form-control", id = "stdate" })
+                </div>
+              
+                <div class="form-group">
+                    Shift <br />
+                    @Html.RadioButtonFor(model => model.cbm.dutitime, "1", new { id = "m", @checked = true })
+                    @Html.Label("1", "Day")
+                    @Html.RadioButtonFor(model => model.cbm.dutitime, "2", new { id = "h" })
+                    @Html.Label("2", "Night")
+                </div>
+
+                <div class="form-group">
+                    Salary
+                    @Html.TextBoxFor(model => model.cbm.amount, new { @class = "form-control",id="cba" })
+                </div>
+
+             
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        
+        $("#pdd").keypress(function (e) {
+         
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+             
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            };
+            $("#pdd").attr('maxlength', '2');
+        })
+      
+    </script>
+   
+    <script type="text/javascript">
+    $(function () {
+        
+        $('#cba').keypress(function (event) {
+
+            if (event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46)
+                return true;
+
+            else if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+                event.preventDefault();
+            var txt = $("#cba").val();
+            if (txt.indexOf(".") > -1 && txt.split(".")[1].length > 1) {
+                var substr = txt.split(".")[1].substring(0, 1);
+                $("#cba").val(txt.split(".")[0] + "." + substr);
+            }
+
+        });
+        $('#a').keypress(function (event) {
+
+            if (event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46)
+                return true;
+
+            else if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+                event.preventDefault();
+            var txt = $("#a").val();
+            if (txt.indexOf(".") > -1 && txt.split(".")[1].length > 1) {
+                var substr = txt.split(".")[1].substring(0, 1);
+                $("#a").val(txt.split(".")[0] + "." + substr);
+            }
+
+        });
+        $('#st').keypress(function (event) {
+
+            if (event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46)
+                return true;
+
+            else if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+                event.preventDefault();
+            var txt = $("#st").val();
+            if (txt.indexOf(".") > -1 && txt.split(".")[1].length > 1) {
+                var substr = txt.split(".")[1].substring(0, 1);
+                $("#st").val(txt.split(".")[0] + "." + substr);
+            }
+
+        });
+        $('#t').keypress(function (event) {
+
+            if (event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46)
+                return true;
+
+            else if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+                event.preventDefault();
+            var txt = $("#t").val();
+            if (txt.indexOf(".") > -1 && txt.split(".")[1].length > 1) {
+                var substr = txt.split(".")[1].substring(0, 1);
+                $("#t").val(txt.split(".")[0] + "." + substr);
+            }
+
+        });
+   
+    });
+</script>
+    
+      <script type="text/javascript">
+          $(function () {
+              $("#stdate,#d,#sd").datepicker(
+                  {
+                      dateFormat: 'yy/mm/dd',
+                      changeMonth: true,
+                      changeYear: true,
+                      yearRange: "-30:+30"
+                  });
+             
+          });
+
+        
+   
+    </script>
+
+    <script type="text/javascript">
+
+            $("#m").click(function () {
+                $("#monthly").show();
+                $("#hourly").hide();
+                $("#contact").hide();
+            });
+
+            $("#h").click(function () {
+                $("#hourly").show();
+                $("#monthly").hide();
+                $("#contact").hide();
+
+                $("#sd").attr("required", true);
+                $("#pdd").attr("required", true);
+                $("#a").attr("required", true);
+
+                $("#d").attr("required", false);
+                $("#t").attr("required", false);
+                $("#st").attr("required", false);
+                $("#stdate").attr("required", false);
+                $("#cba").attr("required", false);
+              
+            });
+            $("#c").click(function () {
+                $("#contact").show();
+                $("#hourly").hide();
+                $("#monthly").hide();
+                $("#sd").attr("required", false);
+                $("#pdd").attr("required", false);
+                $("#a").attr("required", false);
+                $("#d").attr("required", false);
+                $("#t").attr("required", false);
+                $("#st").attr("required", false);
+                $("#stdate").attr("required", true);
+                $("#cba").attr("required", true);
+            });
+     
+    </script>
+    
+}

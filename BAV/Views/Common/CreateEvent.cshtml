@@ -1,0 +1,96 @@
+﻿@model BAV.Models.Event
+@{
+    ViewBag.Title = "CreateEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .ui-datepicker {
+        z-index: 9999 !important;
+    }
+</style>
+
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+
+        <h5 class="panel-title">অপারেশনাল ইভেন্ট তৈরীকরণ</h5>
+
+    </div>
+    <div class="panel-body">
+
+    @{
+        if (@TempData["r"] == "false")
+        {
+            using (Html.BeginForm("CreateEvent", "Common", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                <div class="form-group" id="as">
+                    <label for="exampleInputName2">ইভেন্টের নাম</label>
+
+                    @Html.TextBoxFor(model => model.EventName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EventName, null, new { style="color:red"})
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">তারিখ</label>
+
+                    @Html.TextBoxFor(model => model.Date, new { @class = "form-control", id = "sdate" })
+                    @Html.ValidationMessageFor(model => model.Date, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">এলাকা</label>
+
+                    @Html.TextBoxFor(model => model.Area, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Area, null, new { style = "color:red" })
+                </div>
+            
+                 <input type="submit" id="s" value="Submit"  class="btn btn-primary">
+            }
+        }
+    }
+
+    </div>
+
+    @{
+        if (TempData["event"] != null)
+        {
+            
+            Html.RenderAction("EventList", "Common", @TempData["r"]);
+                 
+        }
+    }
+
+</div>
+
+
+
+    
+
+@section Scripts {
+
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+    <script>
+        $(function () {
+            var fullmonth_array = $.datepicker.regional['bn-BD'].monthNames;
+            $.datepicker.setDefaults($.datepicker.regional['bn-BD']);
+            $("#sdate").datepicker({
+                dateFormat: "yy-mm-dd",
+                monthNamesShort: fullmonth_array,
+                changeMonth: true,
+                changeYear: true
+            }, $.datepicker.regional['bn-BD']);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on("change", "#sdate", function () {
+            var dateArr = $(this).val().split('-');
+            var banglaDate = mrt(dateArr[0]) + '-' + mrt(dateArr[1]) + '-' + mrt(dateArr[2]);
+            $(this).val(banglaDate);
+        });
+    </script>
+}

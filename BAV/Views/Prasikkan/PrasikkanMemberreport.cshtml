@@ -1,0 +1,100 @@
+﻿@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+@{
+    Layout = null;
+}
+
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+<style>
+    .dataTables_length > label {
+        margin-right: 46px;
+    }
+
+    .print-btn{
+        position:relative;
+        top:44px!important;
+    }
+    .dataTables_paginate {
+        margin: 10px 0 20px 20px!important;
+    }
+
+</style>
+
+@Html.ActionLink("Print", "PrasikkanMemberSearchreportPrint", new { prasikkanid = ViewBag.prasikkanid, Platun = ViewBag.platunid }, new { @class = "print-btn btn btn-sm  bg-slate-800 pull-right", target = "_blank" })
+<br />
+<div class="table-responsive">
+  
+    <table id="Table" class="table table-bordered table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>সদস্যের নাম</th>
+                <th>জাতীয় পরিচয় পত্র নং</th>
+                <th>সদস্য নাম্বার</th>
+                <th>এলাকা</th>
+                <th>মোবাইল</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tfoot hidden>
+            <tr>
+                <th>নং</th>
+                <th>প্লাটুনের নাম</th>
+                <th>সদস্যের নাম</th>
+                <th>জাতীয় পরিচয় পত্র নং</th>
+                <th>সদস্য নাম্বার</th>
+                <th>এলাকা</th>
+                <th>মোবাইল</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.pi.NID</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>@item.Data.a.PresAddress</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>@Html.ActionLink("সনদ প্রিন্ট", "SanadPrint", "Prasikkan", new { Id = item.Data.p.Id }, new { @class = "btn bg-slate-800" })</td>
+                </tr>
+                }
+        </tbody>
+    </table>
+</div>
+       
+
+
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#Table tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#Table').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+</script>

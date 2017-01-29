@@ -1,0 +1,53 @@
+﻿
+@model List<BAV.Models.praname>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+
+
+<legend class="text-bold">প্রশিক্ষণ সংক্রান্ত তথ্য</legend>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr style="background-color:gray">
+
+                <th>প্রশিক্ষণের নাম</th>
+                <th>প্রশিক্ষণ প্রতিষ্ঠান</th>
+                <th>শুরুর তারিখ</th>
+                <th>শেষ তারিখ</th>
+                <th>সনদ নং </th>
+            </tr>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>@item.Data.t.Name</td>
+                    <td>@item.Data.at.PraInstitudeName</td>
+                    <td>@item.Data.at.StartDate</td>
+                    <td>@item.Data.at.EndDate</td>
+                    <td>
+                        @if (@item.Data.at.SNo == null)
+                        {
+                            @Html.ActionLink("Edit", "Prassikkanedit", new { id = item.Data.at.Id }, new { @class = "btn btn-sm", data_toggle = "modal", data_target = "#ModalMembersNoEdit" })
+                        }
+                        else
+                        {
+                            @item.Data.at.SNo
+
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+

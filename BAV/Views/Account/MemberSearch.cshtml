@@ -1,0 +1,28 @@
+﻿@model BAV.Models.Member
+
+    @using (Html.BeginForm("MemberSearch", "Account", FormMethod.Post, new { id = "mem" }))
+     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label>Member ID</label>
+            
+             @Html.TextBoxFor(model => model.IDCardNo, new { @class = "form-control", placeholder = "Enter Member ID" })
+
+            
+        </div>
+
+
+    <input type="submit" class="btn btn-success btn-md btnsize" value="Search" />
+
+     }
+
+
+
+
+
+
+
+
+

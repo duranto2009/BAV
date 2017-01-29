@@ -1,0 +1,292 @@
+﻿@model BAV.Models.AnsarAddress
+@{
+    ViewBag.title = "Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            প্রশিক্ষণার্থী নিবন্ধন
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("AddressInfo", "Tranning", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+            <legend class="text-bold">কর্মস্থল</legend>
+             
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @{
+                            var Ansarlinfo = (BAV.Models.AnsarInfo)Session["Ansarinfo"];
+                    }
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জেলা</label>
+                        @Html.DropDownListFor(model => model.PresDistric, ViewBag.presdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control", id = "presdis", required = "true" })
+                        @Html.ValidationMessageFor(model => model.PresDistric, null, new { style = "color:red" })
+                     </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+
+                        <label>থানা/উপজেলা</label>
+                        @Html.DropDownListFor(model => model.PresSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control", id = "subpresdis", required = "true" })
+                        @Html.ValidationMessageFor(model => model.PresSubDistric, null, new { style = "color:red" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        <label>গার্ডের নাম</label>
+                        @Html.TextBoxFor(model => model.PresAddress, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.PresAddress, null, new { style = "color:red" })
+                    </div>
+                </div>
+
+
+            </div>
+
+            <legend class="text-bold">স্থায়ী ঠিকানা</legend>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>জেলা</label>
+
+                        @Html.DropDownListFor(model => model.PerDistric, ViewBag.distric as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "predis", required = "true" })
+                        @Html.ValidationMessageFor(model => model.PerDistric, null, new { style = "color:red" })
+                      </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>থানা/উপজেলা</label>
+                        @Html.DropDownListFor(model => model.PerSubDistric, new SelectList(string.Empty, "Value", "Text"), "সিলেক্ট", new { @class = "form-control input-sm", id = "presubdis", required = "true" })
+                        @Html.ValidationMessageFor(model => model.PerSubDistric, null, new { style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="perward" style="display:none">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+                        @Html.TextBoxFor(model => model.PerWard, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PerPostCodeId, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="perunionward">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ইউনিয়ন</label>
+                        @Html.TextBoxFor(model => model.PerUnion, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>ওর্য়াড</label>
+                        @Html.TextBoxFor(model => model.PerWardM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6" id="perunionpostcode">
+                    <div class="form-group">
+                        <label>ডাকঘর(কোডসহ)</label>
+                        @Html.TextBoxFor(model => model.PerPostCodeIdM, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>মহল্লা/গ্রাম/বাড়ী/রোড</label>
+                        @Html.TextBoxFor(model => model.PerAddress, new { @class = "form-control input-sm" })
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <a href="#"  onclick="history.go(-1)">Previous Page.</a>
+                <input type="submit" value="Next" class="btn btn-info center-block">
+            </div>
+        }
+
+    </div>
+</div>
+
+      
+        @section Scripts {
+
+            <script src="~/BanglaDate/js/jquery.js"></script>
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+
+                    $("#presdis").change(function () {
+                        var s = $("#presdis").val();
+                        if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+                            $("#prersward").show();
+                            $("#presunionward").hide();
+                            $("#presunionpostcode").hide();
+
+                        }
+                        else {
+                            $("#prersward").hide();
+                            $("#presunionward").show();
+                            $("#presunionpostcode").show();
+                        }
+                    })
+                    $("#predis").change(function () {
+
+                        var s = $("#predis").val()
+                        if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+
+                            $("#perward").show();
+                            $("#perunionpostcode").hide();
+                            $("#perunionward").hide();
+                        }
+                        else {
+                            $("#perward").hide();
+                            $("#perunionpostcode").show();
+                            $("#perunionward").show();
+                        }
+
+                    })
+
+                });
+
+
+            </script>
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $("#presdis").change(function () {
+
+                        $("#subpresdis").empty();
+                        $("#presward").empty();
+                        $("#presunion").empty();
+                        $("#preswardM").empty();
+                        $("#prespostcodeM").empty();
+                        $("#prespostcode").empty();
+                        if ($("#presdis option:selected").val() == '') {
+                            $("#subpresdis").empty();
+                            return false;
+                        }
+                        else {
+
+                            $.ajax({
+
+                                type: 'POST',
+                                url: '@Url.Action("GetThana", "Member")',
+                                dataType: 'json',
+
+                                data: { idd: $("#presdis").val() },
+
+                                success: function (Data) {
+
+                                    var markups = "<option value=''>সিলেক্ট</option>";
+                                    for (var x = 0; x < Data.length; x++) {
+                                        markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                                    }
+                                    $("#subpresdis").html(markups).show();
+                                },
+
+                                error: function (ex) {
+
+                                    alert('Failed to retrieve Thana.' + ex);
+
+                                }
+
+                            });
+                        }
+
+                        return false;
+
+                    })
+
+                });
+
+            </script>
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    //Dropdownlist Selectedchange event
+
+                    $("#predis").change(function () {
+                        $("#presubdis").empty();
+                        $("#preward").empty();
+                        $("#prewardM").empty();
+                        $("#perpostcodeM").empty();
+                        $("#prepc").empty();
+                        if ($("#predis option:selected").val() == '') {
+                            $("#presubdis").empty();
+                            return false;
+                        }
+                        else {
+
+                            $.ajax({
+
+                                type: 'POST',
+                                url: '@Url.Action("GetThana", "Member")',
+                                dataType: 'json',
+
+                                data: { idd: $("#predis").val() },
+
+                                success: function (Data) {
+
+                                    var markups = "<option value=''>সিলেক্ট</option>";
+                                    for (var x = 0; x < Data.length; x++) {
+                                        markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                                    }
+                                    $("#presubdis").html(markups).show();
+                                },
+
+                                error: function (ex) {
+
+                                    alert('Failed to retrieve Thana.' + ex);
+
+                                }
+
+                            });
+                        }
+
+                        return false;
+
+                    })
+
+                });
+
+            </script>
+        }
+
+

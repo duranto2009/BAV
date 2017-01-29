@@ -1,0 +1,151 @@
+﻿@model BAV.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+
+}
+
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">Create a new Account</h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("RangRegister", "Account", FormMethod.Post, new { role = "form" }))
+        {
+
+            @Html.AntiForgeryToken()
+            
+            @Html.ValidationSummary()
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>ব্যবহারকারীর নাম:</label> 
+                       
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "Use" })
+                        
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>পাসওয়ার্ড:</label>
+                        
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>পাসওয়ার্ড নিশ্চিত করুন:</label>
+                        
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                       
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label">জেলা নির্বাচন করুন</label> 
+                        <div class="col-md-10">
+                            @Html.Partial("Districlist")
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-primary" value="রেজিস্টার করুন" />
+                        </div>
+
+                        <div class="pull-right">
+                            @Html.ActionLink("ব্যবহারকারীর তালিকা", "RangCommandarList", "Account")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+            <p style="text-align:center;color:red"> @TempData["error"]</p>
+
+        }
+
+    </div>
+
+</div>
+
+
+
+@*<div class="col-lg-10">
+    <h2>
+        @ViewBag.Title.
+    </h2>
+    <link href="~/BanglaDate/css/dropdownliststyle.css" rel="stylesheet" />
+    @using (Html.BeginForm("RangRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary()
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "Use" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+     
+        <div class="form-group">
+          
+                <label class="col-md-2 control-label">SubDistric</label>
+                <div class="col-md-10" >
+                    @Html.Partial("Districlist")
+                </div>
+           
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+
+            @Html.ActionLink("User List", "RangCommandarList", "Account")
+
+        </div>
+        <p style="text-align:center;color:red"> @TempData["error"]</p>
+
+    }
+</div>*@
+
+@section Scripts {
+    <script src="~/Scripts/jquery.sumoselect.js"></script>
+    <script type="text/javascript">
+        $("input#Use").on({
+            keydown: function (e) {
+                if (e.which === 32)
+                    return false;
+            },
+            change: function () {
+                this.value = this.value.replace(/\s/g, "");
+            }
+        });
+    </script>
+ 
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

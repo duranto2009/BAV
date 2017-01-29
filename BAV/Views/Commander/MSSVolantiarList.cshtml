@@ -1,0 +1,188 @@
+﻿@model List<BAV.Models.PersonalInfoMemberAddressBodyStructure>
+
+@{
+    ViewBag.Title = "MemberList";
+    Layout = null;
+}
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#dataTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#dataTable').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javaScript">
+
+
+    $("#ckbCheckAll").change(function () {  //"select all" change
+      
+        var status = this.checked; // "select all" checked status
+        $('.checkbox').each(function () { //iterate all listed checkbox items
+            this.checked = status; //change ".checkbox" checked status
+        });
+        $('#s').prop('disabled', !$('.checkbox:checked').length);
+    });
+
+    $('.checkbox').change(function () { //".checkbox" change
+        $('#s').prop('disabled', !$('.checkbox:checked').length);
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        if (this.checked == false) { //if this item is unchecked
+            $("#ckbCheckAll")[0].checked = false; //change "select all" checked status to false
+        }
+
+        //check "select all" if all checkbox items are checked
+        if ($('.checkbox:checked').length == $('.checkbox').length) {
+            $("#ckbCheckAll")[0].checked = true; //change "select all" checked status to true
+        }
+    });
+</script>
+
+
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">
+<div class="table-responsive">
+    <table id="dataTable" class="table table-bordered table-striped table-hover">
+
+        <thead>
+
+            <tr class="bg-blue-600">
+                <th>নং</th>
+                <th>জেলা</th>
+                <th>থানা</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>পদবী</th>
+                <th>মোবাইল</th>
+                <th>সদস্য নাম্বার</th>
+                <th><input type="checkbox" id="ckbCheckAll" /></th>
+
+            </tr>
+
+        </thead>
+        <tfoot hidden>
+            <tr>
+                <th>নং</th>
+                <th>জেলা</th>
+                <th>থানা</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>পদবী</th>
+                <th>মোবাইল</th>
+                <th>সদস্য নাম্বার</th>
+                <th></th>
+
+            </tr>
+        </tfoot>
+        <tbody>
+
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.Name</td>
+                    <td>@item.Data.subdis</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.disignation</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>
+                        <input type="checkbox" value="@item.Data.pi.Id" name="ids" class="checkbox" />
+                    </td>
+
+                </tr>
+        }
+
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+
+@*<br />*@
+
+
+@*<div class="table-responsive">
+    <table id="dataTable" class="display table-bordered" cellspacing="0">
+        <thead>
+            <tr class="bg-blue-600">
+                <th>নং</th>
+                <th>জেলা</th>
+                <th>থানা</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>পদবী</th>
+                <th>মোবাইল</th>
+                <th>সদস্য নাম্বার</th>
+                <th><input type="checkbox" id="ckbCheckAll" /></th>
+
+            </tr>
+        </thead>
+        <tfoot hidden>
+            <tr>
+                <th>নং</th>
+                <th>জেলা</th>
+                <th>থানা</th>
+                <th>প্লাটুনের নাম</th>
+                <th>নাম</th>
+                <th>পদবী</th>
+                <th>মোবাইল</th>
+                <th>সদস্য নাম্বার</th>
+                <th></th>
+
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                    {
+
+                <tr>
+                    <td>@item.Index</td>
+                    <td>@item.Data.Name</td>
+                    <td>@item.Data.subdis</td>
+                    <td>@item.Data.planame</td>
+                    <td>@item.Data.pi.BanglaName</td>
+                    <td>@item.Data.disignation</td>
+                    <td>@item.Data.pi.mobile</td>
+                    <td>@item.Data.m.IDCardNo</td>
+                    <td>
+                        <input type="checkbox" value="@item.Data.pi.Id" name="ids" class="checkbox" />
+                    </td>
+
+                </tr>
+                    }
+
+        </tbody>
+    </table>
+</div>*@
+
+
+
+
+

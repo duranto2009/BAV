@@ -1,0 +1,745 @@
+﻿@model BAV.Models.AnsarAddress
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header border-default">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ঠিকানা</h4>
+        </div>
+
+        <div class="modal-body">
+
+            @using (Html.BeginForm("AddressEdit", "Tranning", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                 <div class="row">
+        @Html.ValidationSummary(true)
+        <legend class="text-bold">কর্মস্তল</legend>
+        <div class="row">@Html.HiddenFor(model => model.Id)</div>
+        <div class="row">@Html.HiddenFor(model => model.MemberId)</div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>জেলা</label>
+
+                    @Html.DropDownListFor(model => model.PresDistric, ViewBag.presdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "presdis" })
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>থানা/উপজেলা</label>
+                    @Html.DropDownListFor(model => model.PresSubDistric, ViewBag.presSubdistrics as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "subpresdis" })
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                <div class="form-group">
+                    <label>গার্ডের নাম</label>
+                    @Html.TextBoxFor(model => model.PresAddress, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+
+
+        </div>
+        <legend class="text-bold">স্থায়ী ঠিকানা</legend>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>জেলা</label>
+
+                    @Html.DropDownListFor(model => model.PerDistric, ViewBag.distric as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "predis" })
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>থানা/উপজেলা</label>
+                    @Html.DropDownListFor(model => model.PerSubDistric, ViewBag.Subdistric as IEnumerable<SelectListItem>, "সিলেক্ট", new { @class = "form-control input-sm", id = "presubdis" })
+
+                </div>
+            </div>
+        </div>
+        @{
+                if (Model.PerDistric == 3 || Model.PerDistric == 4 || Model.PerDistric == 5 || Model.PerDistric == 6 || Model.PerDistric == 7 || Model.PerDistric == 8 || Model.PerDistric == 9 || Model.PerDistric == 10 || Model.PerDistric == 11 || Model.PerDistric == 12 || Model.PerDistric == 13)
+                {
+                    <style>
+                        #perunionward, #perunionpostcode {
+                            display: none;
+                        }
+                    </style>
+                }
+                else
+                {
+                    <style>
+                        #perward {
+                            display: none;
+                        }
+                    </style>
+                }
+        }
+
+        <div class="row" id="perward">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>ওর্য়াড</label>
+                    @Html.TextBoxFor(model => model.PerWard, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>ডাকঘর(কোডসহ)</label>
+                    @Html.TextBoxFor(model => model.PerPostCodeId, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+        </div>
+        <div class="row" id="perunionward">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>ইউনিয়ন</label>
+                    @Html.TextBoxFor(model => model.PerUnion, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>ওর্য়াড</label>
+                    @Html.TextBoxFor(model => model.PerWardM, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6" id="perunionpostcode">
+                <div class="form-group">
+                    <label>ডাকঘর(কোডসহ)</label>
+                    @Html.TextBoxFor(model => model.PerPostCodeIdM, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>মহল্লা/গ্রাম/বাড়ী/রোড</label>
+                    @Html.TextBoxFor(model => model.PerAddress, new { @class = "form-control input-sm" })
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+                <div class="row" style="text-align:center">
+                    <input type="submit" id="btnedit" class="btn btn-info" value="Update" />
+                </div>
+            }
+
+
+        </div>
+
+        <div class="modal-footer border-default">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+
+    <script src="~/BanglaDate/js/jquery.js"></script>
+
+    <script src="~/BanglaDate/js/jquery-ui-bangla.js"></script>
+    <link href="~/BanglaDate/css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/BanglaDate/css/style.css" type="text/css" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#predis").change(function () {
+
+                var s = $("#predis").val()
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+
+                    $("#perward").show();
+                    $("#perunionpostcode").hide();
+                    $("#perunionward").hide();
+                }
+                else {
+                    $("#perward").hide();
+                    $("#perunionpostcode").show();
+                    $("#perunionward").show();
+                }
+
+            })
+            $("#presdis").change(function () {
+
+                var s = $("#presdis").val()
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+                    $("#prersward").show();
+                    $("#presunionward").hide();
+                    $("#presunionpostcode").hide();
+
+                }
+                else {
+                    $("#prersward").hide();
+                    $("#presunionward").show();
+                    $("#presunionpostcode").show();
+                }
+
+            })
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#presdis").change(function () {
+
+                $("#subpresdis").empty();
+                $("#presward").empty();
+                $("#presunion").empty();
+                $("#preswardM").empty();
+                $("#prespostcodeM").empty();
+                $("#prespostcode").empty();
+                if ($("#presdis option:selected").val() == '') {
+                    $("#subpresdis").empty();
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("GetThana", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#presdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value='0'>Select Thana</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#subpresdis").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Thana.' + ex);
+
+                        }
+
+                    });
+                }
+
+                return false;
+
+            })
+
+        });
+
+    </script>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        //Dropdownlist Selectedchange event
+
+        $("#subpresdis").change(function () {
+
+            $("#presward").empty();
+            $("#presunion").empty();
+            $("#preswardM").empty();
+            $("#prespostcodeM").empty();
+            $("#prespostcode").empty();
+            if ($("#subpresdis option:selected").val() == '') {
+                $("#presward").empty();
+                return false;
+            }
+
+            else {
+                var s = $("#presdis").val()
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: '@Url.Action("GetWard", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#subpresdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value='0'>Select Ward</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#presward").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Ward.' + ex);
+
+                        }
+
+                    });
+                }
+                else {
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: '@Url.Action("GetUnion", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#subpresdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value='0'>Select Union</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#presunion").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Union.' + ex);
+
+                        }
+
+                    });
+                }
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event preswardM
+
+        $("#presunion").change(function () {
+
+            $("#presward").empty();
+            $("#preswardM").empty();
+            $("#prespostcodeM").empty();
+            $("#prespostcode").empty();
+
+            if ($("#presunion option:selected").val() == '') {
+                $("#preswardM").empty();
+                $("#prespostcodeM").empty();
+
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetWardbyUnion", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#presunion").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select Ward</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#preswardM").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve Ward.' + ex);
+
+                    }
+
+                });
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetWardbyUnionPostcode", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#presunion").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select PostCode</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#prespostcodeM").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve PostCode.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event
+
+          $("#presward").change(function () {
+
+
+            $("#presunion").empty();
+            $("#preswardM").empty();
+            $("#prespostcodeM").empty();
+            $("#prespostcode").empty();
+            if ($("#presward option:selected").val() == '') {
+                $("#prespostcode").empty();
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetPostCode", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#presward").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select PostCode</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#prespostcode").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve PostCode.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event
+
+        $("#predis").change(function () {
+            $("#presubdis").empty();
+            $("#preward").empty();
+            $("#prewardM").empty();
+            $("#perpostcodeM").empty();
+            $("#prepc").empty();
+            if ($("#predis option:selected").val() == '') {
+                $("#presubdis").empty();
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetThana", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#predis").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select Thana</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#presubdis").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve Thana.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event
+
+        $("#presubdis").change(function () {
+
+            $("#perunion").empty();
+            $("#preward").empty();
+            $("#prewardM").empty();
+            $("#perpostcodeM").empty();
+            $("#prepc").empty();
+            if ($("#presubdis option:selected").val() == '') {
+                $("#preward").empty();
+                return false;
+            }
+
+            else {
+                var s = $("#predis").val()
+                if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10 || s == 11 || s == 12 || s == 13) {
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: '@Url.Action("GetWard", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#presubdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value='0'>Select Ward</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#preward").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Ward.' + ex);
+
+                        }
+
+                    });
+                }
+                else {
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: '@Url.Action("GetUnion", "Member")',
+                        dataType: 'json',
+
+                        data: { idd: $("#presubdis").val() },
+
+                        success: function (Data) {
+
+                            var markups = "<option value='0'>Select Union</option>";
+                            for (var x = 0; x < Data.length; x++) {
+                                markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                            }
+                            $("#perunion").html(markups).show();
+                        },
+
+                        error: function (ex) {
+
+                            alert('Failed to retrieve Union.' + ex);
+
+                        }
+
+                    });
+                }
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event preswardM
+
+        $("#perunion").change(function () {
+
+            $("#preward").empty();
+            $("#prewardM").empty();
+            $("#perpostcodeM").empty();
+            $("#prepc").empty();
+
+            if ($("#perunion option:selected").val() == '') {
+                $("#prewardM").empty();
+                $("#perpostcodeM").empty();
+
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetWardbyUnion", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#perunion").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select Ward</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#prewardM").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve Ward.' + ex);
+
+                    }
+
+                });
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetWardbyUnionPostcode", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#perunion").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select PostCode</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#perpostcodeM").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve PostCode.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event
+
+        $("#preward").change(function () {
+
+            $("#prewardM").empty();
+            $("#perpostcodeM").empty();
+            $("#prepc").empty();
+
+            if ($("#preward option:selected").val() == '') {
+                $("#prepc").empty();
+                return false;
+            }
+            else {
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GetPostCode", "Member")',
+                    dataType: 'json',
+
+                    data: { idd: $("#preward").val() },
+
+                    success: function (Data) {
+
+                        var markups = "<option value='0'>Select PostCode</option>";
+                        for (var x = 0; x < Data.length; x++) {
+                            markups += "<option Value=" + Data[x].Value + ">" + Data[x].Text + "</option>";
+                        }
+                        $("#prepc").html(markups).show();
+                    },
+
+                    error: function (ex) {
+
+                        alert('Failed to retrieve PostCode.' + ex);
+
+                    }
+
+                });
+            }
+
+            return false;
+
+        })
+
+    });
+
+    </script>
+
+
