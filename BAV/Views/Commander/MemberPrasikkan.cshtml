@@ -4,37 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<link href="@Url.Content("~/Content/Back_Template/")assets/css/ansar-custom.css" rel="stylesheet" type="text/css">*@
-
-
-<style>
-    /*.dataTables_wrapper {
-        top: -13px;
-    }
-
-    .datatable-header, .datatable-footer {
-        padding-left: 20px;
-        padding-right: 20px;
-    }*/
-
-    select {
-        padding: 7px;
-    }
-
-    .dataTable thead .sorting:before, .dataTable thead .sorting:after {
-        color: #fff !important;
-    }
-</style>
+<link href="@Url.Content("~/Content/Back_Template/")assets/css/datatable-custom.css" rel="stylesheet" type="text/css">
 
 <div class="panel panel-white">
     <div class="panel-heading">
         <h5 class="panel-title">প্রশিক্ষণপ্রাপ্ত সদস্যবৃন্দ</h5>
 
     </div>
-    <div class="panel-body">
+    <div class="search-body panel-body">
         <div class="row">
             <div class="form-horizontal">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="col-md-3 control-label">জেলা:</label>
                         <div class="col-md-9">
@@ -42,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label class="col-md-3 control-label">প্রশিক্ষণের নাম:</label>
                         <div class="col-md-9">
@@ -55,13 +35,12 @@
         </div>
     </div>
 
-    <hr />
 
     <div id="datatable">
-        <table class="table datatable-basic-four table-bordered table-striped table-hover" id="dTable">
+        <table class="table datatable-basic-four table-bordered" id="dTable">
             <thead>
 
-                <tr class="bg-blue-600">
+                <tr class="bg-default">
                     <th>নং</th>
                     <th>জেলা</th>
                     <th>থানা</th>
@@ -90,7 +69,7 @@
                         <td>@item.Data.pi.mobile</td>
                         <td>@item.Data.m.IDCardNo</td>
                         <td>
-                            <button class='btn btn-sm btn-info' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><span class='fa fa-times'>সম্পূর্ন দেখুন</span></button>
+                            <button class='btn btn-sm btn-success' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><i class='icon-profile'></i> বিস্তারিত</button>
 
                         </td>
 
@@ -102,6 +81,7 @@
     </div>
     <div id="partial"></div>
 
+</div>
 
     <div id="Modalvolantiardetails" class="modal fade">
         <div class="modal-dialog">
@@ -123,7 +103,6 @@
 
         </div>
     </div>
-</div>
 
 
     @section Scripts {

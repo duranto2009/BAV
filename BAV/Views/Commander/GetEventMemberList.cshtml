@@ -32,7 +32,7 @@
     <div class="col-md-12 ">
         <table id="eTable" class="table table-responsive table-bordered">
             <thead>
-                <tr>
+                <tr class="bg-default">
                     <th>নং</th>
                     <th>জেলা</th>
                     <th>থানা</th>
@@ -72,7 +72,7 @@
                         <td>@item.Data.pi.NID</td>
                         <td>@item.Data.m.IDCardNo</td>
                         <td>@item.Data.pi.mobile</td>
-                        <td><button class='btn btn-sm btn-info' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><span class='fa fa-times'>সম্পূর্ন দেখুন</span></button></td>
+                        <td><button class='btn btn-sm btn-info' data-toggle='modal' data-target='#Modalvolantiardetails' onclick='volantiarDetails("@item.Data.pi.Id")'><i class='icon-profile'></i> বিস্তারিত</button></td>
                     </tr>
                 }
             </tbody>
